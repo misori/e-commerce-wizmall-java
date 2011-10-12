@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="BoardNamespace">
+	<typeAlias alias="BoardReply" type="com.domain.BoardReply" />
+
+	<!-- getBoardReplyCount -->
+	<select id="getBoardReplyCount"  resultClass="int">
+		select count(TID) as total from wizJ_board_$gid$_$bid$_reply
+		where MID = $tid$
+	</select>
+
+
+	<!--  getBoardReplyByPrimaryKey -->
+	<select id="getBoardReplyByPrimaryKey"  resultClass="BoardReply">
+		select * from wizJ_board_$gid$_$bid$_reply where TID = #tid#
+	</select>
+
+	<!-- getBoardReplyList -->
+	<select id="getBoardReplyList"  resultClass="BoardReply">
+		select * from wizJ_board_$gid$_$bid$_reply
+		where MID = $tid$
+		order by TID desc
+	</select>
+
+	<!--  saveBoardReply -->
+	<insert id="saveBoardReply" parameterClass="BoardReply">
+		INSERT INTO
+		wizJ_board_$gid$_$bid$_reply
+		(FLAG,MID,USER_ID,USER_NAME,USER_PASSWD,USER_EMAIL,USER_URL,SUBJECT,CONTENTS,COUNT,RECCOUNT,NONRECCOUNT,USER_IP,W_DATE)
+		VALUES
+		(#flag#, #mid#, #user_id#, #user_name#, #user_passwd#, #user_email#, #user_url#, #subject#, #contents#, #count#, #reccount#, #nonreccount#, #user_ip#, #w_date#)
+	</insert>
+
+	<!--  updateBoardReply -->
+	<update id="updateBoardReply" parameterClass="BoardReply">
+		update
+		wizJ_board_$gid$_$bid$_reply set
+		FLAG		= #flag#,
+		MID			= #mid#,
+		USER_ID		= #user_id#,
+		USER_NAME	= #user_name#,
+		USER_PASSWD	= #user_passwd#,
+		USER_EMAIL	= #user_email#,
+		USER_URL	= #user_url#,
+		SUBJECT		= #subject#,
+		CONTENTS	= #contents#,
+		COUNT		= #count#,
+		RECCOUNT	= #reccount#,
+		NONRECCOUNT	= #nonreccount#,
+		USER_IP		= #user_ip#,
+		W_DATE		= #w_date#
+		where TID = #tid#
+	</update>
+
+	<!--  deleteBoardReply -->
+	<delete id="deleteBoardReply">
+		delete
+		from wizJ_board_$gid$_$bid$_reply
+		where TID = #tid#
+	</delete>
+
+</sqlMap>

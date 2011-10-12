@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DelivererNamespace">
+	<typeAlias alias="Deliverer" type="com.domain.Deliverer" />
+
+	<!-- getAllDelivererList -->
+	<select id="getAllDelivererList" resultClass="Deliverer">
+		select * from wizJ_deliverer
+	</select>
+
+	<!-- getDelivererByTid -->
+	<select id="getDelivererByTid" resultClass="Deliverer">
+		select * from wizJ_deliverer where TID = #tid#
+	</select>
+
+
+	<!--  saveDeliverer -->
+	<insert id="saveDeliverer" parameterClass="Deliverer">
+		INSERT INTO
+		wizJ_deliverer (D_NAME,D_CODE,D_URL,D_INQUIRE_URL,D_METHOD)
+		VALUES (#d_name#, #d_code#, #d_url#, #d_inquire_url#, #d_method#)
+	</insert>
+
+	<!--  updateDeliverer -->
+	<update id="updateDeliverer" parameterClass="Deliverer">
+		update
+		wizJ_deliverer set
+		D_NAME			= #d_name#,
+		D_CODE			= #d_code#,
+		D_URL			= #d_url#,
+		D_INQUIRE_URL	= #d_inquire_url#,
+		D_METHOD		= #d_method#
+		where TID = #tid#
+	</update>
+
+	<!--  deleteDeliverer -->
+	<delete id="deleteDeliverer">
+		delete
+		from wizJ_deliverer
+		where TID = #tid#
+	</delete>
+</sqlMap>

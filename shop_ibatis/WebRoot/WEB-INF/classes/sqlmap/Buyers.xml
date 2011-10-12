@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BuyersNamespace">
+	<typeAlias alias="Buyers" type="com.domain.Buyers" />
+
+	<!-- countAllBuyerList -->
+	<select id="countAllBuyerList"  resultClass="int"><!-- resultClass="Board" -->
+		select count(*)
+		from wizJ_buyers
+		<dynamic prepend="where">
+			<isNotNull prepend="AND" property="s_keyword" >
+				<isNull property="s_title" >
+					SNAME like #s_keyword#
+				</isNull>
+				<isNotNull property="s_title" >
+					$s_title$ like #s_keyword#
+				</isNotNull>
+			</isNotNull>
+			<isNotNull prepend="AND" property="s_date" >
+				<isNull property="e_date" >
+					DATE_FORMAT(BUYDATE,'%Y-%m-%d') >= #s_date#
+				</isNull>
+				<isNotNull property="e_date" >
+					DATE_FORMAT(BUYDATE,'%Y-%m-%d') between #s_date# and #e_date#
+				</isNotNull>
+			</isNotNull>
+			<isNull prepend="AND" property="s_date" >
+				<isNotNull property="e_date" >
+					<![CDATA[ DATE_FORMAT(BUYDATE,'%Y-%m-%d') <= #e_date# ]]>
+				</isNotNull>
+			</isNull>
+		</dynamic>
+	</select>
+
+	<!-- countBuyerList -->
+	<select id="countBuyerList"  resultClass="int"><!-- resultClass="Board" -->
+		select count(*) from wizJ_buyers where MEMBERID = #memberid#
+	</select>
+
+	<!-- getAllBuyerList -->
+	<select id="getAllBuyerList"  resultClass="Buyers">
+		select * from wizJ_buyers
+
+		<dynamic prepend="where">
+			<isNotNull prepend="AND" property="s_keyword" >
+				<isNull property="s_title" >
+					SNAME like #s_keyword#
+				</isNull>
+				<isNotNull property="s_title" >
+					$s_title$ like #s_keyword#
+				</isNotNull>
+			</isNotNull>
+			<isNotNull prepend="AND" property="s_date" >
+				<isNull property="e_date" >
+					DATE_FORMAT(BUYDATE,'%Y-%m-%d') >= #s_date#
+				</isNull>
+				<isNotNull property="e_date" >
+					DATE_FORMAT(BUYDATE,'%Y-%m-%d') between #s_date# and #e_date#
+				</isNotNull>
+			</isNotNull>
+			<isNull prepend="AND" property="s_date" >
+				<isNotNull property="e_date" >
+					<![CDATA[ DATE_FORMAT(BUYDATE,'%Y-%m-%d') <= #e_date# ]]>
+				</isNotNull>
+			</isNull>
+
+
+		</dynamic>
+		order by
+		<isNotNull property="s_order" >
+			$orderKey$ $orderValue$
+		</isNotNull>
+		<isNull property="s_order" >
+			TID desc
+		</isNull>
+
+		limit $StartRow$, $blockList$
+	</select>
+
+	<!-- getBuyerList -->
+	<select id="getBuyerList"  resultClass="Buyers">
+		select * from wizJ_buyers
+		where MEMBERID = #memberid#
+		order by TID desc
+		limit $StartRow$, $blockList$
+	</select>
+
+	<!-- getBuyerByOrderId -->
+	<select id="getBuyerByOrderId"  resultClass="Buyers">
+		select * from wizJ_buyers where ORDERID = #orderId#
+	</select>
+
+	<!-- getBuyerByTid -->
+	<select id="getBuyerByTid"  resultClass="Buyers">
+		select * from wizJ_buyers where TID = #tid#
+	</select>
+
+
+	<!--  deleteMembers -->
+	<delete id="deleteBuyers">
+		delete
+		from deleteBuyers
+		where OID = #oid#
+	</delete>
+
+	<!--  saveBuyers -->
+	<insert id="saveBuyers" parameterClass="Buyers">
+		INSERT INTO
+		wizJ_buyers (SNAME,SEMAIL,STEL1,STEL2,SZIP,SADDRESS1,SADDRESS2,RNAME,RTEL1,RTEL2,RZIP,RADDRESS1,RADDRESS2,MESSAGE,DELIVERER,INVOICENO,PAYMETHOD,BANKINFO,INPUTER,AMOUNTPOINT,AMOUNTONLINE,AMOUNTPG,TOTALAMOUNT,ORDERID,ORDERSTATUS,MEMBERID,PAYDATE,BUYDATE)
+		VALUES (#sname#,#semail#,#stel1#,#stel2#,#szip#,#saddress1#,#saddress2#,#rname#,#rtel1#,#rtel2#,#rzip#,#raddress1#,#raddress2#,#message#
+		,#deliverer#,#invoiceno#,#paymethod#,#bankinfo#,#inputer#,#amountpoint#,#amountonline#,#amountpg#,#totalamount#,#orderid#,#orderstatus#
+		,#memberid#,#paydate#,#buydate#)
+	</insert>
+
+	<!--  updateBuyers -->
+	<update id="updateBuyers" parameterClass="Buyers">
+		update
+		wizJ_buyers set
+		SNAME	= #sname#,
+		SEMAIL	= #semail#,
+		STEL1	= #stel1#,
+		STEL2	= #stel2#,
+		SZIP	= #szip#,
+		SADDRESS1	= #saddress1#,
+		SADDRESS2	= #saddress2#,
+		RNAME	= #rname#,
+		RTEL1	= #rtel1#,
+		RTEL2	= #rtel2#,
+		RZIP	= #rzip#,
+		RADDRESS1	= #raddress1#,
+		RADDRESS2	= #raddress2#,
+		MESSAGE	= #message#,
+		DELIVERER	= #deliverer#,
+		INVOICENO	= #invoiceno#,
+		PAYMETHOD	= #paymethod#,
+		BANKINFO	= #bankinfo#,
+		INPUTER	= #inputer#,
+		AMOUNTPOINT	= #amountpoint#,
+		AMOUNTONLINE	= #amountonline#,
+		AMOUNTPG	= #amountpg#,
+		TOTALAMOUNT	= #totalamount#,
+		ORDERID	= #orderid#,
+		ORDERSTATUS	= #orderstatus#,
+		MEMBERID	= #memberid#,
+		PAYDATE	= #paydate#,
+		BUYDATE	= #buydate#,
+
+		where TID = #tid#
+	</update>
+
+
+</sqlMap>

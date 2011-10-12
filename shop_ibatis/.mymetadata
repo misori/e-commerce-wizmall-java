@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="shop_ibatis1011_1"
+  id="myeclipse.1316652639423"
+  context-root="/shop_ibatis"
+  j2ee-spec="5.0"
+  archive="shop_ibatis1011_1.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+

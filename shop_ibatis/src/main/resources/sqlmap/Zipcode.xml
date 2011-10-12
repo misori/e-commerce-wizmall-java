@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ZipcodeNamespace">
+	<typeAlias alias="Zipcode" type="com.domain.Zipcode" />
+
+	<!--  getAddressByKeyword -->
+	<select id="getAddressByKeyword"  resultClass="Zipcode">
+		select * from wizJ_zipcode where DONG like #keyword#
+	</select>
+
+	<!--  getAllZipAddress -->
+	<select id="getAllZipAddress"  resultClass="Zipcode">
+		select * from wizJ_zipcode
+	</select>
+</sqlMap>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ProductNamespace">
+	<typeAlias alias="Product" type="com.domain.Product" />
+
+	<!-- getProductList -->
+
+	<select id="getProductByOption" resultClass="Product">
+		select TID, NAME, PRICE, CATEGORY, NONE, ATTACHED from wizJ_product where REGOPTION like #op# order by TID desc
+	</select>
+
+	<!-- countAllProduct -->
+	<select id="countAllProduct"  resultClass="int"><!-- resultClass="Board" -->
+		select count(*) from wizJ_product
+		<dynamic prepend="where">
+			<isNotNull prepend="AND"  property="s_category" >
+				CATEGORY like #s_category#
+			</isNotNull>
+			<isNotNull prepend="AND" property="s_keyword" >
+				<isNull property="s_title" >
+					NAME like #s_keyword#
+				</isNull>
+				<isNotNull property="s_title" >
+					$s_title$ like #s_keyword#
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<!-- getAllProductList -->
+	<!-- 		 -->
+	<select id="getAllProductList"  resultClass="Product">
+		select * from wizJ_product
+		<dynamic prepend="where">
+			<isNotNull prepend="AND"  property="s_category" >
+				CATEGORY like #s_category#
+			</isNotNull>
+			<isNotNull  prepend="AND" property="s_keyword" >
+				<isNull property="s_title" >
+					NAME like #s_keyword#
+				</isNull>
+				<isNotNull property="s_title" >
+					$s_title$ like #s_keyword#
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
+		order by
+		<isNotNull property="s_order" >
+			$orderKey$ $orderValue$
+		</isNotNull>
+		<isNull property="s_order" >
+			TID desc
+		</isNull>
+
+		limit $StartRow$, $blockList$
+	</select>
+
+	<!-- getProductByPrimaryKey -->
+	<select id="getProductByPrimaryKey"  resultClass="Product">
+		select * from wizJ_product where TID = #tid#
+	</select>
+
+	<!-- countProductByOption -->
+	<select id="countProductByOption"  resultClass="int">
+		select count(TID) from wizJ_product p where p.REGOPTION like #op#
+	</select>
+
+
+	<!-- getProductMaxTid -->
+	<select id="getProductMaxTid"  resultClass="int">
+		select max(p.TID) from wizJ_product as p
+	</select>
+
+
+
+	<!--  saveProduct -->
+	<insert id="saveProduct" parameterClass="Product">
+		INSERT INTO
+		wizJ_product (REGID,REF_TID,NAME,BRAND,COMPNAME,PRICE,PRICE1,INPUTPRICE,POINT,UNIT,MODEL,REGOPTION,SIMILARPD,ATTACHED,NONE,TMPOUTPUT,OUTPUT,STOCK,WDATE,DESCRIPTION1,DESCRIPTION2,DESCRIPTION3,CATEGORY,TEXTTYPE,HIT,VENDOR)
+		VALUES (#regid#,#ref_tid#,#name#,#brand#,#compname#,#price#,#price1#,#inputprice#,#point#,#unit#,#model#,#regoption#,#similarpd#,#attached#,#none#,#tmpoutput#,#output#,#stock#,#wdate#,#description1#,#description2#,#description3#,#category#,#texttype#,#hit#,#vendor#)
+	</insert>
+
+	<!--  updateProduct-->
+	<update id="updateProduct" parameterClass="Product">
+		update
+		wizJ_product
+		set
+		REGID			= #regid#,
+		REF_TID			= #ref_tid#,
+		NAME			= #name#,
+		BRAND			= #brand#,
+		COMPNAME		= #compname#,
+		PRICE			= #price#,
+		PRICE1			= #price1#,
+		INPUTPRICE		= #inputprice#,
+		POINT			= #point#,
+		UNIT			= #unit#,
+		MODEL			= #model#,
+		REGOPTION		= #regoption#,
+		SIMILARPD		= #similarpd#,
+		ATTACHED		= #attached#,
+		NONE			= #none#,
+		TMPOUTPUT		= #tmpoutput#,
+		OUTPUT			= #output#,
+		STOCK			= #stock#,
+		WDATE			= #wdate#,
+		DESCRIPTION1	= #description1#,
+		DESCRIPTION2	= #description2#,
+		DESCRIPTION3	= #description3#,
+		CATEGORY		= #category#,
+		TEXTTYPE		= #texttype#,
+		VENDOR			= #vendor#
+		where TID = #tid#
+	</update>
+
+	<!--  deleteProduct -->
+	<delete id="deleteProduct">
+		delete
+		from wizJ_product
+		where TID = #tid#
+	</delete>
+</sqlMap>
+<!--
+REGID,REF_TID,ORDERID,SITEFLAG,NAME,BRAND,COMPNAME,PRICE,PRICE1,INPUTPRICE,POINT,UNIT,MODEL,REGOPTION,SIMILARPD,ATTACHED,NONE,TMPOUTPUT,OUTPUT,STOCK,PSTATUS,TSTATUS,WDATE,DESCRIPTION1,DESCRIPTION2,DESCRIPTION3,CATFLAG,CATEGORY,TEXTTYPE,OPFLAG,HIT,VENDOR
+regid,ref_tid,orderid,siteflag,name,brand,compname,price,price1,inputprice,point,unit,model,regoption,similarpd,
+attached,none,tmpoutput,output,stock,pstatus,tstatus,wdate,description1,description2,description3,catflag,category,
+texttype,opflag,hit,vendor
+-->

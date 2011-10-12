@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<sqlMap resource="sqlmap/Account.xml" />
+	<sqlMap resource="sqlmap/Banner.xml" />
+	<sqlMap resource="sqlmap/Board.xml" />
+	<sqlMap resource="sqlmap/BoardReply.xml" />
+	<sqlMap resource="sqlmap/BoardCategory.xml" />
+	<sqlMap resource="sqlmap/BoardFile.xml" />
+	<sqlMap resource="sqlmap/BoardMain.xml" />
+	<sqlMap resource="sqlmap/Buyers.xml" />
+	<sqlMap resource="sqlmap/Cart.xml" />
+	<sqlMap resource="sqlmap/Category.xml" />
+	<sqlMap resource="sqlmap/Deliverer.xml" />
+	<sqlMap resource="sqlmap/Members.xml" />
+	<sqlMap resource="sqlmap/MembersGen.xml" />
+	<sqlMap resource="sqlmap/Point.xml" />
+	<sqlMap resource="sqlmap/Product.xml" />
+	<sqlMap resource="sqlmap/ProductImage.xml" />
+	<sqlMap resource="sqlmap/Zipcode.xml" />
+	<!--
+
+	<sqlMap resource="classpath:WEB-INF/sqlmap/Product.xml" />
+	 -->
+</sqlMapConfig>

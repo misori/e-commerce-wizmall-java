@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/sitemesh-decorators">
+	<excludes>
+		<pattern>*.ajax*</pattern>
+		<pattern>*.html*</pattern>
+		<pattern>/js/Smart/SEditorSkin.html*</pattern>
+		<pattern>/SmartEditorUploadForm.blank*</pattern>
+	    <!-- <pattern>/admin/basic/payinfo_bank</pattern>
+
+		<pattern>/member/idCheck*</pattern>
+		<pattern>/admin/member/memberView*</pattern>
+		-->
+	</excludes>
+
+    <decorator name="main" page="main.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+    <decorator name="admin" page="admin.jsp">
+        <pattern>/admin*</pattern>
+    </decorator>
+    <decorator name="popup" page="popup.jsp"><!-- 팝업용(관리자단에서 사용) 기본 script 및 css 포함 상기 blank와 동일하나 blank대신 이것을 사용하는 방식으로 전환 -->
+        <pattern>*.popup*</pattern>
+    </decorator>
+    <decorator name="blank" page="blank.jsp">
+        <pattern>*.blank*</pattern>
+    </decorator>
+
+	<decorator name="blankpanel" page="blankpanel.jsp"/><!-- body 만 가져옮 -->
+	<decorator name="planepanel" page="planepanel.jsp"/><!--  title, head, body를 가져옮  include 용으로 사용하기에 적당 -->
+    <decorator name="printable" page="printable.jsp"/><!--  title, head, body를 가져옮  onload 시 print 액션이 걸림 -->
+
+</decorators>
