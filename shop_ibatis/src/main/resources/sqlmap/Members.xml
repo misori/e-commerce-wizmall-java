@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MembersNamespace">
+	<typeAlias alias="Members" type="com.domain.Members" />
+	<typeAlias alias="MembersGen" type="com.domain.MembersGen" />
+
+	<!--  getBoardByPrimaryKey -->
+	<select id="getMemberByPrimaryKey"  resultClass="Members">
+		select * from wizJ_members where TID = #tid#
+	</select>
+
+	<!--  getBoardByPrimaryKey -->
+	<select id="getMemberByUserid"  resultClass="Members"><!--   MembersGen -->
+		<!-- select * from wizJ_members where USER_ID = #user_id# -->
+
+		select m.*, mg.* from wizJ_members m left join wizJ_members_gen mg on m.USER_ID = mg.USER_ID where m.USER_ID = #user_id#
+	</select>
+<!-- m.USER_PASSWD, m.USER_NAME, m.USER_GRANTSTA, m.USER_POINT, m.USER_GRADE, m.USER_EMAIL, m.USER_REGDATE -->
+	<!--  getMembersCount -->
+	<select id="getMembersCount"  resultClass="int">
+		select count(TID) from wizJ_members
+		<dynamic prepend="where">
+			<isNotNull prepend="AND" property="s_keyword" >
+				<isNull property="s_title" >
+					USER_NAME like #s_keyword#
+				</isNull>
+				<isNotNull property="s_title" >
+					$s_title$ like #s_keyword#
+				</isNotNull>
+			</isNotNull>
+			<isNotNull prepend="AND" property="s_date" >
+				<isNull property="e_date" >
+					DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') >= #s_date#
+				</isNull>
+				<isNotNull property="e_date" >
+					DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') between #s_date# and #e_date#
+				</isNotNull>
+			</isNotNull>
+			<isNull prepend="AND" property="s_date" >
+				<isNotNull property="e_date" >
+					<![CDATA[ DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') <= #e_date# ]]>
+				</isNotNull>
+			</isNull>
+		</dynamic>
+	</select>
+
+	<!--  getMembersList -->
+	<select id="getMembersList"  resultClass="Members">
+		select * from wizJ_members
+		<dynamic prepend="where">
+			<isNotNull prepend="AND" property="s_keyword" >
+				<isNull property="s_title" >
+					USER_NAME like #s_keyword#
+				</isNull>
+				<isNotNull property="s_title" >
+					$s_title$ like #s_keyword#
+				</isNotNull>
+			</isNotNull>
+			<isNotNull prepend="AND" property="s_date" >
+				<isNull property="e_date" >
+					DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') >= #s_date#
+				</isNull>
+				<isNotNull property="e_date" >
+					DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') between #s_date# and #e_date#
+				</isNotNull>
+			</isNotNull>
+			<isNull prepend="AND" property="s_date" >
+				<isNotNull property="e_date" >
+					<![CDATA[ DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') <= #e_date# ]]>
+				</isNotNull>
+			</isNull>
+		</dynamic>
+		order by TID desc
+		limit $StartRow$, $blockList$
+	</select>
+
+	<!--  getMemberPointByUserid -->
+	<select id="getMemberPointByUserid"  resultClass="int">
+		select USER_POINT from wizJ_members where USER_ID = #user_id#
+	</select>
+
+	<!--  deleteMembers -->
+	<delete id="deleteMembers">
+		delete
+		from wizJ_members
+		where TID = #tid#
+	</delete>
+	<!--  saveMembers -->
+	<insert id="saveMember" parameterClass="Members">
+		INSERT INTO
+		wizJ_members (USER_ID, USER_PASSWD, USER_NAME, USER_GRANTSTA, USER_POINT, USER_GRADE, USER_EMAIL, USER_REGDATE)
+		VALUES (#user_id#, #user_passwd#, #user_name#, #user_grantsta#, #user_point#, #user_grade#, #user_email#, #user_regdate#)
+	</insert>
+	<!--  updateMember -->
+	<update id="updateMember" parameterClass="Members">
+		update
+		wizJ_members set
+		USER_PASSWD		= #user_passwd#,
+		USER_EMAIL		= #user_email#,
+		USER_LOGIN_NUM	= #user_login_num#,
+		USER_LOGIN_DATE	= #user_login_date#,
+		USER_LOGIN_IP	= #user_login_ip#
+		where TID = #tid#
+	</update>
+
+
+</sqlMap>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BannerNamespace">
+	<typeAlias alias="Banner" type="com.domain.Banner" />
+
+	<!-- getAllBannerList
+	<resultMap id="getAllBannerListResultMap" class="Banner">
+		<result property="tid" column="TID" />
+		<result property="banner_pos" column="BANNER_POS" />
+		<result property="ordernum" column="ORDERNUM" />
+		<result property="subject" column="SUBJECT" />
+		<result property="url" column="URL" />
+		<result property="target" column="TARGET" />
+		<result property="attached" column="ATTACHED" />
+
+	</resultMap>
+	 -->
+	<!-- getAllBannerList -->
+	<select id="getAllBannerList" resultClass="Banner"><!-- resultMap="getAllBannerListResultMap"  -->
+		select * from wizJ_banner
+	</select>
+
+	<!-- getBannerByTid -->
+	<select id="getBannerByTid" resultClass="Banner"><!-- resultMap="getAllBannerListResultMap"  -->
+		select * from wizJ_banner where TID = #tid#
+	</select>
+
+
+	<!--  saveBanner -->
+	<insert id="saveBanner" parameterClass="Banner">
+		INSERT INTO
+		wizJ_banner (BANNER_POS,ORDERNUM,SUBJECT,URL,TARGET,ATTACHED,SHOWFLAG,CNT,WDATE)
+		VALUES (#banner_pos#, #ordernum#, #subject#, #url#, #target#, #attached#, #showflag#, #cnt#, #wdate#)
+	</insert>
+
+	<!--  updateBanner -->
+	<update id="updateBanner" parameterClass="Banner">
+		update
+		wizJ_banner set
+		BANNER_POS	= #banner_pos#,
+		ORDERNUM	= #ordernum#,
+		SUBJECT		= #subject#,
+		URL			= #url#,
+		TARGET		= #target#,
+		ATTACHED	= #attached#,
+		SHOWFLAG	= #showflag#,
+		CNT			= #cnt#
+		where TID = #tid#
+	</update>
+
+	<!--  deleteBanner -->
+	<delete id="deleteBanner">
+		delete
+		from wizJ_banner
+		where TID = #tid#
+	</delete>
+</sqlMap>

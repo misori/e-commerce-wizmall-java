@@ -1,0 +1,97 @@
+@charset "utf-8";
+/* top navygation */
+.navy{
+	 height:18px;
+
+
+	 /*
+	 background-position:right -17px;
+	 background-image:url('/images/common/sn_arrow.gif');
+	 */
+
+	 background-image:url('/images/common/sn_arrow.gif');
+	 background-repeat: no-repeat;
+	 background-position:10px 13px;
+
+	 /*
+	  background-position: 0 0
+	 */
+	 padding-top:10px;
+	 vertical-align:middle;
+	 overflow:visible;
+	 background-color: #F6F6F6;
+	 padding-left:30px;
+	 padding-bottom:10px;
+	 margin:5px 0px;
+}
+.navy:before	{ content:""; clear:both; display:block;}
+.navy:after	{ content:""; clear:both; display:block;}
+
+
+
+/* 상품 상세 설명 페이지 각각의 타이틀 */
+.title_box{
+	background-color: #EBEBEB;
+	font-weight:bold;
+	color:#FF6600;
+}
+
+.paging_box{
+	text-align:center;
+	margin:10px 0;
+}
+.paging_box:after{ content:""; clear:both; display:block;}
+
+.btn_box{
+	text-align:center;
+	margin:10px 0;
+}
+.btn_box:after{ content:""; clear:both; display:block;}
+
+/* 몰에 사용되는 테이블 정의 */
+.table_main{
+	/*
+	font-size: 9pt;
+	line-height: 160%;
+	color: #333333;
+	text-decoration: none;
+	*/
+	border-top:1px solid #dddddd;
+	border-left:1px solid #dddddd;
+	border-right:1px groove #dddddd;
+	border-bottom:0px;
+	border-spacing:1px;
+	line-height: 200%;
+	padding:0 0 0 0;
+}
+
+.table_main th{
+	background-color:#E6E9EA;
+	text-align:left;
+	font-weight:normal;
+	padding-left:10px;
+}
+
+.table_main input[type=text], .table_main  input[type=password], .table_main textarea{
+ border: 1px #CCCCCC solid;
+ width:150px;
+}
+
+table.table_main tr td{
+	border-top:0px;
+	border-left:0px;
+	border-right:0px;
+	text-align:left;
+	padding-left:5px;
+	border-bottom: 1px solid #dddddd;
+}
+/* 테이블의 좌우측 라인을 없애주기 */
+.noside{
+	border-left:0px solid #dddddd;
+	border-right:0px groove #dddddd;
+}
+
+.t_default{ width:500px}
+.w_default{ width:760px}
+.w_500{width:500px}
+.w_desc{width:720px}

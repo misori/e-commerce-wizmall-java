@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-2.5.xsd
+      http://www.springframework.org/schema/jee
+      http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+      http://www.springframework.org/schema/lang
+      http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+      http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
+
+
+
+
+	<!-- ******************************************************************** -->
+	<!-- This context file was generated and is not intended to be changed manually. -->
+	<!-- ******************************************************************** -->
+
+	<!-- ******************************************************************** -->
+	<!-- Mark bean transactions as annotation driven -->
+	<!-- ******************************************************************** -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+ 	<!-- ******************************************************************** -->
+	<!-- Register Multi Part Resolve -->
+	<!-- ******************************************************************** -->
+	<!--   <bean class="org.skyway.spring.util.web.binary.ModelBindingMultipartResolver" id="multipartResolver"/>-->
+	<bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <property name="maxUploadSize">
+	        <value>10000000</value>
+	    </property>
+	    <property name="uploadTempDir" ref="uploadDirResource" />
+	</bean>
+
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+	    <constructor-arg>
+	        <value>C:/Users/YoungHyeongRyu/Workspaces/oneul/shop/WebRoot/data/</value>
+	    </constructor-arg>
+	</bean>
+<!--
+	<bean class="org.springframework.multipart.commons.CommonsMultipartResolver"  id="multipartResolver">
+		<property name="maxUploadSize" value="100000000"></property>
+		<property name="uploadTempDir" ref="uploadDirResource"></property>
+	</bean>
+ -->
+
+	<!-- ******************************************************************** -->
+	<!-- Register Streamed Binary Content View -->
+	<!-- ******************************************************************** -->
+	<bean id="streamedBinaryContentView" class="org.skyway.spring.util.web.binary.ModelAttributeStreamer" />
+
+	<!-- ******************************************************************** -->
+	<!-- Bean Name View Resolver used to Redirect to Beans by id, required by Binary Content View -->
+	<!-- ******************************************************************** -->
+	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/pages/" />
+	</bean>
+
+	<bean id="iPhoneUserAgentViewResolver" class="org.skyway.spring.util.viewresolution.UserAgentViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="agentSubstring" value="iPhone" />
+        <property name="prefix" value="/WEB-INF/iphone/" />
+        <property name="order" value="0" />
+    </bean>
+
+	<bean id="webInfViewResolver" class="org.skyway.spring.util.viewresolution.AbsolutePathViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="order" value="-1" />
+    </bean>
+
+	<!-- ******************************************************************** -->
+	<!-- Scan for web layer annotated beans -->
+	<!-- ******************************************************************** -->
+	<context:component-scan base-package="com.web" scoped-proxy="interfaces" />
+
+
+</beans>

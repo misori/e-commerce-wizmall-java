@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CategoryNamespace">
+	<typeAlias alias="Category" type="com.domain.Category" />
+
+	<!-- getAllCategoryList -->
+	<select id="getAllCategoryList" resultClass="Category">
+		select * from wizJ_category
+		order by length(CAT_NO) asc, CAT_ORDER asc
+	</select>
+
+	<!-- getCategoryList -->
+	<!--  cat_no 가 없을 경우는 모든 대분류를 가져오고 있을 경우는 그 분류에 속하는 모든 하위 카테고리(현재 카테고리 포함 하지 않음)를 가져온다. -->
+	<select id="getCategoryList" resultClass="Category">
+		select * from wizJ_category
+		<dynamic prepend="where">
+		<isNotNull prepend="AND" property="cat_no" >
+			CAT_NO like #cat_no#
+		</isNotNull>
+		<isNotNull prepend="AND" property="c_length" >
+				length(CAT_NO) = $c_length$
+		</isNotNull>
+		<!--
+		<isNull prepend="AND" property="cat_no" >
+			<isNotNull prepend="AND" property="c_length" >
+				length(CAT_NO) = length(c_length)
+			</isNotNull>
+		</isNull>
+ 		-->
+
+		</dynamic>
+		order by length(CAT_NO) asc, CAT_ORDER asc
+	</select>
+
+
+	<!-- getCategoryPerLength -->
+	<select id="getCategoryPerLength" resultClass="Category">
+		select TID,CAT_ORDER,CAT_NO,CAT_NAME  from wizJ_category where length(CAT_NO) = #length#
+	</select>
+
+
+	<!-- getMaxCatOrder -->
+	<select id="getMaxCatOrder" resultClass="int">
+		select max(CAT_ORDER) from wizJ_category where length(CAT_NO) = $strlen$ and substring(CAT_NO, -$comlen$, $comlen$) = #ccode#
+	</select>
+
+	<!-- getMaxCatno -->
+	<select id="getMaxCatno" resultClass="String">
+		select max(substring(CAT_NO, 1, 3))
+		from wizJ_category
+		where length(CAT_NO) = $strlen$ and substring(CAT_NO, $comlen$, $comlen$) = #ccode#
+	</select>
+
+	<!-- getCategoryByPrimaryKey -->
+	<select id="getCategoryByPrimaryKey" resultClass="Category">
+		select * from wizJ_category where TID = #tid#
+	</select>
+
+	<!-- getMainCatList -->
+	<select id="getMainCatList" resultClass="Category">
+		select * from wizJ_category c where length(CAT_NO) = 3
+	</select>
+
+		<!-- getSubCatList -->
+	<select id="getSubCatList" resultClass="Category">
+		select * from wizJ_category where length(CAT_NO) = #length# and CAT_NO like #code#
+	</select>
+
+
+	<!--  saveCategory -->
+	<insert id="saveCategory" parameterClass="Category">
+		INSERT INTO
+		wizJ_category
+		(CAT_ORDER,CAT_FLAG,CAT_NO,CAT_NAME,CAT_SKIN,CAT_SKIN_VIEW,CAT_TOP,CAT_BOTTOM,CAT_IMG,PCNT)
+		VALUES
+		(#cat_order#, #cat_flag#, #cat_no#, #cat_name#, #cat_skin#, #cat_skin_view#, #cat_top#, #cat_bottom#, #cat_img#, #pcnt#)
+	</insert>
+
+	<!--  updateCategory -->
+	<update id="updateCategory" parameterClass="Category">
+		update
+		wizJ_category set
+		CAT_ORDER		= #cat_order#,
+		CAT_FLAG		= #cat_flag#,
+		CAT_NO			= #cat_no#,
+		CAT_NAME		= #cat_name#,
+		CAT_SKIN		= #cat_skin#,
+		CAT_SKIN_VIEW	= #cat_skin_view#,
+		CAT_TOP			= #cat_top#,
+		CAT_BOTTOM		= #cat_bottom#,
+		CAT_IMG			= #cat_img#,
+		PCNT			= #pcnt#
+
+		where TID = #tid#
+	</update>
+
+	<!--  deleteCategory -->
+	<delete id="deleteCategory">
+		delete
+		from wizJ_category
+		where TID = #tid#
+	</delete>
+</sqlMap>

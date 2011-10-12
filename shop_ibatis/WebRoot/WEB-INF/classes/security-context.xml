@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  참조 : http://code.google.com/p/jtpd/source/browse/trunk/?r=137#trunk%2Fwicket_spring_security_remember_me -->
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    	http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-3.0.xsd
+      	http://www.springframework.org/schema/context
+      	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- ***************************************************************************** -->
+	<!-- This context file exists for developers to enter in their own security configurations. -->
+	<!-- ***************************************************************************** -->
+	<http auto-config='true' use-expressions="true" access-denied-page="/auth/denied.do">
+
+		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/member/member_page*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/member/member_update*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/member/order_list*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/member/memberLogin.do*"  />
+		<intercept-url pattern="/css/**" filters="none"/>
+
+		<logout logout-url="/auth/logout" logout-success-url="/index.jsp"/>
+			<!--
+			login-processing-url="/auth/login"
+			 -->
+		<form-login login-page='/member/memberLogin.do' authentication-failure-url="/member/memberLogin.do?error=failed" />
+		<remember-me services-ref="rememberMeServicesx"/>
+	</http>
+
+	<beans:bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+        <filter-chain-map path-type="ant">
+            <filter-chain pattern="/**" filters="authenticationFilter , rememberMeProcessingFilter, logoutFilter"/>
+        </filter-chain-map>
+    </beans:bean>
+
+    <beans:bean id="securityContextPersistenceFilter"
+                class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
+        <beans:property name="forceEagerSessionCreation" value="false"/>
+    </beans:bean>
+
+
+    <beans:bean id="myUserDetailsService" class="com.datasource.MyUserDetailsService"/>
+
+    <beans:bean id="md5PasswordEncoder"
+                class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
+
+
+    <beans:bean id="myAuthenticationProvider"
+                class="com.datasource.MyAuthenticationProvider">
+        <beans:property name="md5Encoder" ref="md5PasswordEncoder"/>
+        <beans:property name="userDetailsService" ref="myUserDetailsService"/>
+    </beans:bean>
+
+
+       <authentication-manager alias="authenticationManager">
+           <authentication-provider ref="myAuthenticationProvider"/>
+            <authentication-provider ref="rememberMeAuthenticationProvider"/>
+       </authentication-manager>
+
+
+    <beans:bean id="authenticationProcessingFilterEntryPoint"
+                class="org.springframework.security.web.authentication.AuthenticationProcessingFilterEntryPoint">
+        <beans:property name="loginFormUrl" value="/login"/>
+        <beans:property name="forceHttps" value="false"/>
+    </beans:bean>
+
+    <!-- custom form authentication filter - overridden so I can do some other business logic when a user logs in (update login count etc) -->
+    <beans:bean id="authenticationFilter" class="com.datasource.MyAuthenticationProcessingFilter">
+        <!-- sets this as the authentication filter over the default -->
+
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="filterProcessesUrl" value="/j_spring_security_check"/>
+        <beans:property name="usrServ" ref="myUserDetailsService"/>
+        <beans:property name="continueChainBeforeSuccessfulAuthentication" value="false"/>
+        <beans:property name="rememberMeServices" ref="rememberMeServicesx"/>
+
+    </beans:bean>
+
+    <!-- Override RememberMeProcessingFilter to allow application of other business logic (update login count when user returns to the site -->
+    <beans:bean id="rememberMeProcessingFilter" class="com.datasource.MyRememberMeProcessingFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="usrServ" ref="myUserDetailsService"/>
+        <beans:property name="rememberMeServices" ref="rememberMeServicesx"/>
+    </beans:bean>
+
+    <!-- Defines which remember me implementation to use - in this case using a database table to log 'remembered' tokens -->
+    <beans:bean id="rememberMeServicesx"
+                class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+        <beans:property name="userDetailsService" ref="myUserDetailsService"/>
+        <beans:property name="key" value="springRocks"/>
+        <beans:property name="tokenValiditySeconds" value="2419200"/>
+        <beans:property name="alwaysRemember" value="true"/>
+    </beans:bean>
+
+    <beans:bean id="rememberMeAuthenticationProvider" class=
+            "com.datasource.MyRemembermeAuthenticationProvider">
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="key" value="springRocks"/>
+    </beans:bean>
+
+    <beans:bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+        <beans:property name="filterProcessesUrl" value="/logout"/>
+        <beans:constructor-arg value="/"/>
+        <!-- URL redirected to after logout -->
+        <beans:constructor-arg>
+            <beans:list>
+                <beans:ref bean="rememberMeServicesx"/>
+                <!-- I add a bean here to perform some custom tasks when the user logs out -->
+                <beans:bean class="com.datasource.MySecurityContextLogoutHandler"/>
+                <!-- class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"  -->
+            </beans:list>
+        </beans:constructor-arg>
+    </beans:bean>
+
+    <beans:bean id="loggerListener" class="org.springframework.security.authentication.event.LoggerListener"/>
+</beans:beans>
