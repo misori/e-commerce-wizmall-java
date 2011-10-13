@@ -26,14 +26,14 @@ http://www.springframework.org/schema/security/spring-security-3.0.xsd">
     </beans:bean>
 
 
-    <beans:bean id="myUserDetailsService" class="com.datasource.MyUserDetailsService"/>
+    <beans:bean id="myUserDetailsService" class="com.security.MyUserDetailsService"/>
 
     <beans:bean id="md5PasswordEncoder"
                 class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
 
 
     <beans:bean id="myAuthenticationProvider"
-                class="com.datasource.MyAuthenticationProvider">
+                class="com.security.MyAuthenticationProvider">
         <beans:property name="md5Encoder" ref="md5PasswordEncoder"/>
         <beans:property name="userDetailsService" ref="myUserDetailsService"/>
     </beans:bean>
@@ -52,7 +52,7 @@ http://www.springframework.org/schema/security/spring-security-3.0.xsd">
     </beans:bean>
 
     <!-- custom form authentication filter - overridden so I can do some other business logic when a user logs in (update login count etc) -->
-    <beans:bean id="authenticationFilter" class="com.datasource.MyAuthenticationProcessingFilter">
+    <beans:bean id="authenticationFilter" class="com.security.MyAuthenticationProcessingFilter">
         <!-- sets this as the authentication filter over the default -->
 
         <beans:property name="authenticationManager" ref="authenticationManager"/>
@@ -64,7 +64,7 @@ http://www.springframework.org/schema/security/spring-security-3.0.xsd">
     </beans:bean>
 
     <!-- Override RememberMeProcessingFilter to allow application of other business logic (update login count when user returns to the site -->
-    <beans:bean id="rememberMeProcessingFilter" class="com.datasource.MyRememberMeProcessingFilter">
+    <beans:bean id="rememberMeProcessingFilter" class="com.security.MyRememberMeProcessingFilter">
         <beans:property name="authenticationManager" ref="authenticationManager"/>
         <beans:property name="usrServ" ref="myUserDetailsService"/>
         <beans:property name="rememberMeServices" ref="rememberMeServicesx"/>
@@ -80,7 +80,7 @@ http://www.springframework.org/schema/security/spring-security-3.0.xsd">
     </beans:bean>
 
     <beans:bean id="rememberMeAuthenticationProvider" class=
-            "com.datasource.MyRemembermeAuthenticationProvider">
+            "com.security.MyRemembermeAuthenticationProvider">
         <beans:property name="authenticationManager" ref="authenticationManager"/>
         <beans:property name="key" value="springRocks"/>
     </beans:bean>
@@ -93,7 +93,7 @@ http://www.springframework.org/schema/security/spring-security-3.0.xsd">
             <beans:list>
                 <beans:ref bean="rememberMeServicesx"/>
                 <!-- I add a bean here to perform some custom tasks when the user logs out -->
-                <beans:bean class="com.datasource.MySecurityContextLogoutHandler"/>
+                <beans:bean class="com.security.MySecurityContextLogoutHandler"/>
                 <!-- class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"  -->
             </beans:list>
         </beans:constructor-arg>
