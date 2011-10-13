@@ -30,17 +30,18 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username)
 	throws UsernameNotFoundException, DataAccessException {
 
+		System.out.println("MyUserDetailsService : loadUserByUsername");
 		Members members = membersService.getMemberByUserid(username);
 		//System.out.println(members);
 		if(members == null){
 			throw new UsernameNotFoundException("user not found");
 		}else{
 			//String user_name = members.getUser_name();
-			String password = members.getUser_passwd();
-			boolean enabled = true;
-			boolean accountNonExpired = true;
-			boolean credentialsNonExpired = true;
-			boolean accountNonLocked = true;
+			String password					= members.getUser_passwd();
+			boolean enabled					= true;
+			boolean accountNonExpired		= true;
+			boolean credentialsNonExpired	= true;
+			boolean accountNonLocked		= true;
 
 			Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			//System.out.println("getUser_grade:"+members.getUser_grade());

@@ -43,7 +43,7 @@ public class MyAuthenticationProvider extends AbstractUserDetailsAuthenticationP
     protected UserDetails retrieveUser(String eposta, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         UserDetails loadedUser;
         loadedUser = this.getUserDetailsService().loadUserByUsername(eposta);
-
+        System.out.println("MyAuthenticationProvider");
         if ( md5Encoder.isPasswordValid(loadedUser.getPassword(), authentication.getCredentials().toString(), null)) {
             return loadedUser;  // if it comes from directly from user
         }  else if (loadedUser.getPassword().equals(authentication.getCredentials().toString())) {

@@ -49,12 +49,14 @@ public class MyRemembermeAuthenticationProvider extends RememberMeAuthentication
 
 
     public MyRemembermeAuthenticationProvider() {
+
         super();    //To change body of overridden methods use File | Settings | File Templates.
+        System.out.println("MyRemembermeAuthenticationProvider2");
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
+    	System.out.println("MyRemembermeAuthenticationProvider1");
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
