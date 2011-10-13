@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Members;
+import com.security.MyUserDetails;
 import com.service.BuyerService;
-import com.datasource.MyUserDetails;
 import com.util.PageNavigation;
 import com.util.StringUtil;
 
