@@ -8,7 +8,7 @@
 classpath:security-context.xml</param-value>
  </context-param>
  <filter>
-  <filter-name>springSecurityFilterChain</filter-name>
+  <filter-name>filterChainProxy</filter-name>
   <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
  </filter>
  <filter>
@@ -29,9 +29,9 @@ classpath:security-context.xml</param-value>
   </init-param>
  </filter>
  <filter-mapping>
-  <filter-name>springSecurityFilterChain</filter-name>
+  <filter-name>filterChainProxy</filter-name>
   <url-pattern>/*</url-pattern>
- </filter-mapping> 
+ </filter-mapping>
  <filter-mapping>
   <filter-name>Sitemesh Filter</filter-name>
   <url-pattern>/*</url-pattern>
@@ -40,7 +40,6 @@ classpath:security-context.xml</param-value>
   <filter-name>encodingFilter</filter-name>
   <url-pattern>/*</url-pattern>
  </filter-mapping>
-
  <listener>
   <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
  </listener>
