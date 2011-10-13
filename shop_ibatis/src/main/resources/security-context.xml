@@ -1,40 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--  참조 : http://code.google.com/p/jtpd/source/browse/trunk/?r=137#trunk%2Fwicket_spring_security_remember_me -->
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:lang="http://www.springframework.org/schema/lang"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-    	http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security-3.0.xsd
-      	http://www.springframework.org/schema/context
-      	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<!-- ***************************************************************************** -->
-	<!-- This context file exists for developers to enter in their own security configurations. -->
-	<!-- ***************************************************************************** -->
-	<http auto-config='true' use-expressions="true" access-denied-page="/auth/denied.do">
+    <http auto-config="true">
+        <intercept-url pattern="/login**" filters="none"/>
+        <form-login login-page="/login" authentication-failure-url="/login"/>
+        <remember-me services-ref="rememberMeServicesx"/>
+    </http>
 
-		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/member/member_page*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/member/member_update*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/member/order_list*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/member/memberLogin.do*"  />
-		<intercept-url pattern="/css/**" filters="none"/>
-
-		<logout logout-url="/auth/logout" logout-success-url="/index.jsp"/>
-			<!--
-			login-processing-url="/auth/login"
-			 -->
-		<form-login login-page='/member/memberLogin.do' authentication-failure-url="/member/memberLogin.do?error=failed" />
-		<remember-me services-ref="rememberMeServicesx"/>
-	</http>
-
-	<beans:bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+	<!--  id값을 web.xml의 DelegatingFilterProxy 의 name과 맞추어 준다. -->
+    <beans:bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
         <filter-chain-map path-type="ant">
             <filter-chain pattern="/**" filters="authenticationFilter , rememberMeProcessingFilter, logoutFilter"/>
         </filter-chain-map>
@@ -106,7 +86,7 @@
     </beans:bean>
 
     <beans:bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
-        <beans:property name="filterProcessesUrl" value="/logout"/>
+        <beans:property name="filterProcessesUrl" value="/auth/logout"/>
         <beans:constructor-arg value="/"/>
         <!-- URL redirected to after logout -->
         <beans:constructor-arg>
@@ -120,4 +100,6 @@
     </beans:bean>
 
     <beans:bean id="loggerListener" class="org.springframework.security.authentication.event.LoggerListener"/>
+
+
 </beans:beans>
