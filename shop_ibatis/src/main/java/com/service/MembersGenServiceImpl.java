@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.MembersGenDAO;
+import com.domain.Members;
 import com.domain.MembersGen;
 
 @Service("MembersGenService")
@@ -31,14 +33,8 @@ public class MembersGenServiceImpl implements MembersGenService {
 
 
 	@Transactional
-	public List<MembersGen> getMembersGen() {
-		return membersgenDAO.getAllMembersGen();
-	}
-
-
-	public void deleteMember(MembersGen member) {
-		// TODO Auto-generated method stub
-
+	public List<MembersGen> getMembersGen(HashMap<String, String> params) {
+		return membersgenDAO.getAllMembersGen(params);
 	}
 
 	public void saveMemberGen(MembersGen membergen) {
@@ -49,9 +45,19 @@ public class MembersGenServiceImpl implements MembersGenService {
 			membersgenDAO.updateMembers(membergen);
 		} else {
 			membersgenDAO.saveMembers(membergen);
-
 		}
+	}
+
+	public void deleteMembers(MembersGen membergen) {
+		membersgenDAO.deleteMembers(membergen);
+	}
+	public void deleteMembers(int tid) {
+		membersgenDAO.deleteMembers(tid);
+	}
+	public void deleteMembers(String user_id) {
+		membersgenDAO.deleteMembers(user_id);
 
 	}
+
 
 }

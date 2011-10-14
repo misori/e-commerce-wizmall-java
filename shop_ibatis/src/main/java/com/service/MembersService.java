@@ -10,7 +10,7 @@ import com.domain.Members;
 
 /**
  * Spring service that handles CRUD requests for Member entities
- *
+ *	@author Pondol
  */
 public interface MembersService {
 	/**
@@ -63,7 +63,9 @@ public interface MembersService {
 	 * Delete an existing Member entity
 	 *
 	 */
-	public void deleteMember(Members member);
+	public void deleteMembers(Members member);
+	public void deleteMembers(int tid);
+	public void deleteMembers(String user_id);
 
 	/**
 	 * 로그인 정보 업데이트

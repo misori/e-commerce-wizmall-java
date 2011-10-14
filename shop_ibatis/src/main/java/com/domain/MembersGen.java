@@ -7,7 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class MembersGen  implements Serializable {
 
 	private static final long serialVersionUID = 1L;

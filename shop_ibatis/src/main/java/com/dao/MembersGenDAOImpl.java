@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,10 +10,14 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.domain.Members;
 import com.domain.MembersGen;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+/**
+*
+* @author Pondol
+*
+*/
 @Repository("MembersGenDAO")
 @Transactional
 public class MembersGenDAOImpl extends SqlMapClientDaoSupport implements MembersGenDAO {
@@ -31,9 +36,9 @@ public class MembersGenDAOImpl extends SqlMapClientDaoSupport implements Members
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<MembersGen> getAllMembersGen() throws DataAccessException {
-
-		return null;
+	public List<MembersGen> getAllMembersGen(HashMap<String, String> params) throws DataAccessException {
+		List<MembersGen> membersGen = getSqlMapClientTemplate().queryForList("getMembersGenList", params);
+        return membersGen;
 	}
 
 
@@ -47,24 +52,27 @@ public class MembersGenDAOImpl extends SqlMapClientDaoSupport implements Members
 		return membergen;
 	}
 
-
-
-	public void deleteMembers(int tid) {
-		getSqlMapClientTemplate().delete("deleteMemberGen", tid);
-
-	}
-
-
-
 	public void saveMembers(MembersGen memberGen) {
 		getSqlMapClientTemplate().insert("saveMemberGen", memberGen);
-
 	}
-
-
 
 	public void updateMembers(MembersGen memberGen) {
 		getSqlMapClientTemplate().update("updateMemberGen", memberGen);
+	}
+
+	/**
+	 * 아래 3개 방식종 user_id를 이용하여 삭제하는 방법을 주로 이용
+	 */
+	public void deleteMembers(int tid) {
+		getSqlMapClientTemplate().delete("deleteMemberGen", tid);
+	}
+
+	public void deleteMembers(MembersGen memberGen) {
+		getSqlMapClientTemplate().delete("deleteMemberGen", memberGen);
+	}
+
+	public void deleteMembers(String user_id) {
+		getSqlMapClientTemplate().delete("deleteMemberGen", user_id);
 
 	}
 
