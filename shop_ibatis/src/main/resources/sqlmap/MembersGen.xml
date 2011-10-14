@@ -4,6 +4,16 @@
 
 <sqlMap namespace="MembersGenNamespace">
 	<typeAlias alias="MembersGen" type="com.domain.MembersGen" />
+
+<!--  getMembersGenList -->
+	<select id="getMembersGenList"  resultClass="Members">
+		select mg.*
+		from wizJ_members_gen mg
+		order by mg.TID desc
+		limit $StartRow$, $blockList$
+	</select>
+
+
 	<!-- getMembersGenByUserid -->
 	<select id="getMembersGenByUserid"  resultClass="MembersGen">
 		select * from wizJ_members_gen where USER_ID = #userId#
@@ -13,7 +23,16 @@
 	<delete id="deleteMemberGen">
 		delete
 		from wizJ_members_gen
-		where TID = #tid#
+		<dynamic prepend="where">
+			<isNotNull prepend="AND" property="user_id" >
+				USER_ID = #user_id#
+			</isNotNull>
+			<isNull prepend="AND" property="user_id" >
+				<isNotNull prepend="AND" property="tid" >
+					TID = #tid#
+				</isNotNull>
+			</isNull>
+		</dynamic>
 	</delete>
 	<!--  saveMemberGen -->
 	<insert id="saveMemberGen" parameterClass="MembersGen">

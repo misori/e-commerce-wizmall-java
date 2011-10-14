@@ -1,15 +1,15 @@
 package com.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import com.domain.Members;
 import com.domain.MembersGen;
 
 
 public interface MembersGenDAO  {
-	public List<MembersGen> getAllMembersGen() throws DataAccessException;
+	public List<MembersGen> getAllMembersGen(HashMap<String, String> params) throws DataAccessException;
 
 	public MembersGen getMembersGenByUserid(String user_id) throws DataAccessException;
 
@@ -26,5 +26,7 @@ public interface MembersGenDAO  {
 	/**
 	 * 게시물을 삭제한다.
 	 */
+	public void deleteMembers(MembersGen memberGen);
 	public void deleteMembers(int tid);
+	public void deleteMembers(String user_id);
 }

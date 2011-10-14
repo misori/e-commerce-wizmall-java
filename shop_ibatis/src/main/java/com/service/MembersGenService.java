@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.domain.MembersGen;
@@ -10,7 +11,7 @@ public interface MembersGenService {
 	 * Load an existing Member entity
 	 *
 	 */
-	public List<MembersGen> getMembersGen();
+	public List<MembersGen> getMembersGen(HashMap<String, String> params);
 
 
 	/**
@@ -23,5 +24,7 @@ public interface MembersGenService {
 	 * Delete an existing Member entity
 	 *
 	 */
-	public void deleteMember(MembersGen member_1);
+	public void deleteMembers(MembersGen membergen);
+	public void deleteMembers(int tid);
+	public void deleteMembers(String user_id);
 }

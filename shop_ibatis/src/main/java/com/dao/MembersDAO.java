@@ -7,6 +7,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.Members;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface MembersDAO {
 	/**
 	 * JPQL Query - getAllMembers
@@ -60,6 +65,8 @@ public interface MembersDAO {
 	/**
 	 * 게시물을 삭제한다.
 	 */
+	public void deleteMembers(Members member);
 	public void deleteMembers(int tid);
+	public void deleteMembers(String user_id);
 
 }

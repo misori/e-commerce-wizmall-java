@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dao.MembersDAO;
 import com.domain.Members;
+import com.service.MembersGenService;
 import com.service.MembersService;
 import com.util.Constants;
 import com.util.PageNavigation;
@@ -31,6 +31,9 @@ public class AdminMemberController {
 
 	@Autowired
 	private MembersService membersService;
+
+	@Autowired
+	private MembersGenService membersGenService;
 
 	private StringUtil stringUtil;
 	public AdminMemberController(){
@@ -75,7 +78,10 @@ public class AdminMemberController {
 		//회원정보를 가져온다.
 		params.put("StartRow",Integer.toString(pageNav.getStartRow()));//database limit 절
 		params.put("blockList",Integer.toString(blockList));
-		mav.addObject("info", membersService.getMembersList(params));
+
+		List<Members>	info	= membersService.getMembersList(params);
+		System.out.println(info);
+		mav.addObject("info", info);
 
 		params.put("s_keyword",request.getParameter("s_keyword"));
 		mav.addObject("params", params);
@@ -220,6 +226,27 @@ public class AdminMemberController {
 
 		mav.setViewName("admin/member/member_view.jsp");
 		return mav;
+	}
+
+	@RequestMapping("/admin/member/deleteMemberMulti")
+	public String deleteMemberMulti(HttpServletRequest request, HttpServletResponse response) {
+		String[] chkMember    = request.getParameterValues("chkMember");
+		try{
+		    for(int i=0; i<chkMember.length; i++){
+		        System.out.println(chkMember[i]);
+		       //삭제하기
+		        deleteMember(chkMember[i]);
+		    }
+		}
+		catch(Exception e){}
+		return null;
+	}
+
+	public Boolean deleteMember(String user_id){
+
+		membersService.deleteMembers(user_id);
+		membersGenService.deleteMembers(user_id);
+		return true;
 	}
 
 }

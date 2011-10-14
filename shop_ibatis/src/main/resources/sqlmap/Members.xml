@@ -48,11 +48,14 @@
 
 	<!--  getMembersList -->
 	<select id="getMembersList"  resultClass="Members">
-		select * from wizJ_members
+		select m.*,
+		m1.USER_GENDER, m1.USER_JUMIN1, m1.USER_JUMIN2, m1.USER_TEL1, m1.USER_TEL2, m1.USER_TEL3, m1.USER_ZIP1, m1.USER_ADDRESS1, m1.USER_ADDRESS2
+		from wizJ_members m left join wizJ_members_gen m1
+		on m.USER_ID = m1.USER_ID
 		<dynamic prepend="where">
 			<isNotNull prepend="AND" property="s_keyword" >
 				<isNull property="s_title" >
-					USER_NAME like #s_keyword#
+					m.USER_NAME like #s_keyword#
 				</isNull>
 				<isNotNull property="s_title" >
 					$s_title$ like #s_keyword#
@@ -60,15 +63,15 @@
 			</isNotNull>
 			<isNotNull prepend="AND" property="s_date" >
 				<isNull property="e_date" >
-					DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') >= #s_date#
+					m.DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') >= #s_date#
 				</isNull>
 				<isNotNull property="e_date" >
-					DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') between #s_date# and #e_date#
+					m.DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') between #s_date# and #e_date#
 				</isNotNull>
 			</isNotNull>
 			<isNull prepend="AND" property="s_date" >
 				<isNotNull property="e_date" >
-					<![CDATA[ DATE_FORMAT(USER_REGDATE,'%Y-%m-%d') <= #e_date# ]]>
+					<![CDATA[ DATE_FORMAT(m.USER_REGDATE,'%Y-%m-%d') <= #e_date# ]]>
 				</isNotNull>
 			</isNull>
 		</dynamic>
@@ -85,7 +88,16 @@
 	<delete id="deleteMembers">
 		delete
 		from wizJ_members
-		where TID = #tid#
+		<dynamic prepend="where">
+			<isNotNull prepend="AND" property="user_id" >
+				USER_ID = #user_id#
+			</isNotNull>
+			<isNull prepend="AND" property="user_id" >
+				<isNotNull prepend="AND" property="tid" >
+					TID = #tid#
+				</isNotNull>
+			</isNull>
+		</dynamic>
 	</delete>
 	<!--  saveMembers -->
 	<insert id="saveMember" parameterClass="Members">

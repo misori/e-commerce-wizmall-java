@@ -84,14 +84,6 @@ public class MembersServiceImpl implements MembersService {
 
 	}
 
-	/**
-	 * Delete an existing Member entity
-	 *
-	 */
-	@Transactional
-	public void deleteMember(Members member) {
-
-	}
 
 	public Members getMemberByUserid(String userId) throws DataAccessException {
 		// TODO Auto-generated method stub
@@ -137,4 +129,20 @@ public class MembersServiceImpl implements MembersService {
 		// TODO Auto-generated method stub
 		return membersDAO.getMemberPointByUserid(userId);
 	}
+	/**
+	 * Delete an existing Member entity
+	 *
+	 */
+	@Transactional
+	public void deleteMembers(Members member) {
+		membersDAO.deleteMembers(member);
+	}
+	public void deleteMembers(int tid) {
+		membersDAO.deleteMembers(tid);
+	}
+	public void deleteMembers(String userId) {
+		membersDAO.deleteMembers(userId);
+
+	}
+
 }

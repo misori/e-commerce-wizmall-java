@@ -16,7 +16,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 
 /**
  * DAO to manage Members entities.
- *
+ * @author Pondol
  */
 @Repository("MembersDAO")
 @Transactional
@@ -113,6 +113,14 @@ public class MembersDAOImpl extends SqlMapClientDaoSupport implements MembersDAO
 		getSqlMapClientTemplate().delete("deleteMembers", tid);
 
 	}
+	public void deleteMembers(String user_id) {
+		getSqlMapClientTemplate().delete("deleteMembers", user_id);
+	}
+	public void deleteMembers(Members member) {
+		getSqlMapClientTemplate().delete("deleteMembers", member);
+
+	}
+
 
 	public void saveMembers(Members member) {
 		getSqlMapClientTemplate().insert("saveMember", member);
@@ -124,4 +132,6 @@ public class MembersDAOImpl extends SqlMapClientDaoSupport implements MembersDAO
 		getSqlMapClientTemplate().update("updateMember", member);
 
 	}
+
+
 }
