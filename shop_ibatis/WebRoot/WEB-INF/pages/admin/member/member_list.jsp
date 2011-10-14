@@ -22,6 +22,19 @@ $(function(){
 	$(".btn_search").click(function(){
 		$("#search_box").submit();
 	});
+
+	//선택삭제
+	$(".btn_sel_delete").click(function(){
+		jConfirm('삭제하시겠습니까?', 'Confirmation Dialog', function(r) {
+			if(r == true){
+				$.post("${pageContext.request.contextPath}/admin/member/deleteMemberMulti.ajax", $("#memberList").serialize(), function(data){
+					location.reload();
+				});
+			}else{
+
+			}
+		});
+	});
 });
 
 function gotopage(cp){
@@ -29,24 +42,6 @@ function gotopage(cp){
 	$("#submitForm").submit();
 }
 
-function really(){
-	var f = document.forms.memberlist;
-	var i = 0;
-	var chked = 0;
-	for(i = 0; i < f.length; i++ ) {
-			if(f[i].type == 'checkbox') {
-					if(f[i].checked) {
-							chked++;
-					}
-			}
-	}
-	if( chked < 1 ) {
-			alert('삭제하고자 하는 회원을 체크해주세요.');
-			return false;
-	}
-	if (confirm('\n정말로 삭제하시겠습니까? 삭제는 복구가 불가능합니다.   \n')) return true;
-	return false;
-}
 
 function changegrant(sta, id){
 	var str = "";
@@ -65,7 +60,7 @@ function changegrant(sta, id){
 }
 
 function gotoHistory(id){
-	var url = "${pageContext.request.contextPath}/member/order_list.popup?&mid="+id;
+	var url = "${pageContext.request.contextPath}/member/OrderHistory.popup?&mid="+id;
 	wizwindow(url,'buyhistory','width=670,height=700,statusbar=no,scrollbars=yes,toolbar=no');
 }
 //-->
@@ -105,7 +100,7 @@ function gotoHistory(id){
 						<td><span class="button bull" id="btn_excel"><a>엑셀출력</a></span></td>
 					</tr>
 			</table>
-			<form action='' name='memberlist'>
+			<form id='memberList'>
 
 				<table class="table_main list">
 					<col width="50" /><!-- 번호 -->
@@ -131,7 +126,7 @@ function gotoHistory(id){
 							<th>가입일</th>
 							<th>로긴수</th>
 							<th>승인</th>
-							<th> <span class="button bull"><a>선택삭제</a></span></th>
+							<th> <span class="button bull btn_sel_delete"><a>선택삭제</a></span></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -140,14 +135,14 @@ function gotoHistory(id){
 							<td>${pageNav.startNum-i.index}</td>
 							<td><a href="javascript:getuserInfo('${current.user_id}');">${current.user_name}</a></td>
 							<td><a href="javascript:getuserInfo('${current.user_id}');">${current.user_id}</a></td>
-							<td>&nbsp;</td>
+							<td>${fn:substring(current.user_address1, 0, 2)}</td>
 							<td><a href="javascript:getuserInfo('${current.user_id}');">${current.user_grade}</a></td>
 							<td>&nbsp;<a href="javascript:getuserInfo('${current.user_id}');">${current.user_point}</a></td>
 							<td class="agn_c"><span class="button bull"><a href="javascript:gotoHistory('${current.user_id}')">보기</a></span></td>
 							<td><fmt:formatDate value="${current.user_regdate}" pattern="yyyy.MM.dd" /></td>
 							<td><fmt:formatNumber value="${current.user_login_num}" /></td>
 							<td><a href="javascript:changegrant('${current.user_grantsta}', '${current.user_id}');">${current.user_grantsta}</a></td>
-							<td class="agn_c"><input type="checkbox" name='DeleteMember[${current.tid}]' value='${current.tid}'>
+							<td class="agn_c"><input type="checkbox" name='chkMember' value='${current.user_id}'>
 							</td>
 						</tr>
 </c:forEach>
