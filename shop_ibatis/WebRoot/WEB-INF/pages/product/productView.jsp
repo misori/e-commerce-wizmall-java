@@ -27,9 +27,8 @@ $(function(){
 
 	//상품평 쓰기
 	$(".btn_reg_evaluation").click(function(){
-		//alert("here");
 		$.post("${pageContext.request.contextPath}/product/saveEvaluation.ajax", $("#form_Evaluation").serialize(), function(data){
-		//alert("here2");
+			getList_Evaluation();
 		});
 	});
 	
@@ -190,7 +189,7 @@ function getList_Evaluation(){
 
 					<tr>
 						<th class="agn_l">주문수량</th>
-						<td><table >
+						<td><table>
 								<tr>
 									<td rowspan=2><input type="text" name="qty" maxlength=5 value="1" onKeyPress="is_number()" class="w30"></td>
 									<td><a href="javascript:num_plus(document.view_form);"><img src="${pageContext.request.contextPath}/images/shop/num_plus.gif"></a></td>
