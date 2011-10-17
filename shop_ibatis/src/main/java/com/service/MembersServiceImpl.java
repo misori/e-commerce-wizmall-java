@@ -65,6 +65,10 @@ public class MembersServiceImpl implements MembersService {
 			membersDAO.saveMembers(member);
 		}
 	}
+
+	public void updateMember(Members member) {
+		membersDAO.updateMembers(member);
+	}
 	public void updateLogin(Members member){
 
 		 try {
@@ -140,8 +144,8 @@ public class MembersServiceImpl implements MembersService {
 	public void deleteMembers(int tid) {
 		membersDAO.deleteMembers(tid);
 	}
-	public void deleteMembers(String userId) {
-		membersDAO.deleteMembers(userId);
+	public void deleteMembers(String user_id) {
+		membersDAO.deleteMembers(user_id);
 
 	}
 
