@@ -1,14 +1,12 @@
 package com.security;
 
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.RememberMeAuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
 
 /**
  * @author: Altug Bilgin ALTINTAS
@@ -43,7 +41,7 @@ public class CustomAbstractUserDetailsAuthenticationProvider extends AbstractUse
     protected UserDetails retrieveUser(String eposta, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         UserDetails loadedUser;
         loadedUser = this.getUserDetailsService().loadUserByUsername(eposta);
-        System.out.println("MyAuthenticationProvider");
+        System.out.println("CustomAbstractUserDetailsAuthenticationProvider");
         if ( md5Encoder.isPasswordValid(loadedUser.getPassword(), authentication.getCredentials().toString(), null)) {
             return loadedUser;  // if it comes from directly from user
         }  else if (loadedUser.getPassword().equals(authentication.getCredentials().toString())) {
