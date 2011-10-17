@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Members;
-import com.security.MyUserDetails;
+import com.security.CustomUser;
 import com.service.BuyerService;
 import com.util.PageNavigation;
 import com.util.StringUtil;
@@ -40,7 +40,7 @@ public class MemberShopController {
 		Integer blockPage	= 10;
 		//String login_id	= null;
 		if(auth != null){
-			Members member	= ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMembersInfo();
+			Members member	= ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMembersInfo();
 			//login_id = auth.getName();
 			//login_grade	= member.getUser_grade();
 			params.put("login_name", member.getUser_name());
@@ -73,7 +73,7 @@ public class MemberShopController {
 		Integer blockPage	= 10;
 		//String login_id	= null;
 		if(auth != null){
-			Members member	= ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMembersInfo();
+			Members member	= ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMembersInfo();
 			//login_id = auth.getName();
 			//login_grade	= member.getUser_grade();
 			params.put("login_name", member.getUser_name());

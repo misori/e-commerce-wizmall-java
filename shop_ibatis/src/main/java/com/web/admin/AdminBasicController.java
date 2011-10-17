@@ -12,6 +12,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +24,7 @@ import com.domain.Account;
 import com.domain.Banner;
 import com.domain.Deliverer;
 import com.domain.Members;
+import com.security.CustomUser;
 import com.service.AccountService;
 import com.service.BannerService;
 import com.service.DelivererService;
@@ -64,12 +66,17 @@ public class AdminBasicController {
 	 * @return
 	 */
 	@RequestMapping("/admin/basic/basicInfo")
-	public ModelAndView basicInfo(HttpServletRequest request, Principal principal) {
+	public ModelAndView basicInfo(HttpServletRequest request, Authentication auth) {//Principal principal
 		ModelAndView mav = new ModelAndView();
 
-		final String userId = principal.getName();
-		Members mem =new Members();
-		mem	= membersService.getMemberByUserid(userId);
+		//final String userId = principal.getName();
+		System.out.println(auth);
+		//final String userId	= auth.getName();
+		 Members members	= ((CustomUser) auth.getPrincipal()).getMembersInfo();
+		 System.out.println(members);
+		final String userId	= "wangta69";
+		Members mem			= new Members();
+		mem					= membersService.getMemberByUserid(userId);
 		mav.addObject("member", mem);
 
 		mav.addObject("LoginFailCount", LoginFailCount());

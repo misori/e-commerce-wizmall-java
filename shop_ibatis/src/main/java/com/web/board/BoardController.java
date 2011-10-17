@@ -29,7 +29,7 @@ import com.domain.Board;
 import com.domain.BoardFile;
 import com.domain.BoardReply;
 import com.domain.Members;
-import com.security.MyUserDetails;
+import com.security.CustomUser;
 import com.service.BoardCategoryService;
 import com.service.BoardFileService;
 import com.service.BoardReplyService;
@@ -776,7 +776,7 @@ public class BoardController {
 		Integer login_grade		= null;
 
 		if(auth != null){
-			Members member	= ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMembersInfo();
+			Members member	= ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMembersInfo();
 			login_id = auth.getName();
 			login_grade	= member.getUser_grade();
 		}
