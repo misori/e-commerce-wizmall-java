@@ -64,7 +64,7 @@ public class MembersGenDAOImpl extends SqlMapClientDaoSupport implements Members
 	 * 아래 3개 방식종 user_id를 이용하여 삭제하는 방법을 주로 이용
 	 */
 	public void deleteMembers(int tid) {
-		getSqlMapClientTemplate().delete("deleteMemberGen", tid);
+		getSqlMapClientTemplate().delete("deleteMemberGenByTid", tid);
 	}
 
 	public void deleteMembers(MembersGen memberGen) {
@@ -72,7 +72,8 @@ public class MembersGenDAOImpl extends SqlMapClientDaoSupport implements Members
 	}
 
 	public void deleteMembers(String user_id) {
-		getSqlMapClientTemplate().delete("deleteMemberGen", user_id);
+		System.out.println("MembersGenDAOImpl: deleteMembers:"+user_id);
+		getSqlMapClientTemplate().delete("deleteMemberGenByUserId", user_id);
 
 	}
 
