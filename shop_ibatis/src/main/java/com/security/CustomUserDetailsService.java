@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username)
 	throws UsernameNotFoundException, DataAccessException {
 
-		System.out.println("MyUserDetailsService : loadUserByUsername");
+		System.out.println("CustomUserDetailsService Start");
 		Members members = membersService.getMemberByUserid(username);
 		//System.out.println(members);
 		if(members == null){
