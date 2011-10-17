@@ -59,6 +59,8 @@ public interface MembersService {
 	 */
 	public void saveMember(Members member);
 
+	public void updateMember(Members member);
+
 	/**
 	 * Delete an existing Member entity
 	 *
