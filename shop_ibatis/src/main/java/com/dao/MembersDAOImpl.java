@@ -110,11 +110,11 @@ public class MembersDAOImpl extends SqlMapClientDaoSupport implements MembersDAO
 	}
 
 	public void deleteMembers(int tid) {
-		getSqlMapClientTemplate().delete("deleteMembers", tid);
+		getSqlMapClientTemplate().delete("deleteMembersByUserTid", tid);
 
 	}
 	public void deleteMembers(String user_id) {
-		getSqlMapClientTemplate().delete("deleteMembers", user_id);
+		getSqlMapClientTemplate().delete("deleteMembersByUserId", user_id);
 	}
 	public void deleteMembers(Members member) {
 		getSqlMapClientTemplate().delete("deleteMembers", member);
