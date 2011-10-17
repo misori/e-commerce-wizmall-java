@@ -9,7 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dao.DelivererDAO;
 import com.domain.Deliverer;
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("DelivererService")
 @Transactional
 public class DelivererServiceImpl implements DelivererService{

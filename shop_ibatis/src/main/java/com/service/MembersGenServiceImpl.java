@@ -11,6 +11,11 @@ import com.dao.MembersGenDAO;
 import com.domain.Members;
 import com.domain.MembersGen;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("MembersGenService")
 @Transactional
 public class MembersGenServiceImpl implements MembersGenService {

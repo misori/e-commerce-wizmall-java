@@ -1,6 +1,5 @@
 package com.service;
 
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dao.BuyerDAO;
 import com.dao.CartDAO;
 import com.domain.Buyers;
+
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("BuyerService")
 @Transactional
 public class BuyerServiceImpl implements BuyerService {

@@ -7,6 +7,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.Buyers;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface BuyerService {
 	/**
 	 * Load an existing Member entity

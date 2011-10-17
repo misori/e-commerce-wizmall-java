@@ -9,6 +9,11 @@ import org.springframework.dao.DataAccessException;
 import com.domain.Category;
 //import com.domain.Product;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface CategoryService{// extends Serializable
 
 	//전체 리스트 가져오기

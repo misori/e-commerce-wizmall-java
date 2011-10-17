@@ -6,6 +6,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.BoardGroup;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface BoardGroupService {
 	public List<BoardGroup> getBoardGroupList() throws DataAccessException;
 	public BoardGroup getBoardGroupByTid(Integer tid) throws DataAccessException;

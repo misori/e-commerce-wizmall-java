@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.domain.MembersGen;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface MembersGenService {
 
 	/**

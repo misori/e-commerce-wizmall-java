@@ -11,6 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dao.BoardMainDAO;
 import com.domain.BoardMain;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("BoardMainService")
 @Transactional
 public class BoardMainServiceImpl implements BoardMainService{
