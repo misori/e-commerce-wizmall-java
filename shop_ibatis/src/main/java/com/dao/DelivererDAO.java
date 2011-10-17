@@ -6,6 +6,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.Deliverer;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface DelivererDAO{
 	public List<Deliverer> getAllDelivererList() throws DataAccessException;
 	public Deliverer getDelivererByTid(Integer tid) throws DataAccessException;

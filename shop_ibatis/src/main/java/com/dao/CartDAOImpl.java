@@ -12,6 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.Cart;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("CartDAO")
 @Transactional
 public class CartDAOImpl extends SqlMapClientDaoSupport implements CartDAO {

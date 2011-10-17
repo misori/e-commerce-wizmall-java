@@ -16,7 +16,11 @@ import com.domain.BoardFile;
 import com.domain.Category;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("CategoryDAO")
 @Transactional
 public class CategoryDAOImpl extends SqlMapClientDaoSupport implements CategoryDAO {

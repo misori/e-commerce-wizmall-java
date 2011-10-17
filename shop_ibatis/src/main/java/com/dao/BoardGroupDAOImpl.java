@@ -12,6 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.BoardGroup;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("BoardGroupDAO")
 @Transactional
 public class BoardGroupDAOImpl extends SqlMapClientDaoSupport implements BoardGroupDAO {

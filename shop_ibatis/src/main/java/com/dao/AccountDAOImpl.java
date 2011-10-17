@@ -12,6 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.Account;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("AccountDAO")
 @Transactional
 public class AccountDAOImpl extends SqlMapClientDaoSupport implements AccountDAO {

@@ -7,6 +7,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.BoardFile;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface BoardFileDAO {
 	/**
 	 *

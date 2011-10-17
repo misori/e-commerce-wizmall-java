@@ -7,6 +7,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.Buyers;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface BuyerDAO {
 	public Buyers getBuyerByOrderId(String tid) throws DataAccessException;
 	public Buyers getBuyerByTid(Integer tid) throws DataAccessException;

@@ -13,6 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.Buyers;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("BuyerDAO")
 @Transactional
 public class BuyerDAOImpl extends SqlMapClientDaoSupport implements BuyerDAO {
