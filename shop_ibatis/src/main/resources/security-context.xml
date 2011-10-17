@@ -5,101 +5,194 @@
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+<!--
+https://open.jira.com/svn/PEBBLE/trunk/src/main/webapp/WEB-INF/applicationContext-security.xml
+http://code.google.com/p/jtpd/source/browse/trunk/?r=137#trunk%2Fwicket_spring_security_remember_me
+http://kalali.me/using-spring-security-to-enforce-authentication-and-authorization-on-spring-remoting-services-invoked-from-a-java-se-client/
+-->
 
-
-    <http auto-config="true">
+    <http>
         <intercept-url pattern="/login**" filters="none"/>
-        <form-login login-page="/login" authentication-failure-url="/login"/>
+		<intercept-url pattern="/admin**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+        <form-login login-page="/member/memberLogin.do" authentication-failure-url="/member/memberLogin.do?msg=fail"/>
         <remember-me services-ref="rememberMeServicesx"/>
     </http>
 
-	<!--  id값을 web.xml의 DelegatingFilterProxy 의 name과 맞추어 준다. -->
+
     <beans:bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+<!-- httpSessionContextIntegrationFilter, securityContextPersistenceFilter, authenticationFilter, rememberMeProcessingFilter, logoutFilter, filterSecurityInterceptor
+org.springframework.security.authentication.AuthenticationCredentialsNotFoundException: An Authentication object was not found in the SecurityContext 에러 발생
+-->
+
+<!--  httpSessionContextIntegrationFilter,digestProcessingFilter,exceptionTranslationFilter,filterSecurityInterceptor  ok 팝업으로 뜲 -->
+<!--
+exceptionTranslationFilter : 권한이 없을 경우 이동하는 페이지 설정
+filterSecurityInterceptor : 접근 권한을 설정한다.
+ -->
         <filter-chain-map path-type="ant">
-            <filter-chain pattern="/**" filters="authenticationFilter , rememberMeProcessingFilter, logoutFilter"/>
+            <filter-chain pattern="/**" filters="httpSessionContextIntegrationFilter, securityContextPersistenceFilter, authenticationFilter, rememberMeProcessingFilter, logoutFilter, exceptionTranslationFilter, filterSecurityInterceptor"/>
         </filter-chain-map>
     </beans:bean>
 
-    <beans:bean id="securityContextPersistenceFilter"
-                class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
-        <beans:property name="forceEagerSessionCreation" value="false"/>
-    </beans:bean>
 
 
-    <beans:bean id="myUserDetailsService" class="com.security.MyUserDetailsService"/>
+
+    <beans:bean id="customUserDetailsService" class="com.security.CustomUserDetailsService"/>
 
     <beans:bean id="md5PasswordEncoder"
                 class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
 
 
-    <beans:bean id="myAuthenticationProvider"
-                class="com.security.MyAuthenticationProvider">
-        <beans:property name="md5Encoder" ref="md5PasswordEncoder"/>
-        <beans:property name="userDetailsService" ref="myUserDetailsService"/>
-    </beans:bean>
+
 
 
        <authentication-manager alias="authenticationManager">
-           <authentication-provider ref="myAuthenticationProvider"/>
-            <authentication-provider ref="rememberMeAuthenticationProvider"/>
+           <authentication-provider ref="customAbstractUserDetailsAuthenticationProvider"/>
+            <authentication-provider ref="customRememberMeAuthenticationProvider"/>
        </authentication-manager>
 
-
-    <beans:bean id="authenticationProcessingFilterEntryPoint"
-                class="org.springframework.security.web.authentication.AuthenticationProcessingFilterEntryPoint">
-        <beans:property name="loginFormUrl" value="/login"/>
-        <beans:property name="forceHttps" value="false"/>
+    <beans:bean id="customAbstractUserDetailsAuthenticationProvider"
+                class="com.security.CustomAbstractUserDetailsAuthenticationProvider">
+        <beans:property name="md5Encoder" ref="md5PasswordEncoder"/>
+        <beans:property name="userDetailsService" ref="customUserDetailsService"/>
     </beans:bean>
 
+
+
     <!-- custom form authentication filter - overridden so I can do some other business logic when a user logs in (update login count etc) -->
-    <beans:bean id="authenticationFilter" class="com.security.MyAuthenticationProcessingFilter">
+    <beans:bean id="authenticationFilter" class="com.security.CustomUsernamePasswordAuthenticationFilter">
         <!-- sets this as the authentication filter over the default -->
 
         <beans:property name="authenticationManager" ref="authenticationManager"/>
         <beans:property name="filterProcessesUrl" value="/j_spring_security_check"/>
-        <beans:property name="usrServ" ref="myUserDetailsService"/>
+        <beans:property name="usrServ" ref="customUserDetailsService"/>
         <beans:property name="continueChainBeforeSuccessfulAuthentication" value="false"/>
         <beans:property name="rememberMeServices" ref="rememberMeServicesx"/>
 
     </beans:bean>
 
     <!-- Override RememberMeProcessingFilter to allow application of other business logic (update login count when user returns to the site -->
-    <beans:bean id="rememberMeProcessingFilter" class="com.security.MyRememberMeProcessingFilter">
+    <beans:bean id="rememberMeProcessingFilter" class="com.security.CustomRememberMeAuthenticationFilter">
         <beans:property name="authenticationManager" ref="authenticationManager"/>
-        <beans:property name="usrServ" ref="myUserDetailsService"/>
+        <beans:property name="usrServ" ref="customUserDetailsService"/>
         <beans:property name="rememberMeServices" ref="rememberMeServicesx"/>
     </beans:bean>
 
     <!-- Defines which remember me implementation to use - in this case using a database table to log 'remembered' tokens -->
-    <beans:bean id="rememberMeServicesx"
-                class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
-        <beans:property name="userDetailsService" ref="myUserDetailsService"/>
+    <beans:bean id="rememberMeServicesx" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+        <beans:property name="userDetailsService" ref="customUserDetailsService"/>
         <beans:property name="key" value="springRocks"/>
         <beans:property name="tokenValiditySeconds" value="2419200"/>
         <beans:property name="alwaysRemember" value="true"/>
     </beans:bean>
 
-    <beans:bean id="rememberMeAuthenticationProvider" class=
-            "com.security.MyRemembermeAuthenticationProvider">
+    <beans:bean id="customRememberMeAuthenticationProvider" class="com.security.CustomRememberMeAuthenticationProvider">
         <beans:property name="authenticationManager" ref="authenticationManager"/>
         <beans:property name="key" value="springRocks"/>
     </beans:bean>
 
+	<!--  로그아웃시 실행되는 필터 -->
     <beans:bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
-        <beans:property name="filterProcessesUrl" value="/auth/logout"/>
+        <beans:property name="filterProcessesUrl" value="/logout"/>
         <beans:constructor-arg value="/"/>
         <!-- URL redirected to after logout -->
         <beans:constructor-arg>
             <beans:list>
                 <beans:ref bean="rememberMeServicesx"/>
                 <!-- I add a bean here to perform some custom tasks when the user logs out -->
-                <beans:bean class="com.security.MySecurityContextLogoutHandler"/>
+                <beans:bean class="com.security.CustomSecurityContextLogoutHandler"/>
                 <!-- class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"  -->
             </beans:list>
         </beans:constructor-arg>
     </beans:bean>
 
+	<!-- Automatically receives AuthenticationEvent messages -->
     <beans:bean id="loggerListener" class="org.springframework.security.authentication.event.LoggerListener"/>
+	<!--
+    <beans:bean id="securityContextPersistenceFilter"
+                class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
+        <beans:property name="forceEagerSessionCreation" value="false"/>
+    </beans:bean>
+ 	-->
+
+ 	<beans:bean id="securityContextPersistenceFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter"/>
 
 
+
+
+
+
+	<beans:bean id="digestProcessingFilter" class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+		<beans:property name="userDetailsService" ref="customUserDetailsService" />
+		<beans:property name="authenticationEntryPoint" ref="digestProcessingFilterEntryPoint" />
+	</beans:bean>
+	<!--
+	<beans:bean id="digestProcessingFilter" class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+		<beans:property name="authenticationEntryPoint" ref="authenticationProcessingFilterEntryPoint"/>
+		<beans:property name="accessDeniedHandler">
+			<beans:bean class="org.springframework.security.ui.AccessDeniedHandlerImpl">
+				<beans:property name="errorPage" value="/accessDenied.jsp"/>
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+	-->
+	<!-- 팝업으로 인정창이 뜲 -->
+	<beans:bean id="digestProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
+		<beans:property name="realmName" value="ThisIsTheDigestRealm" />
+		<beans:property name="key" value="acegi" />
+		<beans:property name="nonceValiditySeconds" value="10" />
+	</beans:bean>
+
+
+	<beans:bean id="httpSessionContextIntegrationFilter" class="org.springframework.security.web.context.HttpSessionContextIntegrationFilter" />
+		<beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
+		<beans:property name="decisionVoters">
+			<beans:list>
+				<beans:bean class="org.springframework.security.access.vote.RoleVoter" />
+				<beans:bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+	<!--
+	<beans:bean id="exceptionTranslationFilter"  class="org.springframework.security.web.access.ExceptionTranslationFilter">
+		<beans:property name="authenticationEntryPoint" ref="digestProcessingFilterEntryPoint" />
+	</beans:bean>
+	-->
+	<beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.AuthenticationProcessingFilterEntryPoint">
+	<!--
+	<beans:property name="loginFormUrl" value="/login"/>
+	-->
+		<beans:property name="loginFormUrl" value="/member/memberLogin.do"/>
+		<beans:property name="forceHttps" value="false"/>
+	</beans:bean>
+
+	<beans:bean id="exceptionTranslationFilter"  class="org.springframework.security.web.access.ExceptionTranslationFilter">
+		<beans:property name="authenticationEntryPoint" ref="authenticationProcessingFilterEntryPoint" />
+	</beans:bean>
+
+
+
+	<beans:bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager"/>
+		<beans:property name="accessDecisionManager" ref="accessDecisionManager"/>
+		<beans:property name="securityMetadataSource">
+			<filter-security-metadata-source>
+				<intercept-url pattern="/admin**" access="ROLE_ADMIN" />
+				<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+			</filter-security-metadata-source>
+		</beans:property>
+	</beans:bean>
+
+	<!--
+	<beans:bean id="anonymousAuthFilter" class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
+		<beans:property name="key" value="foobar"/>
+		<beans:property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
+	</beans:bean>
+
+	<beans:bean id="anonymousAuthenticationProvider" class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
+		<beans:property name="key" value="foobar"/>
+	</beans:bean>
+	-->
 </beans:beans>
