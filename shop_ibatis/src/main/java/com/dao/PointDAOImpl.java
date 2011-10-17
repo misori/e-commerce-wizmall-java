@@ -13,6 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.Point;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("PointDAO")
 @Transactional
 public class PointDAOImpl  extends SqlMapClientDaoSupport implements PointDAO {

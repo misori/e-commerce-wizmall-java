@@ -13,6 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.Product;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("ProductDAO")
 @Transactional
 public class ProductDAOImpl extends SqlMapClientDaoSupport implements ProductDAO {//BoardDAO(interface) 이므로 이 값들을 상속 받아야 한다.

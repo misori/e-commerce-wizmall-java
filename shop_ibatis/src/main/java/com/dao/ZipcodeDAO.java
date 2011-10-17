@@ -6,6 +6,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.Zipcode;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface ZipcodeDAO {
 	public List<Zipcode> getAddressByKeyword(String keyword) throws DataAccessException;
 	public List<Zipcode> getAllZipAddress() throws DataAccessException;

@@ -12,6 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.Zipcode;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("ZipcodeDAO")
 @Transactional
 public class ZipcodeDAOImpl extends SqlMapClientDaoSupport implements ZipcodeDAO {

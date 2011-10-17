@@ -12,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.ProductImage;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("ProductImageDAO")
 @Transactional
 public class ProductImageDAOImpl extends SqlMapClientDaoSupport implements ProductImageDAO {

@@ -8,6 +8,11 @@ import org.springframework.dao.DataAccessException;
 import com.domain.Cart;
 import com.domain.Product;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface ProductDAO {
 	/**
 	 * JPQL Query - getAllProductList
