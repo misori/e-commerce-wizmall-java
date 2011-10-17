@@ -13,6 +13,7 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -247,6 +248,40 @@ public class AdminMemberController {
 		membersService.deleteMembers(user_id);
 		membersGenService.deleteMembers(user_id);
 		return true;
+	}
+
+	/**
+	 * 회원의 등급 변경
+	 * @param request
+	 * 03:승인상태 to 04:보류상태
+	 * 00:탈퇴상태 to 04:보류상태
+	 * 04:보류상태 to 03:승인상태
+	 */
+	public void chGrantStatus(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String c_grantsta	= request.getParameter("c_grantsta");
+		String user_id		= request.getParameter("user_id");
+		String user_grantsta	= null;
+		if(c_grantsta.equals("03")){
+			user_grantsta = "04";
+		}else if(c_grantsta.equals("00")){
+			user_grantsta = "04";
+		}else if(c_grantsta.equals("04")){
+			user_grantsta = "03";
+		}
+
+		Members members	= membersService.getMemberByUserid(user_id);
+		members.setUser_grantsta(user_grantsta);
+		membersService.updateMember(members);
+		//HashMap<String, String> params = new HashMap<String, String>();
+		//params.put(user_id, user_id);
+		//params.put(user_grantsta, user_grantsta);
+
+
+		JSONObject object=new JSONObject();
+		object.put("result", "0");
+		response.setContentType("application/x-json; charset=UTF-8");//이부분이 없을경우 일부브라우저에서 에러가 출력된다.
+		response.getWriter().print(object);
+
 	}
 
 }
