@@ -13,6 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dao.ProductDAO;
 import com.domain.Product;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("ProductService")
 @Transactional
 public class ProductServiceImpl implements ProductService {

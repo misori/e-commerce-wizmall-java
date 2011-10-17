@@ -9,6 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.ProductImageDAO;
 import com.domain.ProductImage;
+
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("ProductImageService")
 @Transactional
 public class ProductImageServiceImpl implements ProductImageService{
