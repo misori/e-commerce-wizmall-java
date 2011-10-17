@@ -29,9 +29,10 @@ org.springframework.security.authentication.AuthenticationCredentialsNotFoundExc
 <!--
 exceptionTranslationFilter : 권한이 없을 경우 이동하는 페이지 설정
 filterSecurityInterceptor : 접근 권한을 설정한다.
+rememberMeProcessingFilter :
  -->
         <filter-chain-map path-type="ant">
-            <filter-chain pattern="/**" filters="httpSessionContextIntegrationFilter, securityContextPersistenceFilter, authenticationFilter, rememberMeProcessingFilter, logoutFilter, exceptionTranslationFilter, filterSecurityInterceptor"/>
+            <filter-chain pattern="/**" filters="httpSessionContextIntegrationFilter, securityContextPersistenceFilter, authenticationFilter, logoutFilter, exceptionTranslationFilter, filterSecurityInterceptor"/>
         </filter-chain-map>
     </beans:bean>
 
