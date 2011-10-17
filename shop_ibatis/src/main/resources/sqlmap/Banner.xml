@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!DOCTYPE sqlMap
-	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
-	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="BannerNamespace">
 	<typeAlias alias="Banner" type="com.domain.Banner" />
@@ -20,12 +18,12 @@
 	</resultMap>
 	 -->
 	<!-- getAllBannerList -->
-	<select id="getAllBannerList" resultClass="Banner"><!-- resultMap="getAllBannerListResultMap"  -->
+	<select id="getAllBannerList" resultClass="Banner">
 		select * from wizJ_banner
 	</select>
 
 	<!-- getBannerByTid -->
-	<select id="getBannerByTid" resultClass="Banner"><!-- resultMap="getAllBannerListResultMap"  -->
+	<select id="getBannerByTid" resultClass="Banner">
 		select * from wizJ_banner where TID = #tid#
 	</select>
 
