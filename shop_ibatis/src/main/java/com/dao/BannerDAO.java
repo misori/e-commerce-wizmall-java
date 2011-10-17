@@ -6,6 +6,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.Banner;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface BannerDAO{
 	public List<Banner> getAllBannerList() throws DataAccessException;
 	public Banner getBannerByTid(Integer tid) throws DataAccessException;

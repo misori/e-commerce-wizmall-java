@@ -6,6 +6,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.Cart;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface CartDAO {
 	public List<Cart> getAllCartList() throws DataAccessException;
 	public List<Cart> getAllCartList(int startResult, int maxRows) throws DataAccessException;

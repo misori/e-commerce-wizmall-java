@@ -13,6 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.BoardCategory;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("BoardCategoryDAO")
 @Transactional
 public class BoardCategoryDAOImpl extends SqlMapClientDaoSupport implements BoardCategoryDAO {

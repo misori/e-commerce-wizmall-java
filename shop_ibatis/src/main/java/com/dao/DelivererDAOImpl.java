@@ -12,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.Deliverer;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("DelivererDAO")
 @Transactional
 public class DelivererDAOImpl extends SqlMapClientDaoSupport implements DelivererDAO {

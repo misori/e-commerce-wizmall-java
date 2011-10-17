@@ -6,6 +6,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.Account;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface AccountDAO {
 	public List<Account> getAllAccountList() throws DataAccessException;
 	public Account getAccountByTid(Integer tid) throws DataAccessException;

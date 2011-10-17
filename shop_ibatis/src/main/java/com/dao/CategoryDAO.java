@@ -10,7 +10,11 @@ import com.domain.Category;
 
 //import org.skyway.spring.util.dao.JpaDao;
 //import org.springframework.dao.DataAccessException;
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface CategoryDAO {
 
 

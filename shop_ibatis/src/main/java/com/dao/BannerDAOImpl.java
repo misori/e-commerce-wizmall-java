@@ -12,6 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.domain.Banner;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Repository("BannerDAO")
 @Transactional
 public class BannerDAOImpl extends SqlMapClientDaoSupport implements BannerDAO {

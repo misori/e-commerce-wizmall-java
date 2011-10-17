@@ -7,6 +7,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.BoardReply;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface BoardReplyDAO {
 	public List<BoardReply> getBoardReplyList(HashMap<String, String> params) throws DataAccessException;
 
