@@ -1,6 +1,12 @@
 package com.service;
 
 import com.domain.ProductImage;
+
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface ProductImageService {
 
 	/**

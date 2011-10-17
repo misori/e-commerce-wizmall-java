@@ -1,6 +1,12 @@
 package com.service;
 
 import com.domain.Point;
+
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface PointService {
 
 	/**

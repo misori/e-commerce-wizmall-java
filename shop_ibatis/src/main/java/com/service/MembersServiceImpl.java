@@ -15,10 +15,10 @@ import com.domain.Members;
 import com.util.TimeUtil;
 
 /**
- * Spring service that handles CRUD requests for Member entities
+ *
+ * @author Pondol
  *
  */
-
 @Service("MembersService")
 @Transactional
 public class MembersServiceImpl implements MembersService {
