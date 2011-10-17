@@ -56,13 +56,13 @@ public class MembersGen  implements Serializable {
 	 */
 	@Column(name = "USER_JUMIN1", nullable = true)
 	@Basic(fetch = FetchType.EAGER)
-	int user_jumin1;
+	Integer user_jumin1;
 
-	public void setUser_jumin1(int user_jumin1) {
+	public void setUser_jumin1(Integer user_jumin1) {
 		this.user_jumin1 = user_jumin1;
 	}
 
-	public int getUser_jumin1() {
+	public Integer getUser_jumin1() {
 		return this.user_jumin1;
 	}
 

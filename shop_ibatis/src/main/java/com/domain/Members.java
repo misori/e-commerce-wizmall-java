@@ -243,13 +243,13 @@ public class Members implements Serializable {
 	 */
 	@Column(name = "USER_JUMIN1", nullable = true, insertable = false, updatable = false)
 	@Basic(fetch = FetchType.EAGER)
-	int user_jumin1;
+	Integer user_jumin1;
 
-	public void setUser_jumin1(int user_jumin1) {
+	public void setUser_jumin1(Integer user_jumin1) {
 		this.user_jumin1 = user_jumin1;
 	}
 
-	public int getUser_jumin1() {
+	public Integer getUser_jumin1() {
 		return this.user_jumin1;
 	}
 
@@ -258,13 +258,13 @@ public class Members implements Serializable {
 	 */
 	@Column(name = "USER_JUMIN2", nullable = true, insertable = false, updatable = false)
 	@Basic(fetch = FetchType.EAGER)
-	int user_jumin2;
+	Integer user_jumin2;
 
 	public void setUser_jumin2(int user_jumin2) {
 		this.user_jumin2 = user_jumin2;
 	}
 
-	public int getUser_jumin2() {
+	public Integer getUser_jumin2() {
 		return this.user_jumin2;
 	}
 
