@@ -37,7 +37,7 @@ public class ProductEvaluationDAOImpl extends SqlMapClientDaoSupport implements 
 	@SuppressWarnings("unchecked")
 	public List<ProductEvaluation> getProductEvaluationListByPid(Integer pid)
 			throws DataAccessException {
-		List<ProductEvaluation> productEvaluation = getSqlMapClientTemplate().queryForList("getProductEvaluationList");
+		List<ProductEvaluation> productEvaluation = getSqlMapClientTemplate().queryForList("getProductEvaluationListByPid", pid);
         return productEvaluation;
 	}
 
@@ -48,6 +48,7 @@ public class ProductEvaluationDAOImpl extends SqlMapClientDaoSupport implements 
 	}
 
 	public void saveProductEvaluation(ProductEvaluation productEvaluation) {
+		System.out.println(productEvaluation);
 		getSqlMapClientTemplate().insert("saveProductEvaluation", productEvaluation);
 
 	}
