@@ -19,6 +19,19 @@ $(function(){
 	$(".btn_savewish").click(function(){
 		location.href="${pageContext.request.contextPath}/cart/WishListSave.do?tid=${product.tid}";
 	});
+
+	//상품평쓰기 레이어 활성
+	$(".btn_show_evaluation").click(function(){
+		$("#div_layer_evaluation").show();
+	});
+
+	//상품평 쓰기
+	$(".btn_reg_evaluation").click(function(){
+		//alert("here");
+		$.post("${pageContext.request.contextPath}/product/saveEvaluation.ajax", $("#form_Evaluation").serialize(), function(data){
+		//alert("here2");
+		});
+	});
 });
 
 function gotoList(){
@@ -103,22 +116,21 @@ function getBigPicture(no){
 	<?=$navy_path?>
 </div>
 <form action="${pageContext.request.contextPath}/cart/cartSave.do" id="view_form"  name="view_form" method="POST">
-<input type="hidden" name="tid" value="${tid}">
-<input type="hidden" name="price" value="${product.price}">
-<input type="hidden" name="point" value="${product.point}">
-<input type="hidden" name="code" value="${code}">
+	<input type="hidden" name="tid" value="${params.tid}">
+	<input type="hidden" name="code" value="${params.code}">
+
+	<input type="hidden" name="price" value="${product.price}">
+	<input type="hidden" name="point" value="${product.point}">
 
 
-	<input type="hidden" name="hidden_pid" VALUE="{info.view.PID}">
-	<input type="hidden" name="hidden_category" VALUE="{info.view.CATEGORY}">
 	<input type="hidden" name="sub_query" VALUE= "">
 
 	<div class="product_view">
 		<dl>
-			<dt><a href="javascript:getBigPicture(${tid})"> <c:if test="${product.attached != '' && product.attached != null}">
+			<dt><a href="javascript:getBigPicture(${params.tid})"> <c:if test="${product.attached != '' && product.attached != null}">
  	<img src="${pageContext.request.contextPath}/data/product/${product.attached}" width="200" height="200" />
  </c:if></a>
-				<div class="agn_c"><span class="button bull"><a href="javascript:getBigPicture(${tid})">크게보기</a></span></div>
+				<div class="agn_c"><span class="button bull"><a href="javascript:getBigPicture(${params.tid})">크게보기</a></span></div>
 			</dt>
 			<dd> <span class="b orange"> ${product.name}
 				(${product.model})
@@ -208,77 +220,30 @@ ${fn:replace(product.description1, newLineChar, "<br />")}
 	</tr>
 </table>
 <!-- 인기 판매 제품 끝 -->
-<? endif;?>
-<? if($cfg["skin"]["GoodsDisplayEstim"] == "checked"):?>
+
+
 <!-- 상품 평가 시작 -->
 <div class="space15"></div>
-<div class="title_box">상품평 보기 | 고객님에게 꼭 맞는 상품 구입을 위한 유용한 자료로 사용하세요! <span class="button bull"><a href="#">상품평쓰기</a></span></div>
-<script language="JavaScript">
-<!--
-function check_reple_Form(){
-	var f=document.estimat;
-	if(f.Name.value == ''){
-		alert('성함을 입력해주세요');
-		f.Name.focus();
-		return false;
-	} else if(f.Contents.value == ''){
-		alert('상품사용후기를 입력해주세요');
-		f.Contents.focus();
-		return false;
-	}
-}
+<div class="title_box">상품평 보기 | 고객님에게 꼭 맞는 상품 구입을 위한 유용한 자료로 사용하세요! <span class="button bull btn_show_evaluation"><a>상품평쓰기</a></span></div>
 
-function reple_delete(uid){
-var f=document.estimat;
-	f.repleqry.value = "insert";
-	f.mode.value = "";
-	f.repleuid.value = uid;
-	f.submit();
-
-}
-//-->
-</script>
-<form name="estimat" action="<?=$PHP_SELF?>" onsubmit='return check_reple_Form();'>
-	<input type="hidden" name="query" value="<?=$query?>">
-	<input type="hidden" name="code" value="<?=$code?>">
-	<input type="hidden" name="no" value="<?=$view["source_id"]?>">
-	<input type="hidden" name="repleqry" value="insert">
-	<input type="hidden" name="Name" value="<?=$cfg["member"]["mname"]?>">
-	<input type="hidden" name="repleuid" value="">
-	<!--<? if($cfg["member"]):?>
-                                <input name="image2" type="image" src="img/main/btn_sub.gif" width="51" height="21">
-                                <? else: ?>
-                                <a href="javascript:window.alert('로그인후 사용가능합니다.')"><img src="img/main/btn_sub.gif" width="51" height="21"></a>
-                                <? endif;?>-->
+<div id="div_layer_evaluation" class="none">
+<form id="form_Evaluation">
+<input type="hidden" name="pid" value="${params.tid}">
+<input type="hidden" name="user_id" value="${params.user_id}">
+평점 : <label><input type="radio" name="grade" value="5" id="grade_5"> 5점 </label>
+<label><input type="radio" name="grade" value="4" id="grade_4"> 4점 </label>
+<label><input type="radio" name="grade" value="3" id="grade_3"> 3점 </label>
+<label><input type="radio" name="grade" value="2" id="grade_2"> 2점 </label>
+<label><input type="radio" name="grade" value="1" id="grade_1"> 1점 </label>
+<br />
+상품평 : <textarea name="contents" id="contents" cols="45" rows="5"></textarea>
+<br />
+<span class="button bull btn_reg_evaluation"><a>상품평등록</a></span>
 </form>
+</div>
 
-<table class="table_main w100p">
-	<tr>
-		<th>글쓴이</th>
-		<td><?=$list[Name]?>
-			<? if($cfg["member"] == $list[ID]):?>
-			&nbsp;&nbsp;&nbsp;<a href="javascript:reple_delete('<?=$list[UID]?>');" >x</a>
-			<?endif;?></td>
-		<th>고객선호도 </th>
-		<td><img src="./skinwiz/viewer/<?=$cfg["skin"]["ViewerSkin"]?>/images/star<?=$list[Grade]?>.gif"></td>
-	</tr>
-	<tr>
-		<td colspan="4"><?=$list[Subject]?></td>
-	</tr>
-	<tr>
-		<td colspan="4" style="word-break:break-all;"><?=$list[Contents]?>
-		</td>
-	</tr>
-</table>
+<div id="list_Evaluation"></div>
 
-<table>
-	<tr>
-		<td>≡ </td>
-		<td>상품평은 개인의 체험을 바탕으로 한 주관적인 의견으로 사실과 다르거나,보는 사람에 따라
-			차이가 있을 수 있습니다.</td>
-	</tr>
-</table>
-<!-- 상품 평가 끝 -->
 
 
 
