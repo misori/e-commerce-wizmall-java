@@ -21,6 +21,7 @@
 	<sqlMap resource="sqlmap/Point.xml" />
 	<sqlMap resource="sqlmap/Product.xml" />
 	<sqlMap resource="sqlmap/ProductImage.xml" />
+	<sqlMap resource="sqlmap/ProductEvaluation.xml" />
 	<sqlMap resource="sqlmap/Zipcode.xml" />
 	<!--
 
