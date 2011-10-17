@@ -50,16 +50,19 @@ public class AdminMemberController {
 	@RequestMapping("/admin/member/memberList")
 	public ModelAndView memberList(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
+
+
 		//페이지에 대한 정의
 		Integer cp			= stringUtil.strToint(request.getParameter("cp"));
 		String s_title		= stringUtil.emptyToNull(request.getParameter("s_title"));
 		String s_keyword	= stringUtil.emptyToNull(request.getParameter("s_keyword"));
 		String s_date		= stringUtil.emptyToNull(request.getParameter("s_date"));
 		String e_date		= stringUtil.emptyToNull(request.getParameter("e_date"));
+		Integer ListNo	= stringUtil.strToint(request.getParameter("ListNo"));
 
 
 	    if(cp < 1) cp = 1;
-		Integer blockList	= 10;
+		Integer blockList	= ListNo == 0 ? 10 : ListNo;
 		Integer blockPage	= 10;
 
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -84,7 +87,11 @@ public class AdminMemberController {
 		System.out.println(info);
 		mav.addObject("info", info);
 
+		//옵션정보입력
+		mav.addObject("MemberGrantStatus", Constants.MemberGrantStatus());
+
 		params.put("s_keyword",request.getParameter("s_keyword"));
+		params.put("ListNo",request.getParameter("ListNo"));
 		mav.addObject("params", params);
 		mav.setViewName("admin/member/member_list.jsp");
 		//System.out.println("mav"+mav);
@@ -257,6 +264,7 @@ public class AdminMemberController {
 	 * 00:탈퇴상태 to 04:보류상태
 	 * 04:보류상태 to 03:승인상태
 	 */
+	@RequestMapping("/admin/member/chGrantStatus")
 	public void chGrantStatus(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String c_grantsta	= request.getParameter("c_grantsta");
 		String user_id		= request.getParameter("user_id");
