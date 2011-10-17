@@ -1,14 +1,13 @@
 package com.web.cart;
 
 import java.security.Principal;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,7 +40,7 @@ public class OrderController {
 	 * 주문서 작성 폼
 	 */
 	@RequestMapping("/cart/orderForm")
-	public ModelAndView orderForm(HttpServletRequest request, Principal principal) {
+	public ModelAndView orderForm(HttpServletRequest request) {//, Principal principal
 		//HttpSession session = request.getSession();
 		//String orderId; //이것이 없을 경우 튕겨내는 프로그램 필요
 
@@ -50,7 +49,8 @@ public class OrderController {
 		String user_id = null;
 		int point	= 0;
 		//System.out.println("principal.getName():"+principal.getName());
-		if(principal != null) user_id = principal.getName();
+		//final String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(SecurityContextHolder.getContext().getAuthentication() != null) user_id = SecurityContextHolder.getContext().getAuthentication().getName();
 		ModelAndView mav = new ModelAndView();
 		if(session.getAttribute("session-orderid") == null){
 			//잘못된 경로 접근
