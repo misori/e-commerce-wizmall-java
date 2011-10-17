@@ -32,6 +32,9 @@ $(function(){
 		//alert("here2");
 		});
 	});
+	
+	//상품평가져오기
+	getList_Evaluation();
 });
 
 function gotoList(){
@@ -105,6 +108,12 @@ function checkthis(v){
 
 function getBigPicture(no){
 	wizwindow('${pageContext.request.contextPath}/product/ImageViewer.pop?no='+no, 'BICIMAGEWINDOW','width=750,height=592,statusbar=no,scrollbars=no,toolbar=no,resizable=no')
+}
+
+function getList_Evaluation(){
+	$.post("${pageContext.request.contextPath}/product/evaluationList.ajax", {pid:${params.tid}}, function(data){
+		$("#list_Evaluation").html(data);
+	});
 }
 
 </script>
