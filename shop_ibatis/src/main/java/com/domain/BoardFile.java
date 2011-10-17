@@ -9,6 +9,11 @@ import javax.persistence.Id;
 
 import com.util.BaseObject;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class BoardFile extends BaseObject {
 	private static final long serialVersionUID = 1L;
 	public BoardFile() {

@@ -15,7 +15,11 @@ import com.util.BaseObject;
 
 
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class Cart extends BaseObject {
 	private static final long serialVersionUID = 1L;
 	public Cart() {

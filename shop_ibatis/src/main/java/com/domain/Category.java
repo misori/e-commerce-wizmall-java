@@ -3,7 +3,11 @@ package com.domain;
 import com.util.BaseObject;
 
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class Category extends BaseObject {
 	private static final long serialVersionUID = 1L;
 	public Category() {

@@ -9,7 +9,11 @@ import javax.persistence.Id;
 
 import com.util.BaseObject;
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class ProductImage extends BaseObject {
 	private static final long serialVersionUID = 1L;
 

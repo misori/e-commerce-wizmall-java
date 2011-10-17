@@ -11,6 +11,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.util.BaseObject;
+
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class BoardGroup extends BaseObject {
 
 	/**
