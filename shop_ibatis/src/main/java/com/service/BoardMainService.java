@@ -7,6 +7,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.BoardMain;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface BoardMainService {
 	public List<BoardMain> getBoardMainList(HashMap<String, String> params) throws DataAccessException;
 	public List<BoardMain> getBoardMainJoinBoardGroupList() throws DataAccessException;

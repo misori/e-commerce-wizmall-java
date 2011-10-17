@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.domain.Deliverer;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface DelivererService {
 	public List<Deliverer> getAllDelivererList();
 

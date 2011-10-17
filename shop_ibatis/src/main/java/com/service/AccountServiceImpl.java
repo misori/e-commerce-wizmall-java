@@ -9,6 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dao.AccountDAO;
 import com.domain.Account;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("AccountService")
 @Transactional
 public class AccountServiceImpl implements AccountService{

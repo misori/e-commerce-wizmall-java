@@ -12,6 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.domain.BoardCategory;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("BoardCategoryService")
 @Transactional
 public class BoardCategoryServiceImpl implements BoardCategoryService{

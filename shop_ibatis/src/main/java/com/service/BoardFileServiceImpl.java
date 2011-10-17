@@ -11,6 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dao.BoardFileDAO;
 import com.domain.BoardFile;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("BoardFileService")
 @Transactional
 public class BoardFileServiceImpl implements BoardFileService{

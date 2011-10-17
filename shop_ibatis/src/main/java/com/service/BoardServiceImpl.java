@@ -15,7 +15,11 @@ import com.domain.Board;
 import com.util.Constants;
 import com.util.file.FileManage;
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("BoardService")
 @Transactional
 public class BoardServiceImpl implements BoardService {

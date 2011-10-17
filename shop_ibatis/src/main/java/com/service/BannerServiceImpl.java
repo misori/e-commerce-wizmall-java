@@ -9,6 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dao.BannerDAO;
 import com.domain.Banner;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 @Service("BannerService")
 @Transactional
 public class BannerServiceImpl implements BannerService{

@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.domain.Banner;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface BannerService {
 	public List<Banner> getAllBannerList();
 

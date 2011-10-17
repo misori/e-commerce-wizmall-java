@@ -8,6 +8,11 @@ import org.springframework.dao.DataAccessException;
 import com.dao.BoardGroupDAO;
 import com.domain.BoardGroup;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class BoardGroupServiceImpl implements BoardGroupService{
 
 	@Autowired

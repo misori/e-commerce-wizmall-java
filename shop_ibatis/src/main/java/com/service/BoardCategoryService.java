@@ -7,6 +7,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.BoardCategory;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface BoardCategoryService {
 	public List<BoardCategory> getAllBoardCategoryList() throws DataAccessException;
 
