@@ -15,7 +15,7 @@ $(function(){
 		}else if($("#sub_user_passwd").val() == ""){
 			jAlert("패스워드를 입력하세요");
 		}else{
-			$.post("${pageContext.request.contextPath}/auth/login", $("#sub_login_form").serialize(), function(data){
+			$.post("${pageContext.request.contextPath}/j_spring_security_check", $("#sub_login_form").serialize(), function(data){
 				//alert(data);
 				//eval("var obj="+data);
 				//if(obj.result.result == "0"){
@@ -45,9 +45,9 @@ if (auth != null && (!AnonymousAuthenticationToken.class.isAssignableFrom(auth.g
 			최근방문일 :
 			<? if($cfg["member"]["mlogindate"]) echo date("Y.m.d", $cfg["member"]["mlogindate"]); else echo 0; ?>
 		</p>
-		<span class="button bull"><a href="${pageContext.request.contextPath}/auth/logout">로그아웃</a></span> <span class="button bull"><a href="${pageContext.request.contextPath}/member/member_update.do">정보변경</a></span>
+		<span class="button bull"><a href="${pageContext.request.contextPath}/logout">로그아웃</a></span> <span class="button bull"><a href="${pageContext.request.contextPath}/member/member_update.do">정보변경</a></span>
 <%}else	{%>
-		<form action='${pageContext.request.contextPath}/auth/login' method="post" id="sub_login_form">
+		<form action='${pageContext.request.contextPath}/j_spring_security_check' method="post" id="sub_login_form">
 			<input type="hidden" name="action" value="login_check" />
 			<input type="hidden" name="log_from" value="" />
 			<dl class="left_login">

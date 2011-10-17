@@ -31,7 +31,7 @@ if (auth != null && (!AnonymousAuthenticationToken.class.isAssignableFrom(auth.g
 %>
  					<a href="${pageContext.request.contextPath}/member/member_page.do">마이페이지</a>
 					<a href="${pageContext.request.contextPath}/member/member_update.do">정보변경</a>
-					<a href="${pageContext.request.contextPath}/auth/logout">로그아웃</a>
+					<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 <%}else	{%>
 					<a href="${pageContext.request.contextPath}/member/memberLogin.do">로그인</a>
 					<a href="${pageContext.request.contextPath}/member/memberReg.do">회원가입</a>
