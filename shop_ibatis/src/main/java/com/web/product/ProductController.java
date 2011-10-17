@@ -6,6 +6,9 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -141,31 +144,28 @@ public class ProductController {
 	//public ModelAndView userProductView(@RequestParam Integer tid, HttpServletRequest request) {
 	public ModelAndView userProductView(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		//HashMap<String, Category> depth1 = categoryList();
-		//mav.addObject("categoryList", depth1);
-		//System.out.println("tid:"+tid);
-		//int cp;
-
-
 
 		int tid = Integer.parseInt(request.getParameter("tid"));
-
-		String code			= request.getParameter("code");
-		String cp			= request.getParameter("cp");
-		String s_title		= request.getParameter("s_title");
-		String s_keyword	= request.getParameter("s_keyword");
-
-
-		//System.out.println("tid:"+tid);
-		//if(request.getParameter("cp") == null) cp = 1;
-		//else cp = Integer.parseInt(request.getParameter("cp"));
-		request.setAttribute("tid",			tid);
-	    request.setAttribute("cp",			cp);
-	    request.setAttribute("code",		code);
-	    request.setAttribute("s_title",		s_title);
-	    request.setAttribute("s_keyword",	s_keyword);
-
 		mav.addObject("product", productService.getProductByPrimaryKey(tid));
+
+
+
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("tid", request.getParameter("tid"));
+		params.put("cp", request.getParameter("cp"));
+		params.put("code", request.getParameter("code"));
+		params.put("s_title", request.getParameter("s_title"));
+		params.put("s_keyword", request.getParameter("s_keyword"));
+
+		//로그인 정보 가져오기
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && (!AnonymousAuthenticationToken.class.isAssignableFrom(auth.getClass()))) {
+			params.put("user_id", auth.getName());
+		}
+		mav.addObject("params", params);
+
+		//final String user_id = SecurityContextHolder.getContext().getAuthentication() != null ? SecurityContextHolder.getContext().getAuthentication():null;
+
 		mav.setViewName("product/productView.jsp");
 		return mav;
 	}

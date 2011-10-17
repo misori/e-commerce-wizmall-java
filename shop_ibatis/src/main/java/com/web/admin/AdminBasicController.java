@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -66,15 +67,11 @@ public class AdminBasicController {
 	 * @return
 	 */
 	@RequestMapping("/admin/basic/basicInfo")
-	public ModelAndView basicInfo(HttpServletRequest request, Authentication auth) {//Principal principal
+	public ModelAndView basicInfo(HttpServletRequest request) {//Principal principal  final String userId = principal.getName();
 		ModelAndView mav = new ModelAndView();
 
-		//final String userId = principal.getName();
-		System.out.println(auth);
-		//final String userId	= auth.getName();
-		 Members members	= ((CustomUser) auth.getPrincipal()).getMembersInfo();
-		 System.out.println(members);
-		final String userId	= "wangta69";
+		final String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
 		Members mem			= new Members();
 		mem					= membersService.getMemberByUserid(userId);
 		mav.addObject("member", mem);
