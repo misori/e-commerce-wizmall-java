@@ -22,7 +22,7 @@
     <td height="30" align="center" bgcolor="275903"><table width="100" border="0" cellspacing="0" cellpadding="0" align="center">
         <tr>
           <td ><a href="${pageContext.request.contextPath}/" target="_blank"><img src="${pageContext.request.contextPath}/images/admin/adminsite_icon.gif" width="108" height="29" border="0" /></a></td>
-          <td ><a href="${pageContext.request.contextPath}/auth/logout"><img src="${pageContext.request.contextPath}/images/admin/adminlogin_icon03.gif" width="70" height="29" border="0" /></a></td>
+          <td ><a href="${pageContext.request.contextPath}/logout"><img src="${pageContext.request.contextPath}/images/admin/adminlogin_icon03.gif" width="70" height="29" border="0" /></a></td>
         </tr>
       </table></td>
   </tr>
