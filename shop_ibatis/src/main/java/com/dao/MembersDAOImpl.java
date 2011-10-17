@@ -128,7 +128,7 @@ public class MembersDAOImpl extends SqlMapClientDaoSupport implements MembersDAO
 	}
 
 	public void updateMembers(Members member) {
-		//System.out.println("is_member.toString():"+member.toString());
+		System.out.println("updateMembers:"+member.toString());
 		getSqlMapClientTemplate().update("updateMember", member);
 
 	}

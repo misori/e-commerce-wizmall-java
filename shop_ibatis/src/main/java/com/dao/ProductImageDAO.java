@@ -6,6 +6,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.ProductImage;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface ProductImageDAO {
 	public List<ProductImage> getProductImageByProduct(int pid) throws DataAccessException;
 	public ProductImage getProductImageByTid(int tid) throws DataAccessException;

@@ -7,7 +7,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.domain.MembersGen;
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 public interface MembersGenDAO  {
 	public List<MembersGen> getAllMembersGen(HashMap<String, String> params) throws DataAccessException;
 
