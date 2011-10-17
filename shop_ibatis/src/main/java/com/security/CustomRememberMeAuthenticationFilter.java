@@ -18,7 +18,7 @@ public class CustomRememberMeAuthenticationFilter extends RememberMeAuthenticati
     @Override
     protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) {
         // perform some custom logic when the user has been 'remembered' &amp; authenticated - e.g. update a login count etc
-        System.out.println("Remember-me worked ");
+        System.out.println("CustomRememberMeAuthenticationFilter : Remember-me worked ");
         super.onSuccessfulAuthentication(request, response, authResult);
     }
 

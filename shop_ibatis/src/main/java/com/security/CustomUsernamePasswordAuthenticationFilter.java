@@ -25,12 +25,9 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException, javax.servlet.ServletException {
-        System.out.println("Successful Login");
-       // authResult.getPrincipal()
-       // usrServ.loadUserByUsername(username);
-       // authResult.getPrincipal()
+        System.out.println("CustomUsernamePasswordAuthenticationFilter Successful Login");
 
-       // 로그인 정보 업데이트
+        // 로그인 정보 업데이트
        // Members members	= ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMembersInfo();
         Members members	= ((CustomUser) authResult.getPrincipal()).getMembersInfo();
         membersService.updateLogin(members);//로그인 카운트, 로그인 데이타, 로그인 IP를 업데이트 한다.

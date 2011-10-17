@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 public class CustomSecurityContextLogoutHandler extends SecurityContextLogoutHandler {
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        System.out.println("log out");
+        System.out.println("CustomSecurityContextLogoutHandler : log out");
         HttpSession session = request.getSession();
         session.invalidate();
 

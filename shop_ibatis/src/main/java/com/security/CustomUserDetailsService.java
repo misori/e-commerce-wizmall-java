@@ -32,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		System.out.println("CustomUserDetailsService Start");
 		Members members = membersService.getMemberByUserid(username);
-		//System.out.println(members);
+
 		if(members == null){
 			throw new UsernameNotFoundException("user not found");
 		}else{
@@ -44,7 +44,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 			boolean accountNonLocked		= true;
 
 			Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-			//System.out.println("getUser_grade:"+members.getUser_grade());
 			switch(members.getUser_grade()){
 				case 10:
 					authorities.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
