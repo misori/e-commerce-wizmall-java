@@ -99,6 +99,15 @@
 			</isNull>
 		</dynamic>
 	</delete>
+
+		<!--  deleteMembersByUserId -->
+	<delete id="deleteMembersByUserId">
+		delete
+		from wizJ_members
+		where
+		USER_ID = #user_id#
+	</delete>
+
 	<!--  saveMembers -->
 	<insert id="saveMember" parameterClass="Members">
 		INSERT INTO

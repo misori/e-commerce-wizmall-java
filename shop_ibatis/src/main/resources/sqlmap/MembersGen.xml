@@ -6,7 +6,7 @@
 	<typeAlias alias="MembersGen" type="com.domain.MembersGen" />
 
 <!--  getMembersGenList -->
-	<select id="getMembersGenList"  resultClass="Members">
+	<select id="getMembersGenList"  resultClass="MembersGen">
 		select mg.*
 		from wizJ_members_gen mg
 		order by mg.TID desc
@@ -19,21 +19,13 @@
 		select * from wizJ_members_gen where USER_ID = #userId#
 	</select>
 
-	<!--  deleteMemberGen -->
-	<delete id="deleteMemberGen">
+	<!--  deleteMemberGenByUserId -->
+	<delete id="deleteMemberGenByUserId">
 		delete
 		from wizJ_members_gen
-		<dynamic prepend="where">
-			<isNotNull prepend="AND" property="user_id" >
-				USER_ID = #user_id#
-			</isNotNull>
-			<isNull prepend="AND" property="user_id" >
-				<isNotNull prepend="AND" property="tid" >
-					TID = #tid#
-				</isNotNull>
-			</isNull>
-		</dynamic>
+		where USER_ID = #user_id#
 	</delete>
+
 	<!--  saveMemberGen -->
 	<insert id="saveMemberGen" parameterClass="MembersGen">
 		INSERT INTO
