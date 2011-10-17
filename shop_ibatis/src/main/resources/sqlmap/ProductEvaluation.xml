@@ -24,14 +24,14 @@
 	<!--  saveProductEvaluation -->
 	<insert id="saveProductEvaluation" parameterClass="ProductEvaluation">
 		INSERT INTO
-		wizJ_banner (PID,USER_ID,USER_NAME,PASSWD,EMAIL,GRADE,SUBJECT,CONTENTS,TXTTYPE,COUNT,IP,W_DATE)
+		wizJ_product_evaluation (PID,USER_ID,USER_NAME,PASSWD,EMAIL,GRADE,SUBJECT,CONTENTS,TXTTYPE,COUNT,IP,W_DATE)
 		VALUES (#pid#, #user_id#, #user_name#, #passwd#, #email#, #grade#, #subject#, #contents#, #txttype#, #count#, #ip#, #w_date#)
 	</insert>
 
 	<!--  updateProductEvaluation -->
 	<update id="updateProductEvaluation" parameterClass="ProductEvaluation">
 		update
-		wizJ_banner set
+		wizJ_product_evaluation set
 		PID			= #pid#,
 		USER_ID		= #user_id#,
 		USER_NAME	= #user_name#,
@@ -50,7 +50,7 @@
 	<!--  deleteProductEvaluation -->
 	<delete id="deleteProductEvaluation">
 		delete
-		from wizJ_banner
+		from wizJ_product_evaluation
 		where TID = #tid#
 	</delete>
 </sqlMap>
