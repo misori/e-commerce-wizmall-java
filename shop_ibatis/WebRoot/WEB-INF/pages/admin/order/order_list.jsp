@@ -126,7 +126,7 @@ function gotopage(page){
 						<td><a  href="javascript:openorderwindow(${current.tid})"> ${current.orderid} </a></td>
 						<td class="agn_r"><fmt:formatNumber value="${current.totalamount}" /> 원 </td>
 						<td>${current.paymethod}</td>
-						<td>${current.orderstatus}</td>
+						<td>${OrderStatus[current.orderstatus]}</td>
 						<td><a  href="javascript:getuserInfo('${current.memberid}')">${current.sname}(${current.memberid})</a> </td>
 						<td>${current.stel1}</td>
 						<td><fmt:formatDate value="${current.buydate}" pattern="yyyy.MM.dd" /></td>
