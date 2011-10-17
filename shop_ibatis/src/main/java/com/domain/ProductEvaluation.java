@@ -12,7 +12,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.util.BaseObject;
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class ProductEvaluation extends BaseObject {
 	private static final long serialVersionUID = 1L;
 	public ProductEvaluation() {

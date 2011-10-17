@@ -1,7 +1,5 @@
 package com.domain;
 
-
-
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -15,6 +13,12 @@ import javax.persistence.TemporalType;
 
 import com.util.BaseObject;
 
+
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class Board extends BaseObject {
 
 	private static final long serialVersionUID = 1L;

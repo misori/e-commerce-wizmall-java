@@ -12,7 +12,11 @@ import javax.persistence.TemporalType;
 
 import com.util.BaseObject;
 
-
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class Point  extends BaseObject {
 	private static final long serialVersionUID = 1L;
 	public Point() {

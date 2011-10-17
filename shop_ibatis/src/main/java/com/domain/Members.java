@@ -12,6 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ *
+ * @author Pondol
+ *
+ */
 public class Members implements Serializable {
 	//private static final long serialVersionUID = 1L;
 
