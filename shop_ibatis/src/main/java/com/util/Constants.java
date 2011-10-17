@@ -117,6 +117,7 @@ public class Constants {
 	 */
 	public static TreeMap<Integer, String> OrderStatus(){//HashMap
 		TreeMap<Integer, String> rtn = new TreeMap<Integer, String>();
+		rtn.put(new Integer(0),"주문대기");
 		rtn.put(new Integer(10),"주문접수");
 		rtn.put(new Integer(20),"입금대기");
 		rtn.put(new Integer(30),"입금확인");
@@ -139,6 +140,14 @@ public class Constants {
 		rtn.put("40","히트");
 		rtn.put("50","베스트");
 		rtn.put("60","스페셜");
+		return rtn;
+	}
+
+	public static HashMap<String, String> MemberGrantStatus(){
+		HashMap<String, String> rtn = new HashMap<String, String>();
+		rtn.put("00","탈퇴");
+		rtn.put("03","승인");
+		rtn.put("04","보류");
 		return rtn;
 	}
 

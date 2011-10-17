@@ -79,7 +79,8 @@ public class AdminOrderController {
 		PageNavigation pageNav = new PageNavigation(cp, tc, blockList, blockPage);
 		mav.addObject("pageNav", pageNav.getParams());
 
-
+		//거래상태 가져오기
+		mav.addObject("OrderStatus", Constants.OrderStatus());
 
 
 		params.put("StartRow",Integer.toString(pageNav.getStartRow()));//database limit 절
