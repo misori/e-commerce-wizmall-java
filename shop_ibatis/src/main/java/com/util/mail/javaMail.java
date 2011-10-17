@@ -16,23 +16,27 @@ import org.junit.Test;
 
 public class javaMail {
 	@Test
-	public static void main(String[] args)
+	public void sendMail()
 	{
 		Properties properties = new Properties();
 		properties.put("mail.transport.protocol", "smtp");
-		properties.put("mail.smtp.host", "127.0.0.1");
+		properties.put("mail.smtp.host", "127.0.0.1");//127.0.0.1
 		properties.put("mail.smtp.port", "25");
 
 		Session mailSession = Session.getInstance(properties);
 		Message message = new MimeMessage(mailSession);
 
+		String From			= "master@shop-wiz.com";//메일 보내는 사람
+		String Recipient	= "wangta69@naver.com";//메일 받는 사람
+		String Subject		= "테스트 메일 입니다.";//메일제목
+		String Text			= "테스트 메일 본문입니다.";//메일 내용
 		try {
-			message.setFrom(new InternetAddress("보내는 사람 주소"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("받는 사람 주소"));
+			message.setFrom(new InternetAddress(From));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(Recipient));
 			message.setSentDate(new Date());
-			message.setSubject("메일 제목이 들어갈 부분");
+			message.setSubject(Subject);
 
-			message.setText("메일 내용이 들어갈 부분");
+			message.setText(Text);
 
 			Transport.send(message);
 			System.out.println("E-mail successfully sent!");
