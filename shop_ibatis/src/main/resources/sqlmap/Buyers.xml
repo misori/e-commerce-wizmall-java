@@ -75,8 +75,9 @@
 		<isNull property="s_order" >
 			TID desc
 		</isNull>
-
-		limit $StartRow$, $blockList$
+		<isNotNull property="StartRow" >
+			limit $StartRow$, $blockList$
+		</isNotNull>
 	</select>
 
 	<!-- getBuyerList -->

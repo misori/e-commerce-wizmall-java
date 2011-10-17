@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BannerNamespace">
+	<typeAlias alias="ProductEvaluation" type="com.domain.ProductEvaluation" />
+
+
+	<!-- getProductEvaluationList -->
+	<select id="getProductEvaluationList" resultClass="ProductEvaluation">
+		select * from wizJ_product_evaluation
+	</select>
+
+	<!-- getProductEvaluationListByTid -->
+	<select id="getProductEvaluationListByTid" resultClass="ProductEvaluation">
+		select * from wizJ_product_evaluation where TID = #tid#
+	</select>
+
+	<!-- getProductEvaluationListByPid -->
+	<select id="getProductEvaluationListByPid" resultClass="ProductEvaluation">
+		select * from wizJ_product_evaluation where PID = #pid#
+	</select>
+
+	<!--  saveProductEvaluation -->
+	<insert id="saveProductEvaluation" parameterClass="ProductEvaluation">
+		INSERT INTO
+		wizJ_banner (PID,USER_ID,USER_NAME,PASSWD,EMAIL,GRADE,SUBJECT,CONTENTS,TXTTYPE,COUNT,IP,W_DATE)
+		VALUES (#pid#, #user_id#, #user_name#, #passwd#, #email#, #grade#, #subject#, #contents#, #txttype#, #count#, #ip#, #w_date#)
+	</insert>
+
+	<!--  updateProductEvaluation -->
+	<update id="updateProductEvaluation" parameterClass="ProductEvaluation">
+		update
+		wizJ_banner set
+		PID			= #pid#,
+		USER_ID		= #user_id#,
+		USER_NAME	= #user_name#,
+		PASSWD		= #passwd#,
+		EMAIL		= #email#,
+		GRADE		= #grade#,
+		SUBJECT		= #subject#,
+		CONTENTS	= #contents#,
+		TXTTYPE		= #txttype#,
+		COUNT		= #count#,
+		IP			= #ip#,
+		W_DATE		= #w_date#
+		where TID = #tid#
+	</update>
+
+	<!--  deleteProductEvaluation -->
+	<delete id="deleteProductEvaluation">
+		delete
+		from wizJ_banner
+		where TID = #tid#
+	</delete>
+</sqlMap>

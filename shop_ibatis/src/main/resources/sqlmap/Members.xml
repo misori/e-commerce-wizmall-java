@@ -76,7 +76,9 @@
 			</isNull>
 		</dynamic>
 		order by TID desc
+		<isNotNull property="StartRow" >
 		limit $StartRow$, $blockList$
+		</isNotNull>
 	</select>
 
 	<!--  getMemberPointByUserid -->
@@ -122,7 +124,8 @@
 		USER_EMAIL		= #user_email#,
 		USER_LOGIN_NUM	= #user_login_num#,
 		USER_LOGIN_DATE	= #user_login_date#,
-		USER_LOGIN_IP	= #user_login_ip#
+		USER_LOGIN_IP	= #user_login_ip#,
+		USER_GRANTSTA	= #user_grantsta#
 		where TID = #tid#
 	</update>
 
