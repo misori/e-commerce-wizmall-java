@@ -1,6 +1,5 @@
 package com.web.admin;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -89,10 +88,10 @@ public class AdminBasicController {
 	}
 
 	@RequestMapping("/admin/basic/basicInfo_x")
-	public String basicInfo_x(HttpServletRequest request, Principal principal) {
+	public String basicInfo_x(HttpServletRequest request) {//, Principal principal
 
-		final String userId = principal.getName();
-
+		//final String userId = principal.getName();
+		final String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		//기본 관리자 정보 로딩 및 save
 		Members mem =new Members();
 		mem	= membersDAO.getMemberByUserid(userId);
