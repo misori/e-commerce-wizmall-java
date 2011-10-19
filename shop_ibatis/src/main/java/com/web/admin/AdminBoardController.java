@@ -138,7 +138,6 @@ public class AdminBoardController {
 		mapGenderBoundary.put("W","여성전용");
 
 		//스킨폴더정보를 입력한다.
-
 		String Path				= Constants.AbsolutePath+"../WEB-INF/pages/board/skins";
 		File f = new File(Path);
 		String[] skinfolder = f.list();
