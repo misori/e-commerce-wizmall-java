@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AccountNamespace">
+	<typeAlias alias="VisitMain" type="com.domain.VisitMain" />
+
+	<!-- getVisitMainList -->
+	<select id="getVisitMainList"  resultClass="VisitMain">
+		select * from wizJ_visit_main order by TID asc
+	</select>
+
+	<!--  getVisitMainByTid -->
+	<select id="getVisitMainByTid"  resultClass="VisitMain">
+		select * from wizJ_visit_main where TID = #tid#
+	</select>
+
+	<!--  saveVisitMain -->
+	<insert id="saveVisitMain" parameterClass="VisitMain">
+		INSERT INTO
+		wizJ_visit_main (W_DATE,UNIQUE_COUNTER,PAGEVIEW)
+		VALUES (#w_date#, #unique_counter#, #pageview#)
+	</insert>
+
+	<!--  updateVisitMain-->
+	<update id="updateVisitMain" parameterClass="VisitMain">
+		update
+		wizJ_visit_main set
+		W_DATE			= #w_date#,
+		UNIQUE_COUNTER	= #unique_counter#,
+		PAGEVIEW		= #pageview#
+		where TID 		= #tid#
+	</update>
+
+	<!--  deleteVisitMain -->
+	<delete id="deleteVisitMain">
+		delete
+		from wizJ_visit_main
+		where TID = #tid#
+	</delete>
+</sqlMap>

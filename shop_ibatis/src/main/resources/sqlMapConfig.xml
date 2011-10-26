@@ -23,6 +23,8 @@
 	<sqlMap resource="sqlmap/ProductImage.xml" />
 	<sqlMap resource="sqlmap/ProductEvaluation.xml" />
 	<sqlMap resource="sqlmap/Zipcode.xml" />
+	<sqlMap resource="sqlmap/VisitMain.xml" />
+	<sqlMap resource="sqlmap/VisitReferer.xml" />
 	<!--
 
 	<sqlMap resource="classpath:WEB-INF/sqlmap/Product.xml" />
