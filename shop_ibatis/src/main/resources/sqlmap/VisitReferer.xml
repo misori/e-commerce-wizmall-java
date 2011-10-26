@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AccountNamespace">
+	<typeAlias alias="VisitReferer" type="com.domain.VisitReferer" />
+
+	<!-- getVisitRefererList -->
+	<select id="getVisitRefererList"  resultClass="VisitReferer">
+		select * from wizJ_visit_referer order by TID asc
+	</select>
+
+	<!--  getVisitRefererByTid -->
+	<select id="getVisitRefererByTid"  resultClass="VisitReferer">
+		select * from wizJ_visit_referer where TID = #tid#
+	</select>
+
+	<!--  saveVisitReferer -->
+	<insert id="saveVisitReferer" parameterClass="VisitReferer">
+		INSERT INTO
+		wizJ_visit_referer (W_DATE,HIT,REFERER,IP)
+		VALUES (#w_date#, #hit#, #referer#, #ip#)
+	</insert>
+
+	<!--  updateVisitReferer-->
+	<update id="updateVisitReferer" parameterClass="VisitReferer">
+		update
+		wizJ_visit_referer set
+		W_DATE	= #w_date#,
+		HIT		= #hit#,
+		REFERER	= #referer#,
+		IP	= #ip#
+		where TID = #tid#
+	</update>
+
+	<!--  deleteVisitReferer -->
+	<delete id="deleteVisitReferer">
+		delete
+		from wizJ_visit_referer
+		where TID = #tid#
+	</delete>
+</sqlMap>
