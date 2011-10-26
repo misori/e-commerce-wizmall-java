@@ -80,6 +80,18 @@ public class VisitReferer extends BaseObject {
 		return this.referer;
 	}
 
+	/**
+	 * IP : ip
+	 */
+	@Column(name = "IP", length = 15, nullable = true)
+	@Basic(fetch = FetchType.EAGER)
+	String ip;
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public String getIp() {
+		return this.ip;
+	}
 
 
 }
