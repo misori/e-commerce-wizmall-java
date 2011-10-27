@@ -15,6 +15,14 @@
 		select * from wizJ_visit_referer where TID = #tid#
 	</select>
 
+	<!--  getVisitRefererByDateIp -->
+	<select id="getVisitRefererByDateIp"  resultClass="VisitReferer">
+		select * from wizJ_visit_referer
+		where DATE_FORMAT(W_DATE, '%Y%m%d') = DATE_FORMAT(#w_date#, '%Y%m%d') and IP = #ip#
+		limit 0, 1
+	</select>
+
+
 	<!--  saveVisitReferer -->
 	<insert id="saveVisitReferer" parameterClass="VisitReferer">
 		INSERT INTO
