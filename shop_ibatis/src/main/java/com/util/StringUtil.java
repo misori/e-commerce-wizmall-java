@@ -182,5 +182,10 @@ public class StringUtil {
     	}else return 0;
     }
 
+    public String intTostr(Integer i){
+    	if(i != null){
+    		return Integer.toString(i);
+    	}else return "0";
+    }
 
 }

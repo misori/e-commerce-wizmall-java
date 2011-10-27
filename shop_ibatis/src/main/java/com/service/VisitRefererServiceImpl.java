@@ -35,6 +35,12 @@ public class VisitRefererServiceImpl implements VisitRefererService{
 		return visitRefererDAO.getVisitReferer(visitReferer);
 	}
 
+
+	public VisitReferer countVisitRefererByHour(String hour)
+			throws DataAccessException {
+		return visitRefererDAO.countVisitRefererByHour(hour);
+	}
+
 	public void saveVisitReferer(VisitReferer visitReferer) {
 		VisitReferer is_visitReferer	= visitRefererDAO.getVisitRefererByTid(visitReferer.getTid());
 
@@ -55,6 +61,8 @@ public class VisitRefererServiceImpl implements VisitRefererService{
 		// TODO Auto-generated method stub
 
 	}
+
+
 
 
 

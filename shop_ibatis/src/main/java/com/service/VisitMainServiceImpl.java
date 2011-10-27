@@ -25,8 +25,19 @@ public class VisitMainServiceImpl implements VisitMainService{
 	}
 
 	public List<VisitMain> getVisitMainList() throws DataAccessException {
-		// TODO Auto-generated method stub
 		return visitMainDAO.getVisitMainList();
+	}
+
+	public VisitMain getVisitMainTotal() throws DataAccessException {
+		return visitMainDAO.getVisitMainTotal();
+	}
+
+	public VisitMain getVistMainMax() throws DataAccessException {
+		return visitMainDAO.getVistMainMax();
+	}
+
+	public VisitMain getVistMainMin() throws DataAccessException {
+		return visitMainDAO.getVistMainMin();
 	}
 
 	public VisitMain getVistMainByDate(Date date) throws DataAccessException{
@@ -54,4 +65,6 @@ public class VisitMainServiceImpl implements VisitMainService{
 		visitMainDAO.deleteVisitMain(tid);
 
 	}
+
+
 }

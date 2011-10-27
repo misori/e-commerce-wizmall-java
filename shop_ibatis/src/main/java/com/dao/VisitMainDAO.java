@@ -11,6 +11,9 @@ public interface VisitMainDAO {
 	public List<VisitMain> getVisitMainList() throws DataAccessException;
 	public VisitMain getVisitMainByTid(Integer tid) throws DataAccessException;
 	public VisitMain getVistMainByDate(Date date) throws DataAccessException;
+	public VisitMain getVisitMainTotal() throws DataAccessException;
+	public VisitMain getVistMainMax() throws DataAccessException;
+	public VisitMain getVistMainMin() throws DataAccessException;
 	/**
 	 * 데이타를 저장
 	 */

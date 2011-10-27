@@ -25,6 +25,7 @@ import com.util.Constants;
 import com.util.Serialization;
 import com.web.admin.AdminBasicController;
 
+
 @Controller
 public class DefaultController {
 
@@ -58,45 +59,6 @@ public class DefaultController {
 	public ModelAndView mainView(HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
-		/*
-		//System.out.println("referer:"+request.getHeader("referer"));
-		System.out.println("SERVER_NAME         :"+request.getServerName());
-		System.out.println("SERVER_SOFTWARE     :"+request.getScheme());
-		System.out.println("SERVER_PROTOCOL     :"+request.getProtocol());
-		System.out.println("SERVER_PORT         :"+request.getServerPort());
-		System.out.println("REQUEST_METHOD      :"+request.getMethod());
-		System.out.println("PATH_INFO           :"+request.getPathInfo());
-		System.out.println("PATH_TRANSLATED     :"+request.getPathTranslated());
-		System.out.println("SCRIPT_NAME         :"+request.getServletPath());
-		System.out.println("QUERY_STRING        :"+request.getQueryString());
-		System.out.println("REMOTE_HOST         :"+request.getRemoteHost());
-		System.out.println("REMOTE_ADDR         :"+request.getRemoteAddr());
-		System.out.println("AUTH_TYPE           :"+request.getAuthType());
-		System.out.println("REMOTE_USER         :"+request.getRemoteUser());
-		System.out.println("CONTENT_TYPE        :"+request.getContentType());
-		System.out.println("CONTENT_LENGTH      :"+request.getContentLength());
-		System.out.println("HTTP_ACCEPT         :"+request.getHeader("Accept"));
-		System.out.println("Proxy-Client-IP     :"+request.getHeader("Proxy-Client-IP"));
-		System.out.println("HTTP_USER_AGENT     :"+request.getHeader("User-Agent"));
-		System.out.println("HTTP_REFERER        :"+request.getHeader("Referer"));
-
-		System.out.println("REMOTEADDR        :"+request.getRemoteAddr().toString());
-		//IPv6형식 이클립스 > Run > Run Configuration > Arguments > -Djava.net.preferIPv4Stack=true
-		//localhost 대신에 다른 경로를 잡아주면 정상적으로 출력된다.
-		String clientIP = request.getHeader("Proxy-Client-IP");
-		if(clientIP == null){
-			clientIP = request.getHeader("WL-Proxy-Client-IP");
-			if(clientIP == null){
-				clientIP = request.getHeader("X-Forwared-For");
-				if(clientIP == null){
-					//clientIP = request.getCl
-				}
-			}
-		}
-
-		System.out.println("clientIP        :"+clientIP);
-
-*/
 
 		//로그 카운트를 남김
 		saveVistCount(request);
