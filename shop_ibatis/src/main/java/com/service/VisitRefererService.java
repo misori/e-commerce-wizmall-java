@@ -11,6 +11,7 @@ public interface VisitRefererService {
 	public List<VisitReferer> getVisitRefererList() throws DataAccessException;
 	public VisitReferer getVisitRefererByTid(Integer tid) throws DataAccessException;
 	public VisitReferer getVisitReferer(VisitReferer visitReferer) throws DataAccessException;
+	public VisitReferer countVisitRefererByHour(String hour) throws DataAccessException;
 	/**
 	 * 데이타를 저장
 	 */

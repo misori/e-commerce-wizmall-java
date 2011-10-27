@@ -44,6 +44,26 @@ public class VisitMainDAOImpl extends SqlMapClientDaoSupport implements VisitMai
 		//return null;
 	}
 
+
+	public VisitMain getVisitMainTotal() throws DataAccessException {
+		VisitMain visitMain = (VisitMain)getSqlMapClientTemplate().queryForObject("getVisitMainTotal");
+		return visitMain;
+	}
+
+
+
+	public VisitMain getVistMainMax() throws DataAccessException {
+		VisitMain visitMain = (VisitMain)getSqlMapClientTemplate().queryForObject("getVistMainMax");
+		return visitMain;
+	}
+
+
+
+	public VisitMain getVistMainMin() throws DataAccessException {
+		VisitMain visitMain = (VisitMain)getSqlMapClientTemplate().queryForObject("getVistMainMin");
+		return visitMain;
+	}
+
 	public void saveVisitMain(VisitMain visitMain) {
 		getSqlMapClientTemplate().insert("saveVisitMain", visitMain);
 
@@ -58,6 +78,9 @@ public class VisitMainDAOImpl extends SqlMapClientDaoSupport implements VisitMai
 		getSqlMapClientTemplate().delete("deleteVisitMain", tid);
 
 	}
+
+
+
 
 
 

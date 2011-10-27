@@ -81,4 +81,33 @@ public class VisitMain  extends BaseObject {
 		return this.pageview;
 	}
 
+	// 아래는 프로그램상 필요한 추가 필드
+	/*
+	 * COUNT1 :
+	 */
+
+	Integer count1;
+	public void setCount1(Integer count1) {
+		this.count1 = count1;
+	}
+
+	public Integer getCount1() {
+		return this.count1;
+	}
+
+	/*
+	 * COUNT2 :
+	 */
+
+	Integer count2;
+
+	public void setCount2(Integer count2) {
+		this.count2 = count2;
+	}
+
+	public Integer getCount2() {
+		return this.count2;
+	}
+
+
 }
