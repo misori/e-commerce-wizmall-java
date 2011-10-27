@@ -83,7 +83,7 @@ public class VisitReferer extends BaseObject {
 	/**
 	 * IP : ip
 	 */
-	@Column(name = "IP", length = 15, nullable = true)
+	@Column(name = "IP", length = 40, nullable = true)
 	@Basic(fetch = FetchType.EAGER)
 	String ip;
 	public void setIp(String ip) {
