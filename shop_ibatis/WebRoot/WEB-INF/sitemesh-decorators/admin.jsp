@@ -53,6 +53,7 @@
 		<a href="${pageContext.request.contextPath}/admin/order/orderList.do" class="topnavigation">주문배송관리</a>
 		<a href="${pageContext.request.contextPath}/admin/board/boardManageList.do" class="topnavigation">보드관리</a>
         <a href="${pageContext.request.contextPath}/admin/category.do" class="topnavigation">카테고리관리</a>
+		<a href="${pageContext.request.contextPath}/admin/visit/visit.do" class="topnavigation">방문자통계</a>
 	</div>
 </div>
 

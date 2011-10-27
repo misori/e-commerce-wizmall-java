@@ -15,21 +15,21 @@ $(function(){
 </script>
 </head>
 <body>
-
+<a href="${pageContext.request.contextPath}/">링크 </a>
 <div class="space5"></div>
 <div id="main_top_banner">
-<c:forEach var="j" items="${banner}"> 
+<c:forEach var="j" items="${banner}">
 	<c:if test="${j.key == 30}">
-		<c:forEach var="k" items="${j.value}"> 
+		<c:forEach var="k" items="${j.value}">
 			<img src="${pageContext.request.contextPath}/data/banner/${k.attached}">
 		</c:forEach>
 	</c:if>
 </c:forEach>
 </div>
 <ul class="main_center_banner">
-	<c:forEach var="j" items="${banner}"> 
+	<c:forEach var="j" items="${banner}">
 		<c:if test="${j.key == 40}">
-			<c:forEach var="k" items="${j.value}"> 
+			<c:forEach var="k" items="${j.value}">
 		<li><img src="${pageContext.request.contextPath}/data/banner/${k.attached}"></li>
 			</c:forEach>
 		</c:if>
