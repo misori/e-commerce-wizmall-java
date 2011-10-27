@@ -1,7 +1,6 @@
 package com.web.admin;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,10 +34,6 @@ public class AdminController {
 	@RequestMapping("/admin")
 	public ModelAndView viewBoard(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		//HttpSession session = request.getSession();
-		//session.
-		//session.getValue("session-userid");
-		//System.out.println();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/main.jsp");
 		return mav;
@@ -53,7 +48,6 @@ public class AdminController {
 
 		parseURL.parseURL(request.getRequestURL().toString());
 		String urlpath	= parseURL.getPath();
-		//System.out.println("urlpath:"+urlpath);
 
 		String setLeftMenu = "menu0";
 		if(sutil.strstr(urlpath, "/admin/basic") != -1){
@@ -69,7 +63,7 @@ public class AdminController {
 		}else if(sutil.strstr(urlpath, "/admin/board") != -1){
 			List<BoardMain>	mainList	= boardMainService.getBoardMainJoinBoardGroupList();
 			Iterator<BoardMain> itr = mainList.iterator();
-			//ArrayList<String> gnameList = new ArrayList<String>();
+
 			HashMap<String, String> op = new HashMap<String, String>();
 			op.put("owner", "admin");
 			BoardUtil boardUtil	= new BoardUtil();
@@ -77,7 +71,7 @@ public class AdminController {
 			mav.addObject("opFlag", opFlag);
 
 			HashMap<String, String> gnameList = new HashMap<String, String>();
-			//BoardMain boardmain	= new BoardMain();
+
 	        while(itr.hasNext() == true){
 	        	BoardMain boardmain	= itr.next();
 	        	gnameList.put(boardmain.getG_name(), boardmain.getG_name());//한번의 query로 unique한 값을 얻기위해 약간 편법 사용
@@ -86,6 +80,8 @@ public class AdminController {
 	        mav.addObject("mainList", mainList);
 	        mav.addObject("gnameList", gnameList);
 			setLeftMenu = "menu7";
+		}else if(sutil.strstr(urlpath, "/admin/visit") != -1){
+			setLeftMenu = "menu8";
 		}
 
 
