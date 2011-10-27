@@ -56,7 +56,7 @@ function loadbankList(){
 							<table class="table_sub">
 								<tr>
 									<th>결제시스템 업체</th>
-									<td><SELECT name=CARD_PACK>
+									<td><select name="CARD_PACK">
 <?
 $skskin_dir = opendir("../skinwiz/cardmodule");
         while($skskdir = readdir($skskin_dir)) {
@@ -71,7 +71,7 @@ $skskin_dir = opendir("../skinwiz/cardmodule");
         }
 closedir($skskin_dir);
 ?>
-										</SELECT>
+										</select>
 									</td>
 								</tr>
 								<tr>
