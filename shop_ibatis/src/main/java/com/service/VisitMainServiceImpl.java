@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class VisitMainServiceImpl implements VisitMainService{
 		return visitMainDAO.getVisitMainList();
 	}
 
+	public VisitMain getVistMainByDate(Date date) throws DataAccessException{
+		// TODO Auto-generated method stub
+		return visitMainDAO.getVistMainByDate(date);
+	}
+
 	public void saveVisitMain(VisitMain visitMain) {
 		VisitMain is_visitMain	= visitMainDAO.getVisitMainByTid(visitMain.getTid());
 
@@ -40,7 +46,7 @@ public class VisitMainServiceImpl implements VisitMainService{
 	}
 
 	public void updateVisitMain(VisitMain visitMain) {
-		// TODO Auto-generated method stub
+		visitMainDAO.updateVisitMain(visitMain);
 
 	}
 

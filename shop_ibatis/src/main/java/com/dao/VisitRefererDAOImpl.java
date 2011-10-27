@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -36,6 +37,13 @@ public class VisitRefererDAOImpl extends SqlMapClientDaoSupport implements Visit
 		return visitReferer;
 	}
 
+	public VisitReferer getVisitReferer(VisitReferer visitReferer)
+		throws DataAccessException {
+		System.out.println(visitReferer);
+		VisitReferer new_visitReferer = (VisitReferer)getSqlMapClientTemplate().queryForObject("getVisitRefererByDateIp", visitReferer);
+		return new_visitReferer;
+	}
+
 	public void saveVisitReferer(VisitReferer visitReferer) {
 		getSqlMapClientTemplate().insert("saveVisitReferer", visitReferer);
 
@@ -50,4 +58,8 @@ public class VisitRefererDAOImpl extends SqlMapClientDaoSupport implements Visit
 		getSqlMapClientTemplate().delete("deleteVisitReferer", tid);
 
 	}
+
+
+
+
 }

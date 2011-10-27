@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -35,6 +36,14 @@ public class VisitMainDAOImpl extends SqlMapClientDaoSupport implements VisitMai
 		return visitMain;
 	}
 
+
+	public VisitMain getVistMainByDate(Date date) throws DataAccessException {
+		//System.out.println(date);
+		VisitMain visitMain = (VisitMain)getSqlMapClientTemplate().queryForObject("getVistMainByDate", date);
+		return visitMain;
+		//return null;
+	}
+
 	public void saveVisitMain(VisitMain visitMain) {
 		getSqlMapClientTemplate().insert("saveVisitMain", visitMain);
 
@@ -49,4 +58,8 @@ public class VisitMainDAOImpl extends SqlMapClientDaoSupport implements VisitMai
 		getSqlMapClientTemplate().delete("deleteVisitMain", tid);
 
 	}
+
+
+
+
 }
