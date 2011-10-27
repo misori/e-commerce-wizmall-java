@@ -38,6 +38,7 @@
   <ul class="leftmenulist">
     <li><a href="${pageContext.request.contextPath}/admin/basic/basicInfo.do">기본환경설정</a></li>
     <li><a href="${pageContext.request.contextPath}/admin/basic/payInfo.do">결제환경 설정</a></li>
+	<li><a href="${pageContext.request.contextPath}/admin/basic/memberInfo.do">회원관리 설정</a></li>
 	<li><a href="${pageContext.request.contextPath}/admin/basic/bannerList.do">베너관리</a></li>
 	<li><a href="${pageContext.request.contextPath}/admin/basic/deliverer.do">택배사관리</a></li>
   </ul>
@@ -197,14 +198,14 @@
 <div id="menu8">
   <div id="title"><img src="${pageContext.request.contextPath}/images/admin/ba_icon01.gif" width="38" height="33" />방문자통계</div>
   <ul class="leftmenulist">
-    <li><a href="./main.php?menushow=menu8&theme=visitor/visitor1&no=1&year=<?=$year?>&month=<?=$month?>&day=<?=$day?>">총방문자통계</a></li>
-    <li><a href="./main.php?menushow=menu8&theme=visitor/visitor1&no=2&year=<?=$year?>&month=<?=$month?>&day=<?=$day?>">금일방문자통계</a></li>
-    <li><a href="./main.php?menushow=menu8&theme=visitor/visitor1&no=3&year=<?=$year?>&month=<?=$month?>&day=<?=$day?>">주간방문자통계</a></li>
-    <li><a href="./main.php?menushow=menu8&theme=visitor/visitor1&no=4&year=<?=$year?>&month=<?=$month?>&day=<?=$day?>">월간방문자통계</a></li>
-    <li><a href="./main.php?menushow=menu8&theme=visitor/visitor1&no=5&year=<?=$year?>&month=<?=$month?>&day=<?=$day?>">년간방문자통계</a></li>
-    <li><a href="./main.php?menushow=menu8&theme=visitor/visitor1&no=6&year=<?=$year?>&month=<?=$month?>&day=<?=$day?>">방문자경로</a></li>
-    <li><a href="./main.php?menushow=menu8&theme=visitor/visitor1&no=9&year=<?=$year?>&month=<?=$month?>&day=<?=$day?>">검색사별</a></li>
-    <li><a href="./main.php?menushow=menu8&theme=visitor/visitor1&no=7&year=<?=$year?>&month=<?=$month?>&day=<?=$day?>">월간방문자경로</a></li>
+    <li><a href="${pageContext.request.contextPath}/admin/visit.do?no=1">총방문자통계</a></li>
+    <li><a href="${pageContext.request.contextPath}/admin/visit.do?no=2">금일방문자통계</a></li>
+    <li><a href="${pageContext.request.contextPath}/admin/visit.do?no=3">주간방문자통계</a></li>
+    <li><a href="${pageContext.request.contextPath}/admin/visit.do?no=4">월간방문자통계</a></li>
+    <li><a href="${pageContext.request.contextPath}/admin/visit.do?no=5">년간방문자통계</a></li>
+    <li><a href="${pageContext.request.contextPath}/admin/visit.do?no=6">방문자경로</a></li>
+    <li><a href="${pageContext.request.contextPath}/admin/visit.do?no=9">검색사별</a></li>
+    <li><a href="${pageContext.request.contextPath}/admin/visit.do?no=7">월간방문자경로</a></li>
   </ul>
 </div>
   </c:when>
