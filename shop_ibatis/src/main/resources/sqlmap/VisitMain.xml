@@ -22,6 +22,28 @@
 		limit 0, 1
 	</select>
 
+	<!--  getVisitMainTotal -->
+	<select id="getVisitMainTotal"  resultClass="VisitMain">
+		select UNIQUE_COUNTER, PAGEVIEW
+		from wizJ_visit_main
+		where TID = 1
+	</select>
+
+	<!--  getVistMainMax -->
+	<select id="getVistMainMax"  resultClass="VisitMain">
+		select max(UNIQUE_COUNTER) as UNIQUE_COUNTER, max(PAGEVIEW) as PAGEVIEW
+		from wizJ_visit_main
+		where TID > 1
+	</select>
+
+	<!--  getVistMainMin -->
+	<select id="getVistMainMin"  resultClass="VisitMain">
+
+		select min(UNIQUE_COUNTER) as UNIQUE_COUNTER, min(PAGEVIEW) as PAGEVIEW
+		from wizJ_visit_main
+		where TID > 1
+	</select>
+
 	<!--  saveVisitMain -->
 	<insert id="saveVisitMain" parameterClass="VisitMain">
 		INSERT INTO
