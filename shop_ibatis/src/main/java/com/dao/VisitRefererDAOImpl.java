@@ -32,14 +32,14 @@ public class VisitRefererDAOImpl extends SqlMapClientDaoSupport implements Visit
 	}
 
 	public VisitReferer getVisitRefererByTid(Integer tid)
-		throws DataAccessException {
+			throws DataAccessException {
 		VisitReferer visitReferer = (VisitReferer)getSqlMapClientTemplate().queryForObject("getVisitRefererByTid", tid);
 		return visitReferer;
 	}
 
 	public VisitReferer getVisitReferer(VisitReferer visitReferer)
-		throws DataAccessException {
-		System.out.println(visitReferer);
+			throws DataAccessException {
+		//System.out.println(visitReferer);
 		VisitReferer new_visitReferer = (VisitReferer)getSqlMapClientTemplate().queryForObject("getVisitRefererByDateIp", visitReferer);
 		return new_visitReferer;
 	}
