@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.dao.VisitRefererDAO;
@@ -29,6 +30,11 @@ public class VisitRefererServiceImpl implements VisitRefererService{
 		return visitRefererDAO.getVisitRefererList();
 	}
 
+	public VisitReferer getVisitReferer(VisitReferer visitReferer)
+			throws DataAccessException {
+		return visitRefererDAO.getVisitReferer(visitReferer);
+	}
+
 	public void saveVisitReferer(VisitReferer visitReferer) {
 		VisitReferer is_visitReferer	= visitRefererDAO.getVisitRefererByTid(visitReferer.getTid());
 
@@ -49,5 +55,7 @@ public class VisitRefererServiceImpl implements VisitRefererService{
 		// TODO Auto-generated method stub
 
 	}
+
+
 
 }

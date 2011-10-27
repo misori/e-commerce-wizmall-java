@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -9,6 +10,7 @@ import com.domain.VisitMain;
 public interface VisitMainDAO {
 	public List<VisitMain> getVisitMainList() throws DataAccessException;
 	public VisitMain getVisitMainByTid(Integer tid) throws DataAccessException;
+	public VisitMain getVistMainByDate(Date date) throws DataAccessException;
 	/**
 	 * 데이타를 저장
 	 */

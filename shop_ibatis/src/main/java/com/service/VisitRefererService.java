@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -9,6 +10,7 @@ import com.domain.VisitReferer;
 public interface VisitRefererService {
 	public List<VisitReferer> getVisitRefererList() throws DataAccessException;
 	public VisitReferer getVisitRefererByTid(Integer tid) throws DataAccessException;
+	public VisitReferer getVisitReferer(VisitReferer visitReferer) throws DataAccessException;
 	/**
 	 * 데이타를 저장
 	 */

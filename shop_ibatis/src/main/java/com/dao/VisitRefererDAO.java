@@ -1,16 +1,18 @@
 package com.dao;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 
 import com.domain.VisitReferer;
-
-import org.springframework.dao.DataAccessException;
 
 
 public interface VisitRefererDAO {
 	public List<VisitReferer> getVisitRefererList() throws DataAccessException;
 	public VisitReferer getVisitRefererByTid(Integer tid) throws DataAccessException;
+	public VisitReferer getVisitReferer(VisitReferer visitReferer) throws DataAccessException;
+
 	/**
 	 * 데이타를 저장
 	 */
