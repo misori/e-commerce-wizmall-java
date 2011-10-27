@@ -22,6 +22,13 @@
 		limit 0, 1
 	</select>
 
+	<!--  countVisitRefererByHour -->
+	<select id="countVisitRefererByHour"  resultClass="VisitReferer">
+		select count(distinct(IP)) as count1 , count(ip) as count2 from wizJ_visit_referer
+		where DATE_FORMAT(W_DATE, '%Y%m%d%H') = #hour#
+
+	</select>
+
 
 	<!--  saveVisitReferer -->
 	<insert id="saveVisitReferer" parameterClass="VisitReferer">
