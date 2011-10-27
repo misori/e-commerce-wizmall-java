@@ -41,7 +41,6 @@ function deleachItem(tid){
 
 
 //아래는 삭제 예정
-
 function gotopage(page){
 	$("#search_box").attr("action", $("#search_box").attr("action")+"&cp="+page);
 	$("#search_box").submit();
