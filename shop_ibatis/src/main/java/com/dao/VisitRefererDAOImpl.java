@@ -50,6 +50,19 @@ public class VisitRefererDAOImpl extends SqlMapClientDaoSupport implements Visit
 		return visitReferer;
 	}
 
+
+	public VisitReferer countVisitRefererByDay(String day)
+			throws DataAccessException {
+		VisitReferer visitReferer = (VisitReferer)getSqlMapClientTemplate().queryForObject("countVisitRefererByDay", day);
+		return visitReferer;
+	}
+
+	public VisitReferer countVisitRefererByMonth(String month)
+			throws DataAccessException {
+		VisitReferer visitReferer = (VisitReferer)getSqlMapClientTemplate().queryForObject("countVisitRefererByMonth", month);
+		return visitReferer;
+	}
+
 	public void saveVisitReferer(VisitReferer visitReferer) {
 		getSqlMapClientTemplate().insert("saveVisitReferer", visitReferer);
 

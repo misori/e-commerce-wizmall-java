@@ -13,6 +13,8 @@ public interface VisitRefererDAO {
 	public VisitReferer getVisitRefererByTid(Integer tid) throws DataAccessException;
 	public VisitReferer getVisitReferer(VisitReferer visitReferer) throws DataAccessException;
 	public VisitReferer countVisitRefererByHour(String hour) throws DataAccessException;
+	public VisitReferer countVisitRefererByDay(String day) throws DataAccessException;
+	public VisitReferer countVisitRefererByMonth(String month) throws DataAccessException;
 
 	/**
 	 * 데이타를 저장
