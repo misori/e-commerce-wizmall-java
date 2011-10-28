@@ -41,6 +41,16 @@ public class VisitRefererServiceImpl implements VisitRefererService{
 		return visitRefererDAO.countVisitRefererByHour(hour);
 	}
 
+	public VisitReferer countVisitRefererByDay(String day)
+			throws DataAccessException {
+		return visitRefererDAO.countVisitRefererByDay(day);
+	}
+
+	public VisitReferer countVisitRefererByMonth(String month)
+			throws DataAccessException {
+		return visitRefererDAO.countVisitRefererByMonth(month);
+	}
+
 	public void saveVisitReferer(VisitReferer visitReferer) {
 		VisitReferer is_visitReferer	= visitRefererDAO.getVisitRefererByTid(visitReferer.getTid());
 
