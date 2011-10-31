@@ -154,50 +154,27 @@ else echo "<option value='$i'>$i</option>\n";
 				<col width="*" />
 				<col width="150px" />
 				<tbody>
-					<?
-  $max1=1;
-  $max2=1;
-  for($i=0;$i<24;$i++)
-  {
-   $time1=mktime($i,0,0,$month,$day,$year);
-   $time2=mktime($i,59,59,$month,$day,$year);
-   $sqlstr = "select distinct(ip) from wizcounter_referer where date>='$time1' and date<='$time2'";
-   $dbcon->_query($sqlstr);
-   $time_count1[$i]=$dbcon->_num_rows();
 
-   $sqlstr = "select ip from wizcounter_referer where date>='$time1' and date<='$time2'";
-   $dbcon->_query($sqlstr);
-   $time_count2[$i]=$dbcon->_num_rows();
 
-   if($max1<$time_count1[$i]) $max1=$time_count1[$i];
-   if($max2<$time_count2[$i]) $max2=$time_count2[$i];
-  }
-
-  for($i=0;$i<24;$i++)
-  {
-   $per1=(int)($time_count1[$i]/$max1*100);
-   $per2=(int)($time_count2[$i]/$max2*100);
-   if($per1>100) $per1=99;
-   if($per2>100) $per2=99;
-?>
+<c:forEach var="current" items="${data}" varStatus="i">
+<c:set var="per_hit"  value="${current.hit/max.max_hit * 100}" />
+<c:set var="per_view"  value="${current.view/max.max_view * 100}" />
+<c:if test="${current.hit == '0'}"><c:set var="per_hit"  value="0" /></c:if>
+<c:if test="${current.view == '0'}"><c:set var="per_view"  value="0" /></c:if>
 					<tr>
 						<td>-
-							<?=$i?>
+							${i.index}
 							시 </td>
 						<td><ul style="text-align:left">
-								<li  ratio="<?=$per1?>" class="uniquebar" alt='<?=$i?>시 방문자 : <?=$time_count1[$i]?>'></li>
-								<li  ratio="<?=$per2?>" class="pageviewbar" alt='<?=$i?>시 페이지뷰 : <?=$time_count2[$i]?>'></li>
+								<li  ratio="${per_hit}" class="uniquebar" alt='${i.index}시 방문자 : ${current.hit}'></li>
+								<li  ratio="${per_view}" class="pageviewbar" alt='${i.index}시 페이지뷰 : ${current.view} '></li>
 							</ul></td>
-						<td>&nbsp; Unique :
-							<?=$time_count1[$i]?>
+						<td> Unique : ${current.hit}
 							<br />
-							&nbsp;&nbsp;PageView :
-							<?=$time_count2[$i]?>
-							&nbsp; </td>
+							 PageView : ${current.view}
+						</td>
 					</tr>
-					<?
-  } /* for($i=0;$i<24;$i++)문 닫음 */
-?>
+</c:forEach>
 				</tbody>
 			</table>
 </c:when>
@@ -227,49 +204,40 @@ $w = date(w, mktime(0,0,0,$month, $day, $year));
 				<col width="*" />
 				<col width="150px" />
 				<tbody>
-					<?
-  $max1=1;
-  $max2=1;
-  for($i=0;$i<7;$i++)
-  {
-   $time=mktime(0,0,0,$month,$day-$w+$i,$year);
-	$md[$i] = date("m월 d일", $time);
-   $temp=$dbcon->_fetch_array($dbcon->_query("select unique_counter, pageview from wizcounter_main where date='$time'"));
-   $time_count1[$i]=$temp[0];
-   if($max1<$time_count1[$i]) $max1=$time_count1[$i];
-   $time_count2[$i]=$temp[1];
-   if($max2<$time_count2[$i]) $max2=$time_count2[$i];
-  }
-  $week=array("일요일","월요일","화요일","수요일","목요일","금요일","토요일");
-  for($i=0;$i<7;$i++)
-  {
-   $per1=(int)($time_count1[$i]/$max1*100);
-   $per2=(int)($time_count2[$i]/$max2*100);
-   if($per1>100)$per1=100;
-   if($per2>100)$per2=100;
-?>
+<c:forEach var="current" items="${data}" varStatus="i">
+<c:set var="per_hit"  value="${current.hit/max.max_hit * 100}" />
+<c:set var="per_view"  value="${current.view/max.max_view * 100}" />
+<c:if test="${current.hit == '0'}"><c:set var="per_hit"  value="0" /></c:if>
+<c:if test="${current.view == '0'}"><c:set var="per_view"  value="0" /></c:if>
+<c:choose>
+       <c:when test="${i.index == 0}"><c:set var="week"  value="월요일" /></c:when>
+       <c:when test="${i.index == 1}"><c:set var="week"  value="월요일" /></c:when>
+       <c:when test="${i.index == 2}"><c:set var="week"  value="화요일" /></c:when>
+	   <c:when test="${i.index == 3}"><c:set var="week"  value="수요일" /></c:when>
+	   <c:when test="${i.index == 4}"><c:set var="week"  value="목요일" /></c:when>
+	   <c:when test="${i.index == 5}"><c:set var="week"  value="금요일" /></c:when>
+	   <c:when test="${i.index == 6}"><c:set var="week"  value="토요일" /></c:when>
+       <c:otherwise></c:otherwise>
+   </c:choose>
 					<tr>
 						<td>-
-							<?=$week[$i]?>
+
+   ${week}
 							(
 							<?=$md[$i]?>
 							) </td>
 						<td><div>
 								<ul style="text-align:left">
-									<li ratio="<?=$per1?>" class="uniquebar" alt='<?=$week[$i]?> 방문자수 : <?=$time_count1[$i]?>'></li>
-									<li ratio="<?=$per2?>"  class="pageviewbar" alt='<?=$week[$i]?> 페이지뷰 : <?=$time_count2[$i]?>'></li>
+									<li ratio="${per_hit}" class="uniquebar" alt='${week} 방문자수 : ${current.hit}'></li>
+									<li ratio="${per_view}"  class="pageviewbar" alt='${week} 페이지뷰 : ${current.view}'></li>
 								</ul>
 							</div></td>
-						<td>&nbsp; Unique :
-							<?=$time_count1[$i]?>
+						<td> Unique : ${current.hit}
 							<br />
-							&nbsp; PageView :
-							<?=$time_count2[$i]?>
+							  PageView : ${current.view}
 						</td>
 					</tr>
-					<?
-  }/* for($i=0;$i<7;$i++) */
-?>
+</c:forEach>
 				</tbody>
 			</table>
 </c:when>
@@ -298,34 +266,28 @@ elseif($no=="4"):
 				<col width="*" />
 				<col width="150px" />
 				<tbody>
-					<?
-  // 이번달 카운터 (각각)
-  $max=$dbcon->_fetch_array($dbcon->_query("select max(unique_counter), max(pageview) from wizcounter_main where date>='$month_start' and date<='$lastdate'"));
-  $month_counter=$dbcon->_query("select date, unique_counter, pageview from wizcounter_main where date>='$month_start' and date<='$lastdate'");
-  while($data=$dbcon->_fetch_array($month_counter)):
-   $per1=(int)($data[unique_counter]/$max[0]*100);
-   $per2=(int)($data[pageview]/$max[1]*100);
-?>
+<c:forEach var="current" items="${data}" varStatus="i">
+<c:set var="per_hit"  value="${current.hit/max.max_hit * 100}" />
+<c:set var="per_view"  value="${current.view/max.max_view * 100}" />
+<c:if test="${current.hit == '0'}"><c:set var="per_hit"  value="0" /></c:if>
+<c:if test="${current.view == '0'}"><c:set var="per_view"  value="0" /></c:if>
+
 					<tr>
 						<td>-
-							<?=date("d 일",$data[date])?>
+							${i.index + 1}일
 						</td>
 						<td><div>
 								<ul style="text-align:left">
-									<li ratio="<?=$per1?>" class="uniquebar" alt='Unique : <?=$data[unique_counter]?>'></li>
-									<li ratio="<?=$per2?>" class="pageviewbar" alt='PageView : <?=$data[pageview]?>'></li>
+									<li ratio="${per_hit}" class="uniquebar" alt='Unique : ${current.hit}'></li>
+									<li ratio="${per_view}" class="pageviewbar" alt='PageView : ${current.view}'></li>
 								</ul>
 							</div></td>
-						<td>&nbsp; Unique :
-							<?=$data[unique_counter]?>
+						<td>Unique : ${current.hit}
 							<br />
-							&nbsp; PageView :
-							<?=$data[pageview]?>
+							  PageView : ${current.view}
 						</td>
 					</tr>
-					<?
-  endwhile;
-?>
+</c:forEach>
 				</tbody>
 			</table>
 </c:when>
@@ -353,61 +315,26 @@ elseif($no=="5"):
 				<col width="*" />
 				<col width="150px" />
 				<tbody>
-					<?
-  // 이번달 카운터 (각각)
-$max1=1;
-  $max2=1;
-  for($i=0;$i<7;$i++)
-  {
-   $time=mktime(0,0,0,$month,$start_day+$i,$year);
-   $temp=$dbcon->_fetch_array($dbcon->_query("select unique_counter, pageview from wizcounter_main where date='$time'"));
-   $time_count1[$i]=$temp[0];
-   if($max1<$time_count1[$i]) $max1=$time_count1[$i];
-   $time_count2[$i]=$temp[1];
-   if($max2<$time_count2[$i]) $max2=$time_count2[$i];
-  }
-  $max=1;
-  $max2=1;
-  for($i=0;$i<12;$i++)
-  {
-   $sdate=mktime(0,0,0,$i+1,1,$year);
-   $edate=mktime(0,0,-1,$i+2,1,$year);
-   $year_counter=$dbcon->_query("select sum(unique_counter), sum(pageview) from wizcounter_main where date>='$sdate' and date<='$edate'");
-   $temp=$dbcon->_fetch_array($year_counter);
-   $time_count1[$i]=$temp[0];
-   if($max1<$time_count1[$i]) $max1=$time_count1[$i];
-   $time_count2[$i]=$temp[1];
-   if($max2<$time_count2[$i]) $max2=$time_count2[$i];
-  }
-
-  for($i=0;$i<12;$i++)
-  {
-   $per1=(int)($time_count1[$i]/$max1*100);
-   $per2=(int)($time_count2[$i]/$max2*100);
-   if($per1>100)$per1=99;
-   if($per2>100)$per2=99;
-   $j=$i+1;
-?>
+<c:forEach var="current" items="${data}" varStatus="i">
+<c:set var="per_hit"  value="${current.hit/max.max_hit * 100}" />
+<c:set var="per_view"  value="${current.view/max.max_view * 100}" />
+<c:if test="${current.hit == '0'}"><c:set var="per_hit"  value="0" /></c:if>
+<c:if test="${current.view == '0'}"><c:set var="per_view"  value="0" /></c:if>
 					<tr>
-						<td>-
-							<?=$j?>
-							월 </td>
+						<td>- ${i.index + 1} 월
+						</td>
 						<td><div>
 								<ul style="text-align:left">
-									<li ratio="<?=$per1?>" class="uniquebar" alt='<?=$week[$i]?> 방문자수 : <?=$time_count1[$i]?>'></li>
-									<li ratio="<?=$per2?>" class="pageviewbar" alt='<?=$week[$i]?> 페이지뷰 : <?=$time_count2[$i]?>'></li>
+									<li ratio="${per_hit}" class="uniquebar" alt='${i.index + 1}월 방문자수 : ${current.hit}'></li>
+									<li ratio="${per_view}" class="pageviewbar" alt='${i.index + 1}월 페이지뷰 : ${current.view}'></li>
 								</ul>
 							</div></td>
-						<td>&nbsp; Unique :
-							<?=$time_count1[$i]?>
+						<td>Unique : ${current.hit}
 							<br />
-							&nbsp; PageView :
-							<?=$time_count2[$i]?>
+							  PageView : ${current.view}
 						</td>
 					</tr>
-					<?
-  } /* for($i=0;$i<12;$i++) */
-?>
+</c:forEach>
 				</tbody>
 			</table>
 </c:when>
