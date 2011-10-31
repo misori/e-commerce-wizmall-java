@@ -26,7 +26,18 @@
 	<select id="countVisitRefererByHour"  resultClass="VisitReferer">
 		select count(distinct(IP)) as count1 , count(ip) as count2 from wizJ_visit_referer
 		where DATE_FORMAT(W_DATE, '%Y%m%d%H') = #hour#
+	</select>
 
+	<!--  countVisitRefererByDay -->
+	<select id="countVisitRefererByDay"  resultClass="VisitReferer">
+		select count(distinct(IP)) as count1 , count(ip) as count2 from wizJ_visit_referer
+		where DATE_FORMAT(W_DATE, '%Y%m%d') = #day#
+	</select>
+
+	<!--  countVisitRefererByMonth -->
+	<select id="countVisitRefererByMonth"  resultClass="VisitReferer">
+		select count(distinct(IP)) as count1 , count(ip) as count2 from wizJ_visit_referer
+		where DATE_FORMAT(W_DATE, '%Y%m') = #month#
 	</select>
 
 
