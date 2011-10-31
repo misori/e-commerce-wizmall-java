@@ -182,6 +182,19 @@ public class StringUtil {
     	}else return 0;
     }
 
+    /**
+     * 숫자가 null일경우 기본 0으로 세팅
+     * @param i
+     * @return
+     */
+    public int NullToZero(Integer i){
+
+    	if(i == null){
+    		return 0;
+    	}else return i;
+    }
+
+
     public String intTostr(Integer i){
     	if(i != null){
     		return Integer.toString(i);
