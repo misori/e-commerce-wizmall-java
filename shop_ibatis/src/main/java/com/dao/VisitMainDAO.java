@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -14,6 +15,10 @@ public interface VisitMainDAO {
 	public VisitMain getVisitMainTotal() throws DataAccessException;
 	public VisitMain getVistMainMax() throws DataAccessException;
 	public VisitMain getVistMainMin() throws DataAccessException;
+	public VisitMain getVistMainByTerm(HashMap<String, String> day_term) throws DataAccessException;
+	public VisitMain getVistMainByMonth(String date) throws DataAccessException;
+	public VisitMain getVistMainByYear(String date) throws DataAccessException;
+
 	/**
 	 * 데이타를 저장
 	 */
