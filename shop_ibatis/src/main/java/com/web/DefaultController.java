@@ -108,10 +108,8 @@ public class DefaultController {
 			visitMain.setPageview(visitMain.getPageview()+1);
 
 			//Referer에서 오늘날짜 및 IP를 비교하여 Unique_counter 여부를 체크 한다.
-
 			VisitReferer is_visitReferer	= visitRefererService.getVisitReferer(visitReferer);
-
-			if(visitReferer != null) visitMain.setUnique_counter(visitMain.getUnique_counter()+1);
+			if(is_visitReferer == null) visitMain.setUnique_counter(visitMain.getUnique_counter()+1);
 			visitMainService.updateVisitMain(visitMain);
 		}
 
