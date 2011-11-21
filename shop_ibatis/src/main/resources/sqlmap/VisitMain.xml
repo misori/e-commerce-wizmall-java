@@ -7,64 +7,110 @@
 
 	<!-- getVisitMainList -->
 	<select id="getVisitMainList"  resultClass="VisitMain">
+		<![CDATA[
 		select * from wizJ_visit_main order by TID asc
+		]]>
 	</select>
 
 	<!--  getVisitMainByTid -->
 	<select id="getVisitMainByTid"  resultClass="VisitMain">
+		<![CDATA[
 		select * from wizJ_visit_main where TID = #tid#
+		]]>
 	</select>
 
 	<!--  getVistMainByDate -->
 	<select id="getVistMainByDate"  resultClass="VisitMain">
-
+		<![CDATA[
 		select * from wizJ_visit_main where DATE_FORMAT(W_DATE, '%Y%m%d') = DATE_FORMAT(#date#, '%Y%m%d')
 		limit 0, 1
+		]]>
+	</select>
+
+	<!--  getVistMainByTerm -->
+	<select id="getVistMainByTerm"  resultClass="VisitMain">
+		<![CDATA[
+		select sum(UNIQUE_COUNTER) as UNIQUE_COUNTER, sum(PAGEVIEW) as PAGEVIEW
+		from wizJ_visit_main
+		where DATE_FORMAT(W_DATE, '%Y%m%d') between  DATE_FORMAT(#startday#, '%Y%m%d') and DATE_FORMAT(#endday#, '%Y%m%d')
+		]]>
+	</select>
+	<!-- getVistMainByMonth -->
+	<select id="getVistMainByMonth"  resultClass="VisitMain">
+		<![CDATA[
+		select sum(UNIQUE_COUNTER) as UNIQUE_COUNTER, sum(PAGEVIEW) as PAGEVIEW
+		from wizJ_visit_main
+		where DATE_FORMAT(W_DATE, '%Y%m') =  DATE_FORMAT(#date#, '%Y%m')
+		]]>
+	</select>
+
+	<!--  getVistMainByYear -->
+	<select id="getVistMainByYear"  resultClass="VisitMain">
+		<![CDATA[
+		select sum(UNIQUE_COUNTER) as UNIQUE_COUNTER, sum(PAGEVIEW) as PAGEVIEW
+		from wizJ_visit_main
+		where DATE_FORMAT(W_DATE, '%Y') =  DATE_FORMAT(#date#, '%Y')
+		]]>
 	</select>
 
 	<!--  getVisitMainTotal -->
 	<select id="getVisitMainTotal"  resultClass="VisitMain">
+		<![CDATA[
 		select UNIQUE_COUNTER, PAGEVIEW
 		from wizJ_visit_main
 		where TID = 1
+		]]>
 	</select>
 
 	<!--  getVistMainMax -->
 	<select id="getVistMainMax"  resultClass="VisitMain">
+		<![CDATA[
 		select max(UNIQUE_COUNTER) as UNIQUE_COUNTER, max(PAGEVIEW) as PAGEVIEW
 		from wizJ_visit_main
 		where TID > 1
+		]]>
 	</select>
 
 	<!--  getVistMainMin -->
 	<select id="getVistMainMin"  resultClass="VisitMain">
-
+		<![CDATA[
 		select min(UNIQUE_COUNTER) as UNIQUE_COUNTER, min(PAGEVIEW) as PAGEVIEW
 		from wizJ_visit_main
 		where TID > 1
+		]]>
 	</select>
+
+
+
+
 
 	<!--  saveVisitMain -->
 	<insert id="saveVisitMain" parameterClass="VisitMain">
+		<![CDATA[
 		INSERT INTO
 		wizJ_visit_main (W_DATE,UNIQUE_COUNTER,PAGEVIEW)
 		VALUES (#w_date#, #unique_counter#, #pageview#)
+		]]>
 	</insert>
 
 	<!--  updateVisitMain-->
 	<update id="updateVisitMain" parameterClass="VisitMain">
+		<![CDATA[
 		update
 		wizJ_visit_main set
 		W_DATE			= #w_date#,
 		UNIQUE_COUNTER	= #unique_counter#,
 		PAGEVIEW		= #pageview#
 		where TID 		= #tid#
+		]]>
 	</update>
 
 	<!--  deleteVisitMain -->
 	<delete id="deleteVisitMain">
+		<![CDATA[
 		delete
 		from wizJ_visit_main
 		where TID = #tid#
+		]]>
 	</delete>
 </sqlMap>
