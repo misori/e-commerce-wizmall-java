@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -14,6 +15,11 @@ public interface VisitMainService {
 	public VisitMain getVistMainMin() throws DataAccessException;
 	public VisitMain getVisitMainByTid(Integer tid) throws DataAccessException;
 	public VisitMain getVistMainByDate(Date date) throws DataAccessException;
+	public VisitMain getVistMainByTerm(HashMap<String, String> day_term) throws DataAccessException;
+	public VisitMain getVistMainByMonth(String date) throws DataAccessException;
+	public VisitMain getVistMainByYear(String date) throws DataAccessException;
+
+
 	/**
 	 * 데이타를 저장
 	 */
