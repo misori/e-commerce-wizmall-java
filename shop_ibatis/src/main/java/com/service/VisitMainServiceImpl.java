@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,19 @@ public class VisitMainServiceImpl implements VisitMainService{
 		// TODO Auto-generated method stub
 		return visitMainDAO.getVistMainByDate(date);
 	}
+
+	public VisitMain getVistMainByTerm(HashMap<String, String> day_term) throws DataAccessException{
+		return visitMainDAO.getVistMainByTerm(day_term);
+	}
+
+	public VisitMain getVistMainByMonth(String date) throws DataAccessException{
+		return visitMainDAO.getVistMainByMonth(date);
+	}
+
+	public VisitMain getVistMainByYear(String date) throws DataAccessException{
+		return visitMainDAO.getVistMainByYear(date);
+	}
+
 
 	public void saveVisitMain(VisitMain visitMain) {
 		VisitMain is_visitMain	= visitMainDAO.getVisitMainByTid(visitMain.getTid());
