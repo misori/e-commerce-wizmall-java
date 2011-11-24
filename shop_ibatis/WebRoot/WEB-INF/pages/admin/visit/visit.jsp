@@ -8,8 +8,14 @@
 <script  language="JavaScript">
 <!--
 $(function(){
+	$( ".s_date" ).datepicker( {dateFormat:"yy-mm-dd"} );
 	$(".uniquebar").chart({	height:5,bgcolor:"blue"});
 	$(".pageviewbar").chart({	height:5,bgcolor:"red"});
+
+	$(".btn_set_date").click(function(){
+
+		$("#s_form").submit();
+	});
 });
 
 
@@ -41,7 +47,7 @@ li {
 				방문자 로그는 데이타베이스에 상당한 량을 차지하므로 주기적으로 초기화 시켜 주시기 바랍니다.</div>
 			</fieldset>
 			<div class="space20"></div>
-			<form method="post" action="<?=$PHP_SELF?>">
+			<form method="post" id="s_form" action="${pageContext.request.contextPath}/admin/visit/visit.do?no=${params.no}">
 				<input type="hidden" name="no" value="<?=$no?>">
 				<table class="table_main">
 					<tr>
@@ -51,35 +57,8 @@ li {
 							</div></td>
 					</tr>
 					<tr>
-						<td>Year :
-							<select name="year">
-								<?
-$ThisYear = date("Y");
-for($i=${ThisYear};$i>2003;$i--) {
-if($year == $i) echo "<option value='$i' selected>$i</option>\n";
-else echo "<option value='$i'>$i</option>\n";
-}
-?>
-							</select>
-							&nbsp;&nbsp; Month :
-							<select name="month">
-								<?
-for($i=1;$i<=12;$i++) {
-if($month == $i) echo "<option value='$i' selected>$i</option>\n";
-else echo "<option value='$i'>$i</option>\n";
-}
-?>
-							</select>
-							&nbsp; Day :
-							<select name="day">
-								<?
-for($i=1;$i<=31;$i++) {
-if($day == $i) echo "<option value='$i' selected>$i</option>\n";
-else echo "<option value='$i'>$i</option>\n";
-}
-?>
-							</select>
-							<input type=image width=51 src="img/move.gif" align=absMiddle name="image">
+						<td><input type="text" class="w100 s_date" name="s_date" value="${params.s_date}" />
+							<div class="fright"> <span class="button bull btn_set_date"><a>방문자통계보기</a></span></div>
 						</td>
 					</tr>
 				</table>
@@ -130,24 +109,13 @@ else echo "<option value='$i'>$i</option>\n";
 //-->
 			<ul class="ul_normal_list">
 				<li>
-					<?=$month?>
-					월
-					<?=$day?>
-					일 고유방문자수 :
-					<?=$count[today_hit]?>
+					${rtn_date[1]} 월 ${rtn_date[2]} 일 고유방문자수 : ${today.today_hit}
 				</li>
 				<li>
-					<?=$month?>
-					월
-					<?=$day?>
-					일 페이지뷰 :
-					<?=$count[today_view]?>
+					${rtn_date[1]} 월 ${rtn_date[2]} 일 페이지뷰 : ${today.today_view}
 				</li>
 				<li>
-					<?=$month?>
-					월
-					<?=$day?>
-					일 시간대별 고유 방문자 및 페이지뷰수</li>
+					${rtn_date[1]} 월 ${rtn_date[2]} 일 시간대별 고유 방문자 및 페이지뷰수</li>
 			</ul>
 			<table class="table_main">
 				<col width="70px" />
@@ -179,25 +147,15 @@ else echo "<option value='$i'>$i</option>\n";
 			</table>
 </c:when>
 <c:when test="${params.no == '3'}">
-<!--
-// 주간방문자통계
-//-->
-elseif($no=="3"):
-$w = date(w, mktime(0,0,0,$month, $day, $year));
- $start_day=mktime(0,0,0,$month,$day-$w,$year);
- $last_day=mktime(0,0,-1,$month,$day+7-$w,$year);
- $detail=$dbcon->_fetch_array($dbcon->_query("select sum(unique_counter), sum(pageview) from wizcounter_main where date>=$start_day and date<=$last_day"));
- $count[week_hit]=$detail[0];
- $count[week_view]=$detail[1];
-?>
+
 			<ul class="ul_normal_list">
-				<li><? echo date("m월 d일", $start_day);?> ~ <? echo date("m월 d일", $last_day);?> 일 고유 방문자수 :
-					<?=$count[week_hit]?>
+				<li>${day_term.startday} ~ ${day_term.endday} 고유 방문자수 :
+					${WeekTotal.today_hit}
 				</li>
-				<li><? echo date("m월 d일", $start_day);?> ~ <? echo date("m월 d일", $last_day);?> 일 페이지뷰 :
-					<?=$count[week_view]?>
+				<li>${day_term.startday} ~ ${day_term.endday} 일 페이지뷰 :
+					${WeekTotal.today_view}
 				</li>
-				<li><? echo date("m월 d일", $start_day);?> ~ <? echo date("m월 d일", $last_day);?> 일 일자별 고유 방문자 및 페이지뷰수 </li>
+				<li>${day_term.startday} ~ ${day_term.endday} 일 일자별 고유 방문자 및 페이지뷰수 </li>
 			</ul>
 			<table class="table_main">
 				<col width="70px" />
@@ -210,7 +168,7 @@ $w = date(w, mktime(0,0,0,$month, $day, $year));
 <c:if test="${current.hit == '0'}"><c:set var="per_hit"  value="0" /></c:if>
 <c:if test="${current.view == '0'}"><c:set var="per_view"  value="0" /></c:if>
 <c:choose>
-       <c:when test="${i.index == 0}"><c:set var="week"  value="월요일" /></c:when>
+       <c:when test="${i.index == 0}"><c:set var="week"  value="일요일" /></c:when>
        <c:when test="${i.index == 1}"><c:set var="week"  value="월요일" /></c:when>
        <c:when test="${i.index == 2}"><c:set var="week"  value="화요일" /></c:when>
 	   <c:when test="${i.index == 3}"><c:set var="week"  value="수요일" /></c:when>
@@ -245,20 +203,12 @@ $w = date(w, mktime(0,0,0,$month, $day, $year));
 <!--
 // 월간방문자통계
 //-->
-
-elseif($no=="4"):
-  $total_month_counter=$dbcon->_fetch_array($dbcon->_query("select sum(unique_counter), sum(pageview) from wizcounter_main where date>='$month_start' and date<='$lastdate'"));
-?>
 			<ul class="ul_normal_list">
 				<li>
-					<?=$month?>
-					월 방문자수 :
-					<?=$total_month_counter[0]?>
+					${rtn_date[1]}월 방문자수 : ${total.hit}
 				</li>
 				<li>
-					<?=$month?>
-					월 페이지뷰 :
-					<?=$total_month_counter[1]?>
+					${rtn_date[1]}월 페이지뷰 :	${total.view}
 				</li>
 			</ul>
 			<table class="table_main">
@@ -295,19 +245,11 @@ elseif($no=="4"):
 <!--
 // 년간방문자통계
 //-->
-elseif($no=="5"):
-  $year_start=mktime(0,0,0,1,1,$year);
-  $year_last=mktime(23,59,59,12,31,$year);
-  $total_year_counter=$dbcon->_fetch_array($dbcon->_query("select sum(unique_counter), sum(pageview) from wizcounter_main where date>='$year_start' and date<='$year_last' and no <> 1"));
-?>
 			<ul class="ul_normal_list">
 				<li>
-					<?=$year?>
-					년 방문자수 : </li>
+					${rtn_date[0]}년 방문자수 :${total.hit} </li>
 				<li>
-					<?=$year?>
-					년 페이지뷰 :
-					<?=$total_year_counter[1]?>
+					${rtn_date[0]}년 페이지뷰 :${total.view}
 				</li>
 			</ul>
 			<table class="table_main">

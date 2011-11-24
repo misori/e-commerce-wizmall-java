@@ -3,7 +3,7 @@
 <fmt:setBundle basename="bundles.member-resources"/>
 <html>
 <head>
-<title><fmt:message key="member.title"/></title>
+<title>마이페이지</title>
 <script language=javascript src="<c:url value="/js/jquery.plugins/jquery.validator.js"/>"></script>
 
 <script language="javascript">
