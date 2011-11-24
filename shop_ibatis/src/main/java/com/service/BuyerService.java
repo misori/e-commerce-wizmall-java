@@ -64,11 +64,11 @@ public interface BuyerService {
 
 	/**
 	 *
-	 * @param tid
+	 * @param oid
 	 * @return
 	 * @throws DataAccessException
 	 */
-	public Buyers getBuyerByOrderId(String tid) throws DataAccessException;
+	public Buyers getBuyerByOrderId(String oid) throws DataAccessException;
 
 	/**
 	 *
