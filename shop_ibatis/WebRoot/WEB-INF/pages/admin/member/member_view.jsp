@@ -162,7 +162,7 @@ function insertpoint(type){
 		</tr>
 		<tr>
 			<th>로그인</th>
-			<td colspan="3"> 회 </td>
+			<td colspan="3"> ${info.user_login_num} 회 </td>
 		</tr>
 	</table>
 	<table class="table_popmain">
@@ -172,9 +172,9 @@ function insertpoint(type){
 		<col width="*" />
 		<tr>
 			<th>경험치</th>
-			<td><a href="javascript:getpointInfo('<?=$id?>', 1)"></a></td>
+			<td><a href="javascript:getpointInfo('${info.user_id}', 1)"></a></td>
 			<th>머니</th>
-			<td><a href="javascript:getpointInfo('<?=$id?>', 1)"><span id="point_str"></span> POINT</a></td>
+			<td><a href="javascript:getpointInfo('${info.user_id}', 1)"><span id="point_str"></span> POINT</a></td>
 		</tr>
 		<tr>
 			<th>사유</th>

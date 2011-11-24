@@ -82,8 +82,8 @@ function getDeliveryStatus(targeturl, arg, argvalue, method){//리스트에서 �
 		<td class="agn_c">${current.paymethod}</td>
 		<td class="agn_c">${current.orderstatus}</td>
 		<td class="agn_c"><fmt:formatDate value="${current.buydate}" pattern="yyyy.MM.dd" /></td>
-		<td class="agn_c"><input type="button" name="button" id="button" value="상세내역" style="cursor:pointer" onclick="gotoOrderInfo(''${current.orderid}')"></td>
-		<td class="agn_c"><input type="button" name="button2" id="button2" value="결제" style="cursor:pointer" onclick="Repay(''${current.orderid}')">
+		<td class="agn_c"><input type="button" name="button" id="button" value="상세내역" style="cursor:pointer" onclick="gotoOrderInfo('${current.orderid}')"></td>
+		<td class="agn_c"><input type="button" name="button2" id="button2" value="결제" style="cursor:pointer" onclick="Repay('${current.orderid}')">
 		</td>
 	</tr>
 </c:forEach>
