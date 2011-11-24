@@ -141,7 +141,7 @@ public class AdminOrderController {
 		mav.addObject("deliverer", delivererDAO.getAllDelivererList());
 
 
-		System.out.println(mav);
+		//System.out.println(mav);
 		mav.setViewName("admin/order/order_view.jsp");
 		return mav;
 	}

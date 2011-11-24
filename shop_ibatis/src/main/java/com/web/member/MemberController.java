@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,7 +76,7 @@ public class MemberController {
 				result		= "false";
 			}
 			request.setAttribute("user_id",			user_id);
-			System.out.println("mav"+mav);
+			//System.out.println("mav"+mav);
 		}
 		request.setAttribute("result",			result);
 		mav.setViewName("member/member_idcheck.jsp");
@@ -91,7 +92,7 @@ public class MemberController {
 
 		//DateTimeUtil dateTime = new DateTimeUtil();
 		String curYear	= DateTimeUtil.getDateTimeByPattern("yyyy");
-		System.out.println("curYear:"+curYear);
+		//System.out.println("curYear:"+curYear);
 		request.setAttribute("curYear",			curYear);
 		request.setAttribute("MobileNum", Constants.MobileNum);
 		request.setAttribute("PhoneNum", Constants.PhoneNum);
@@ -177,7 +178,7 @@ public class MemberController {
 	  */
 	 @RequestMapping("/member/memberLogin_x")
 	 public void memberLogin_x(@ModelAttribute Members loginForm, HttpServletRequest request, HttpServletResponse response) throws Exception{
-	 	System.out.println("memberLogin_x");
+	 	//System.out.println("memberLogin_x");
 		Members mem =new Members();
 		String user_id	= loginForm.getUser_id();
 		mem	= membersDAO.getMemberByUserid(user_id);
@@ -231,29 +232,32 @@ public class MemberController {
 	 *  Member Modify Form Display
 	 */
 	 @RequestMapping("/member/member_update")
-		public ModelAndView member_update(HttpServletResponse response, HttpServletRequest request, Principal principal) {
+		public ModelAndView member_update(HttpServletResponse response, HttpServletRequest request) {//, Principal principal
 		 	ModelAndView mav = new ModelAndView();
 		 	//String userId;
-		 	final String userId = principal.getName();
-		 	//final String userId	= principal.
-		 	System.out.println("userId:"+userId);
+		 	String user_id = null;
+		 	if(SecurityContextHolder.getContext().getAuthentication() != null) user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+
+
+		 	//final String user_id	= principal.
+		 	//System.out.println("user_id:"+user_id);
 
 			//기본 인자값 가져오기
 		 	String curYear	= DateTimeUtil.getDateTimeByPattern("yyyy");
-			System.out.println("curYear:"+curYear);
+			//System.out.println("curYear:"+curYear);
 			request.setAttribute("curYear",			curYear);
 			request.setAttribute("MobileNum", Constants.MobileNum);
 			request.setAttribute("PhoneNum", Constants.PhoneNum);
 			request.setAttribute("MailAddress", Constants.MailAddress());
 
 
-			//if(session.getAttribute("session-userid") != null){
-			if(userId != null){
-				//userId	= session.getAttribute("session-userid").toString();
+			//if(session.getAttribute("session-user_id") != null){
+			if(user_id != null){
+				//user_id	= session.getAttribute("session-user_id").toString();
 
 				Members mem =new Members();
-				mem	= membersDAO.getMemberByUserid(userId);
-				//mav.addObject("member", membersDAO.getMemberByUserid(userId));
+				mem	= membersDAO.getMemberByUserid(user_id);
+				//mav.addObject("member", membersDAO.getMemberByUserid(user_id));
 				mav.addObject("member", mem);
 
 				//우편번호
@@ -313,19 +317,19 @@ public class MemberController {
 		String rtn_jumin1, rtn_jumin2;
 
 		if(smode.equals("idsearch")){//아이디 찾기//이렇게 하면 동일 이름이 있을 경우는 에러가 발생한다.(일단 skip)
-			System.out.println("idsearch start");
+			//System.out.println("idsearch start");
 			Members m	= membersDAO.getMemberByUsername(name.trim());
-			System.out.println("m:"+m);
+			//System.out.println("m:"+m);
 
 			if(m == null){
 				rtn_msg_idsearch = "회원정보를 찾을 수 없습니다.";
 			}else{
 				rtn_jumin1 = Integer.toString(m.getUser_jumin1());
 				rtn_jumin2 = Integer.toString(m.getUser_jumin2());
-				System.out.println("rtn_jumin1:"+rtn_jumin1);
-				System.out.println("rtn_jumin2:"+rtn_jumin2);
-				System.out.println("juminno1.trim():"+juminno1.trim());
-				System.out.println("juminno2.trim():"+juminno2.trim());
+				//System.out.println("rtn_jumin1:"+rtn_jumin1);
+				//System.out.println("rtn_jumin2:"+rtn_jumin2);
+				//System.out.println("juminno1.trim():"+juminno1.trim());
+				//System.out.println("juminno2.trim():"+juminno2.trim());
 
 				if(rtn_jumin1.equals(juminno1) && rtn_jumin2.equals(juminno2)){
 					rtn_msg_idsearch = "회원님의 ID는 "+m.getUser_id()+"입니다.";

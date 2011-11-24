@@ -53,9 +53,8 @@ public class BuyerServiceImpl implements BuyerService {
 	}
 
 
-	public Buyers getBuyerByOrderId(String tid) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+	public Buyers getBuyerByOrderId(String oid) throws DataAccessException {
+		return buyerDAO.getBuyerByOrderId(oid);
 	}
 
 	public Buyers getBuyerByTid(Integer tid) throws DataAccessException {
