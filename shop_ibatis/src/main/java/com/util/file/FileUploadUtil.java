@@ -109,7 +109,8 @@ public class FileUploadUtil {
 			MultipartFile multiFile = mpRequest.getFile((String)fileNameIterator.next());
 			//System.out.println("multiFile.getSize():"+multiFile.getSize());
 			if (multiFile.getSize() > 0) {
-				String realUploadPath = Constants.AbsolutePath+filepath;
+				//String realUploadPath = Constants.AbsolutePath+filepath;//이렇게 하면 일괄적인 것은 좋으나 프로그램상 한계가 발생할 수 있다.
+				String realUploadPath = filepath;
 				//System.out.println("realUploadPath:"+realUploadPath);
 				FileUpload attachFile = uploadFormFile(multiFile,realUploadPath);
 				attachFile.setFileNo(i);
