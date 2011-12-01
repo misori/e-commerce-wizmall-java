@@ -3,6 +3,9 @@ package com.web.member;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,14 +14,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dao.DelivererDAO;
+import com.domain.Billcheck;
 import com.domain.Buyers;
 import com.domain.Members;
 import com.security.CustomUser;
+import com.service.BillcheckService;
 import com.service.BuyerService;
+import com.service.DelivererService;
+import com.util.Constants;
 import com.util.PageNavigation;
 import com.util.StringUtil;
-import com.util.Constants;
 
 
 @Controller
@@ -27,7 +32,11 @@ public class MemberShopController {
 	private BuyerService buyerService;
 
 	@Autowired
-	private DelivererDAO delivererDAO;
+	private DelivererService delivererService;
+
+	@Autowired
+	private BillcheckService billcheckService;
+
 	/**
 	 * 아이디 존재여부 체크 팝업 띄우기
 	 * 현재 이페이지는 관리자단과 동일하게 사용하고 있음. 추후에 분리 예정
@@ -78,36 +87,6 @@ public class MemberShopController {
 	 */
 	@RequestMapping("/member/order_view")
 	public ModelAndView order_view(HttpServletRequest request, Authentication auth) {
-		/*
-		ModelAndView mav	= new ModelAndView();
-		StringUtil stringUtil	= new StringUtil();
-		HashMap<String, String> params = new HashMap<String, String>();
-		Integer cp			= stringUtil.strToint(request.getParameter("cp"));
-		if(cp < 1) cp = 1;
-		Integer blockList	= 10;
-		Integer blockPage	= 10;
-		//String login_id	= null;
-		if(auth != null){
-			Members member	= ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMembersInfo();
-			//login_id = auth.getName();
-			//login_grade	= member.getUser_grade();
-			params.put("login_name", member.getUser_name());
-		}
-
-		params.put("memberid", SecurityContextHolder.getContext().getAuthentication().getName());
-		int tc	= buyerService.countBuyerList(params);
-		//페이지 네비 게이션 생성
-		PageNavigation pageNav = new PageNavigation(cp, tc, blockList, blockPage);
-		mav.addObject("pageNav", pageNav.getParams());
-
-		//리스트 내용을 가져온다.
-		params.put("StartRow",Integer.toString(pageNav.getStartRow()));//database limit 절
-		params.put("blockList",Integer.toString(blockList));
-		mav.addObject("info", buyerService.getBuyerList(params));
-
-		mav.addObject("params", params);
-
-		*/
 
 		ModelAndView mav = new ModelAndView();
 		String oid	= request.getParameter("oid");
@@ -144,11 +123,53 @@ public class MemberShopController {
 		mav.addObject("orderStatus", Constants.OrderStatus());
 		System.out.println("Constants.OrderStatus():"+Constants.OrderStatus());
 		//택배사 정보 가져오기
-		mav.addObject("deliverer", delivererDAO.getAllDelivererList());
+		mav.addObject("deliverer", delivererService.getAllDelivererList());
+
+
+		//세금계산서/현금영수증 발급 정보 가져오기
+		Billcheck billcheck	= billcheckService.getBillcheckByOrderId(oid);
+		mav.addObject("infobill", billcheck);
 
 
 		mav.setViewName("member/shop/order_view.jsp");
 		return mav;
+	}
+
+	@RequestMapping("/member/saveReceipt")
+	public void saveReceipt(HttpServletRequest request, HttpServletResponse response) throws Exception{
+
+		//현재 정보 저장하기(먼저 현재 정보가 있는지 체크하고 있으면 update)
+		Billcheck billcheck	= new Billcheck();
+
+		String ptype	= request.getParameter("ptype");
+		String orderid	= request.getParameter("orderid");
+
+		billcheck.setOrderid(orderid);
+		billcheck.setPtype(Integer.parseInt(ptype));
+		if(SecurityContextHolder.getContext().getAuthentication() != null) billcheck.setUser_id(SecurityContextHolder.getContext().getAuthentication().getName());
+		billcheck.setPresult(1);
+
+		if(ptype.equals("1")){//세금계산서 발행
+			billcheck.setCaddress1(request.getParameter("caddress1"));
+			billcheck.setCceo(request.getParameter("cceo"));
+			billcheck.setCnum(request.getParameter("cnum"));
+			billcheck.setCname(request.getParameter("cname"));
+			billcheck.setCupjong(request.getParameter("cupjong"));
+			billcheck.setCuptae(request.getParameter("cuptae"));
+			//billcheck.setPdate(date);
+			//billcheck.setRdate(date);
+		}else{//2: 현금영수증 발행
+			billcheck.setCachreceipt(request.getParameter("cachreceipt"));
+			billcheck.setCname(request.getParameter("cname1"));
+		}
+
+		billcheckService.saveBillcheck(billcheck);
+
+		//결과를 json으로 리턴
+		JSONObject object=new JSONObject();
+	    object.put("result", "0");
+	    response.setContentType("application/x-json; charset=UTF-8");//이부분이 없을경우 일부브라우저에서 에러가 출력된다.
+	    response.getWriter().print(object);
 	}
 
 
