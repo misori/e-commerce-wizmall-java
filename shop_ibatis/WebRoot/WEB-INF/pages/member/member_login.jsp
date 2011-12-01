@@ -22,7 +22,20 @@ $(function(){
 </script>
 </head>
 <body>
+<c:if test="${failureReason == 'Bad credentials'}">
 
+</c:if>
+ <c:choose>
+    <c:when test="${failureReason == 'Bad credentials'}">
+         아이디가 일치하지 않습니다.
+    </c:when>
+    <c:when test="${failureReason == 'Invalid Password'}">
+	패스워드가 일치하지 않습니다.
+    </c:when>
+    <c:otherwise>
+	아이디와 패스워드를 입력해 주세요
+    </c:otherwise>
+</c:choose>
 <form action="${pageContext.request.contextPath}/j_spring_security_check"  name="sform" id="sform" method="POST">
 아이디 : <input type="text" name="j_username" value="" /><br />
 패스워드 : <input type="password" name="j_password" value="" /><br />
