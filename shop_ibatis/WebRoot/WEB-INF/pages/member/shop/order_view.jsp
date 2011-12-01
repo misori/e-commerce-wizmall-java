@@ -8,15 +8,17 @@
 
 <script language="javascript">
 <!--
-	function check_bil(v){
-		if(v.value == "2"){//현금영수증 신청
-			check_comp.style.display = "none";
-			check_ind.style.display = "block";
-		}else{
-			check_comp.style.display = "block";
-			check_ind.style.display = "none";
-		}
-	}
+$(function(){
+	$(".seltype").click(function(){
+		var i	= $(".seltype").index(this);//i:0 세금계산서, i:1 현금영수증
+		$(".receipttbl").hide();
+		$(".receipttbl").eq(i).show();
+	});
+
+
+	
+});
+
 
 	function getDeliveryStatus(targeturl, arg, argvalue, method){//리스트에서 주문조회용
 		var url = "./skinwiz/common/delivery.php?targeturl="+targeturl+"&arg="+arg+"&argvalue="+argvalue+"&method="+method;
@@ -50,7 +52,7 @@
 				alert('사업장주소를 입력해 주세요');
 				f.caddress1.focus();
 			//	return false;
-			}else f.submit();
+			}else savereceipt();
 		}else if(f.ptype[1].checked){//현금영수증 발행신청
 			if(f.cname1.value == ""){
 				alert('요청자명을 입력해 주세요');
@@ -60,14 +62,17 @@
 				alert('현금영수증 번호를 입력해 주세요');
 				f.cachreceipt.focus();
 				//return false;
-			}else f.submit();
+			}else savereceipt();
 		}else{
 			alert('발행방식을 선택해 주세요');
 			//return false;
 		}
-
-
 	}
+
+	function savereceipt(){//저장
+		
+	}
+
 //-->
 </script>
 </head>
@@ -87,7 +92,7 @@
 	<tbody>
 	<tr>
 		<th>입금인</th>
-		<td><? ECHO "$List[Inputer]";?></td>
+		<td>${info.inputer}</td>
 	</tr>
 	<tr>
 		<th>보내는
@@ -127,7 +132,7 @@
 	</tr>
 	<tr>
 		<th>희망배송일</th>
-		<td><? ECHO number_format($List[ExpectDate]);?></td>
+		<td>${info.expectdate}</td>
 	</tr>
 	<tr>
 		<th>배송안내글</th>
@@ -146,12 +151,11 @@
 	</tr>
 	<tr>
 		<th>주문일자</th>
-		<td><?=date("Y.m.d",$List[BuyDate])?></td>
+		<td><fmt:formatDate value="${info.buydate}" pattern="yyyy.MM.dd" /></td>
 	</tr>
 	<tr>
 		<th>거래상태</th>
-		<td><?=$DeliveryStatusArr[$OrderStatus];?>
-		</td>
+		<td>${info.orderstatus}</td>
 	</tr>
 	<tr>
 		<th>택배사</th>
@@ -206,38 +210,22 @@
 </c:choose>
 </tbody>
 </table>
-<?
-if($OrderStatus >= 30 && $OrderStatus < 60 && $PayMethod == "online"){
-//신청여부 확인
-	$substr = "select * from wizBillcheck where oid = '$OrderID'";
-	$subqry = $dbcon->_query($substr);
-	$sublist = $dbcon->_fetch_array($subqry);
-	if($sublist[0]){//이미 신청이 된 상태이면
-	$uid		= $sublist["uid"];
-	$mid		= $sublist["mid"];
-	$oid		= $sublist["oid"];
-	$ptype		= $sublist["ptype"];
-	$cnum		= $sublist["cnum"];
-	$cname		= $sublist["cname"];
-	$ceoname	= $sublist["ceoname"];
-	$cuptae		= $sublist["cuptae"];
-	$cupjong	= $sublist["cupjong"];
-	$cachreceipt= $sublist["cachreceipt"];
-	$caddress1	= $sublist["caddress1"];
-	$presult	= $sublist["presult"];
-	$rdate		= $sublist["rdate"];
-	$pdate		= $sublist["pdate"];
-	switch($ptype){
-		case "1":$ptypestr = "세금계산서";break;
-		case "2":$ptypestr = "현금영수증";break;
-	}
-?>
+<c:choose> 
+	<c:when test="${infobill != null}"> 
+
 세금계산서/현금영수증발행<br />
-<img src="<?=$mem_skin_path?>/images/point_list_01.gif" width="21" height="9" />발행방식 :
-<?=$ptypestr?>
-<?
-if($ptype == "1"){
-?>
+발행방식 :
+<c:choose> 
+    <c:when test="${infobill.ptype == '1'}"> 
+        세금계산서
+    </c:when> 
+    <c:otherwise> 
+		현금영수증
+    </c:otherwise> 
+</c:choose>
+<br />
+<c:choose>
+    <c:when test="${infobill.ptype == '1'}">
 현재 발행이 신청되었습니다. 수정사항이 있을 경우 고객센터로 요청 바랍니다.
 <table class="table_main w100p">
 	<col width="130" />
@@ -247,35 +235,33 @@ if($ptype == "1"){
 	<tbody>
 	<tr>
 		<th>요청일</th>
-		<td colspan="3"><?=date("Y.m.d", $rdate)?>
-		</td>
+		<td colspan="3"><fmt:formatDate value="${infobill.rdate}" pattern="yyyy.MM.dd" /></td>
 	</tr>
 	<tr>
 		<th>사업자번호</th>
-		<td colspan="3"><?=$cnum?>
+		<td colspan="3">${infobill.cnum}
 		</td>
 	</tr>
 	<tr>
 		<th>회사명</th>
-		<td><?=$cname?></td>
-		<th><img src="<?=$mem_skin_path?>/images/point_list_01.gif" width="21" height="9" />대표자명</th>
-		<td><?=$ceoname?></td>
+		<td>${infobill.cname}</td>
+		<th>대표자명</th>
+		<td>${infobill.cceo}</td>
 	</tr>
 	<tr>
 		<th>업태</th>
-		<td><?=$cuptae?></td>
-		<th><img src="<?=$mem_skin_path?>/images/point_list_01.gif" width="21" height="9" />종목</th>
-		<td><?=$cupjong?></td>
+		<td>${infobill.cuptae}</td>
+		<th>종목</th>
+		<td>${infobill.cupjong}</td>
 	</tr>
 	<tr>
 		<th>사업장주소</th>
-		<td colspan="3"><?=$caddress1?></td>
+		<td colspan="3">${infobill.caddress1}</td>
 	</tr>
 	</tbody>
 </table>
-<?
-}else if($ptype == "2"){
-?>
+	</c:when>
+		<c:otherwise> 
 현재 발행이 신청되었습니다. 수정사항이 있을 경우 고객센터로 요청 바랍니다.
 <table style="display:none" id="check_ind" class="table_main w100p">
 	<col width="130" />
@@ -285,33 +271,29 @@ if($ptype == "1"){
 	<tbody>
 	<tr>
 		<th>요청일</th>
-		<td colspan="3"><?=date("Y.m.d", $rdate)?></td>
+		<td colspan="3"><fmt:formatDate value="${infobill.rdate}" pattern="yyyy.MM.dd" /></td>
 	</tr>
 	<tr>
 		<th>요청자명</th>
-		<td><?=$cname?></td>
-		<th><img src="<?=$mem_skin_path?>/images/point_list_01.gif" width="21" height="9" />현금영수증번호</th>
-		<td><?=$cachreceipt?></td>
+		<td>${infobill.cname}</td>
+		<th>현금영수증번호</th>
+		<td>${infobill.cachreceipt}</td>
 	</tr>
 	</tbody>
 </table>
-<?
-}
-?>
-<?
-	}else{//if($sublist){ 신청이 안된 상태이면
-?>
+		</c:otherwise>
+	</c:choose> 
+</c:when>
+    <c:otherwise> 
 세금계산서/현금영수증발행
-<form id="form1" name="form1" method="post" action="" onsubmit="return checkField(this)">
-	<input type="hidden" name="query" value="<?=$query?>" />
-	<input type="hidden" name="OrderID" value="<?=$OrderID?>" />
-	<input type="hidden" name="d_mode" value="receiptUpdate" />
-	<img src="<?=$mem_skin_path?>/images/point_list_01.gif" width="21" height="9" />발행방식 :
-	<input name="ptype" type="radio" id="radio" value="1" checked="checked" onclick="check_bil(this)">
+<form id="form1" name="form1" method="post" action="${pageContext.request.contextPath}/member/saveReceipt.ajax" onsubmit="return checkField(this)">
+	<input type="hidden" name="orderid" value="${info.orderid}" />
+	발행방식 :
+	<input name="ptype" type="radio" value="1" checked="checked" class="seltype" />
 	세금계산서
-	<input type="radio" name="ptype" id="radio2" value="2" onclick="check_bil(this)">
+	<input name="ptype" type="radio" value="2" class="seltype" />
 	현금영수증
-	<table style="display:block" id="check_comp" class="table_main w100p">
+	<table class="table_main w100p receipttbl">
 		<col width="130" />
 		<col width="*" />
 		<col width="130" />
@@ -325,13 +307,13 @@ if($ptype == "1"){
 		<tr>
 			<th>회사명</th>
 			<td><input type="text" name="cname" id="cname" /></td>
-			<th><img src="<?=$mem_skin_path?>/images/point_list_01.gif" width="21" height="9" />대표자명</th>
-			<td><input type="text" name="ceoname" id="ceoname" /></td>
+			<th>대표자명</th>
+			<td><input type="text" name="cceo" id="cceo" /></td>
 		</tr>
 		<tr>
 			<th>업태</th>
 			<td><input type="text" name="cuptae" id="cuptae" /></td>
-			<th><img src="<?=$mem_skin_path?>/images/point_list_01.gif" width="21" height="9" />종목</th>
+			<th>종목</th>
 			<td><input type="text" name="cupjong" id="cupjong" /></td>
 		</tr>
 		<tr>
@@ -340,7 +322,7 @@ if($ptype == "1"){
 		</tr>
 		</tbody>
 	</table>
-	<table style="display:none" id="check_ind" class="table_main w100p">
+	<table class="table_main w100p receipttbl none">
 		<col width="130" />
 		<col width="*" />
 		<col width="130" />
@@ -349,7 +331,7 @@ if($ptype == "1"){
 		<tr>
 			<th>요청자명</th>
 			<td><input type="text" name="cname1" id="cname1" /></td>
-			<th><img src="<?=$mem_skin_path?>/images/point_list_01.gif" width="21" height="9" />현금영수증번호</th>
+			<th>현금영수증번호</th>
 			<td><input type="text" name="cachreceipt" id="cachreceipt" /></td>
 		</tr>
 		</tbody>
@@ -358,10 +340,8 @@ if($ptype == "1"){
 		<input type="submit" name="button" id="button" value="요청" />
 	</div>
 </form>
-<?
-	}//if($sublist){//이미 신청이 된 상태이면
-}
-?>
+</c:otherwise>
+</c:choose> 
 <div class="btn_box">
 	<!-- <a href='#' onclick='jvascript:self.close()'><img src="<?=$mem_skin_path?>/images/but_close.gif"></a> -->
 	<a href='#' onclick='jvascript:self.print()'><img src="<?=$mem_skin_path?>/images/but_print.gif"></a></div>
