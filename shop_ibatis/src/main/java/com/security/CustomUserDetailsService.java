@@ -20,7 +20,6 @@ import com.service.MembersService;
  * @author: pondol
  */
 
-
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
@@ -34,7 +33,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 		Members members = membersService.getMemberByUserid(username);
 
 		if(members == null){
+			System.out.println("user not found");
+			//return null;
 			throw new UsernameNotFoundException("user not found");
+
 		}else{
 			//String user_name = members.getUser_name();
 			String password					= members.getUser_passwd();
