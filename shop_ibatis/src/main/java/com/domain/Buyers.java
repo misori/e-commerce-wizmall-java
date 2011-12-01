@@ -439,6 +439,23 @@ public class Buyers implements Serializable {
 		return this.memberid;
 	}
 
+
+	/**
+	 * EXPECTDATE : 입금예정일
+	 */
+	@Column(name = "EXPECTDATE", length = 30, nullable = true)
+	@Basic(fetch = FetchType.EAGER)
+	String expectdate;
+
+	public void setExpectdate(String expectdate) {
+		this.expectdate = expectdate;
+	}
+
+	public String getExpectdate() {
+		return this.expectdate;
+	}
+
+
 	/**
 	 * PAYDATE : 결제일
 	 */
