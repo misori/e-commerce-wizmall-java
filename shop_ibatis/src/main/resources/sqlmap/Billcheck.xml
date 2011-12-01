@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BannerNamespace">
+	<typeAlias alias="Billcheck" type="com.domain.Billcheck" />
+
+
+	<!-- getBillcheckList -->
+	<select id="getBillcheckList" resultClass="Billcheck">
+		select * from wizJ_billcheck
+	</select>
+
+	<!-- getBillcheckByTid -->
+	<select id="getBillcheckByTid" resultClass="Billcheck">
+		select * from wizJ_billcheck where TID = #tid#
+	</select>
+
+	<!-- getBillcheckByOrderId -->
+	<select id="getBillcheckByOrderId" resultClass="Billcheck">
+		select * from wizJ_billcheck where ORDERID = #oid#
+	</select>
+
+
+
+	<!--  saveBillcheck -->
+	<insert id="saveBillcheck" parameterClass="Billcheck">
+		INSERT INTO
+		wizJ_billcheck (USER_ID,ORDERID,PTYPE,CNUM,CNAME,CCEO,CUPTAE,CUPJONG,CACHRECEIPT,CADDRESS1,PRESULT,RDATE,PDATE)
+		VALUES (#user_id#, #orderid#, #ptype#, #cnum#, #cname#, #cceo#, #cuptae#, #cupjong#, #cachreceipt#, #caddress1#, #presult#, #rdate#, #pdate#)
+	</insert>
+
+	<!--  updateBillcheck -->
+	<update id="updateBillcheck" parameterClass="Billcheck">
+		update
+		wizJ_billcheck set
+		USER_ID		= #user_id#,
+		ORDERID		= #orderid#,
+		PTYPE		= #ptype#,
+		CNUM		= #cnum#,
+		CNAME		= #cname#,
+		CCEO		= #cceo#,
+		CUPTAE		= #cuptae#,
+		CUPJONG		= #cupjong#,
+		CACHRECEIPT	= #cachreceipt#,
+		CADDRESS1	= #caddress1#,
+		PRESULT		= #presult#,
+		RDATE		= #rdate#,
+		PDATE		= #pdate#,
+		where TID = #tid#
+	</update>
+
+	<!--  deleteBillcheck -->
+	<delete id="deleteBillcheck">
+		delete
+		from wizJ_billcheck
+		where TID = #tid#
+	</delete>
+</sqlMap>
