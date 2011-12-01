@@ -1,6 +1,5 @@
 package com.web.member;
 
-import java.security.Principal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -165,8 +165,27 @@ public class MemberController {
 	  * 로그인 폼 출력
 	  */
 	 @RequestMapping("/member/memberLogin")
-		public ModelAndView memberLogin(HttpServletResponse response) {
+		public ModelAndView memberLogin(HttpServletRequest request, HttpServletResponse response) {
 			ModelAndView mav = new ModelAndView();
+
+			String msg = request.getParameter("msg");
+			//((Exception)request.getSession().getAttribute(SPRING_SECURITY_LAST_EXCEPTION_KEY)).getMessage() :
+			if (msg != null) {
+				 String failureReason = request.getSession().getAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) != null ?
+				          ((Exception)request.getSession().getAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY)).getMessage() :
+				           "Invalid login attempt, check your authentication credentials.";
+				          mav.addObject("failureReason", failureReason);
+				          System.out.println("failureReason:"+failureReason);
+				/*if (request.getSession().getAttribute(SPRING_SECURITY_LAST_EXCEPTION_KEY) != null)
+					mav.addObject("error", ((AuthenticationException) request.getSession()
+							.getAttribute(SPRING_SECURITY_LAST_EXCEPTION_KEY))
+							.getMessage());
+				mav.addObject("user", request.getSession()
+						.getAttribute(SPRING_SECURITY_LAST_USERNAME_KEY));
+				*/
+			}
+
+
 			mav.addObject("loginForm", new Members());
 			mav.setViewName("member/member_login.jsp");
 			return mav;
