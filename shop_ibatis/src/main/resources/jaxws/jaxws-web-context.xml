@@ -29,10 +29,10 @@
 		</cxf:features>
 		-->
     </cxf:bus>
-
+<!-- 
   	<http:conduit name="*.http-conduit">
   		<http:basicAuthSupplier class="org.skyway.spring.util.webservice.cxf.HttpBasicAuthenticationSupplier" />
   	</http:conduit>
 	
-
+ -->
 </beans>

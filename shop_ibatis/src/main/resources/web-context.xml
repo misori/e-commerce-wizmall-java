@@ -36,6 +36,7 @@
 	<!-- Register Multi Part Resolve -->
 	<!-- ******************************************************************** -->
 	<!--   <bean class="org.skyway.spring.util.web.binary.ModelBindingMultipartResolver" id="multipartResolver"/>-->
+	<!--  
 	<bean id="multipartResolver"
 	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	    <property name="maxUploadSize">
@@ -43,12 +44,20 @@
 	    </property>
 	    <property name="uploadTempDir" ref="uploadDirResource" />
 	</bean>
-
+	
+		<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+	    <constructor-arg>
+	        <value> </value>
+	    </constructor-arg>
+	</bean>
+	-->
+<!-- 
 	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
 	    <constructor-arg>
 	        <value>C:/Users/YoungHyeongRyu/Workspaces/oneul/shop/WebRoot/data/</value>
 	    </constructor-arg>
 	</bean>
+	-->
 <!--
 	<bean class="org.springframework.multipart.commons.CommonsMultipartResolver"  id="multipartResolver">
 		<property name="maxUploadSize" value="100000000"></property>
