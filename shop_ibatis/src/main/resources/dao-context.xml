@@ -53,7 +53,7 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-		<!-- Using Atomikos Transaction Manager -->
+		<!-- Using Atomikos Transaction Manager 
 		<bean class="com.atomikos.icatch.jta.UserTransactionManager" destroy-method="close" id="atomikosTransactionManager" init-method="init">
 			<property name="forceShutdown" value="true"/>
 			<property name="startupTransactionService" value="true"/>
@@ -61,7 +61,7 @@
 		</bean>
 
 		<bean class="com.atomikos.icatch.jta.UserTransactionImp" id="atomikosUserTransaction"/>
-
+-->
 		<!-- Configure the Spring framework to use JTA transactions from Atomikos
 		<bean class="org.springframework.transaction.jta.JtaTransactionManager" id="transactionManager">
 			<property name="transactionManager" ref="atomikosTransactionManager"/>

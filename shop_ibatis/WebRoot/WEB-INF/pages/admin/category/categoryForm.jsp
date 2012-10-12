@@ -6,7 +6,7 @@
 "></script>
 <link type="text/css" rel="stylesheet" href="<c:url value="/css/tree.css"/>
 "/>
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 <!--
 $(function(){
 	$(".btn_save").click(function(){
