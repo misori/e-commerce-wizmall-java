@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,9 @@ import com.web.admin.AdminBasicController;
 
 @Controller
 public class DefaultController {
-
+	//public Logger logger;
+	static Logger logger = Logger.getLogger(DefaultController.class);
+		
 	@Autowired
 	private CategoryService categoryService;
 
@@ -44,6 +47,7 @@ public class DefaultController {
 	@Autowired
 	private VisitRefererService visitRefererService;
 
+	
 	@RequestMapping("/blankOutput")
 	public ModelAndView listMembers() {
 		ModelAndView mav = new ModelAndView();
@@ -62,7 +66,11 @@ public class DefaultController {
 
 		//로그 카운트를 남김
 		saveVistCount(request);
-
+		
+		//logger = Logger.getLogger(this.getClass());
+		//logger.debug("Test For Main Log");
+		logger.info("Test For Main Log");
+		
 		//hit 상품가져오기
 		List<Product> product_hit	= productService.getProductByOption("40");
 		mav.addObject("product_hit", product_hit);
