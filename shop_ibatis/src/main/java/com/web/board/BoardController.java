@@ -859,6 +859,7 @@ public class BoardController {
 		//기본 정보를 가져온다.
 		Serialization serialization	= new Serialization();
 		String outPath				= Constants.AbsolutePath+"board/table/"+gid+"/"+bid+"/config";
+		System.out.println("outPath:"+outPath);
 		HashMap<String, String> config = serialization.unSerialize(outPath, "hashMap");
 		return config;
 	}
