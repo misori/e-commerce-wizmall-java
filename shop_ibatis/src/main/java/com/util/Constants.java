@@ -23,7 +23,7 @@ public class Constants {
 	 * data 폴더 경로
 	 * C:/Users/YoungHyeongRyu/Workspaces/oneul/shop/WebRoot/data/"
 	 */
-	public final static String AbsolutePath	= "C:/Users/YoungHyeongRyu/Workspaces/oneul/shop_ibatis/WebRoot/data/";
+	public final static String AbsolutePath	= "C:/Users/younghyeong/Project/TomcatOutPut/wtpwebapps/shop_ibatis/data/";
 
 	//모바일 및 일반전화 국번
 	public static final String[] MobileNum = {"010","011","016","017","018","019"};

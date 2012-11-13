@@ -41,7 +41,7 @@ function gotopage(page){
 </script>
 </head>
 <body>
-<form action="" method="post" id="search_box">
+<form action="boardList.do?bid=${params.bid}&gid=${params.gid}" method="post" id="search_box">
 <input type="hidden" name="cp" id="cp" value="${pageNav.nowPage}" />
 <input type="hidden" name="opflag" value="${params.opflag}" />
 <select name="s_title">
