@@ -18,7 +18,6 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 @Transactional
 public class VisitMainDAOImpl extends SqlMapClientDaoSupport implements VisitMainDAO {
 
-	@SuppressWarnings("restriction")
 	@Resource(name = "sqlMapClient")
     public void setSuperSqlMapClient(SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);

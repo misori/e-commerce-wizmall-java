@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import com.domain.BoardFile;
+//import com.domain.BoardFile;
 import com.domain.Category;
 
 //import org.skyway.spring.util.dao.JpaDao;

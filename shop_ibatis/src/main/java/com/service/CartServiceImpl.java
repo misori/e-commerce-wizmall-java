@@ -56,7 +56,8 @@ public class CartServiceImpl implements CartService {
 			//is_cart	= product;
 			//is_cart.setTid(product.getTid());
 			//product = productDAO.store(is_product);
-			Cart is_cart = cartDAO.getCartItem(cart.getTid());
+			//Cart is_cart = cartDAO.getCartItem(cart.getTid());
+			cartDAO.getCartItem(cart.getTid());
 			cartDAO.updateCart(cart);
 		} else {
 			cartDAO.saveCart(cart);

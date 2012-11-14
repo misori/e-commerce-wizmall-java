@@ -22,7 +22,6 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 @Transactional
 public class BuyerDAOImpl extends SqlMapClientDaoSupport implements BuyerDAO {
 
-	@SuppressWarnings("restriction")
 	@Resource(name = "sqlMapClient")
     public void setSuperSqlMapClient(SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);

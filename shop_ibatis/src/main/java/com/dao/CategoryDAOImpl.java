@@ -12,7 +12,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.domain.BoardFile;
+//import com.domain.BoardFile;
 import com.domain.Category;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -30,7 +30,6 @@ public class CategoryDAOImpl extends SqlMapClientDaoSupport implements CategoryD
 	/** Logger for this class and subclasses */
     protected final Log logger = LogFactory.getLog(getClass());
 
-	@SuppressWarnings("restriction")
 	@Resource(name = "sqlMapClient")
     public void setSuperSqlMapClient(SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);
@@ -140,6 +139,7 @@ public class CategoryDAOImpl extends SqlMapClientDaoSupport implements CategoryD
 
 	public List<Category> getCatListByCatNo(String cat_no)
 			throws DataAccessException {
+		@SuppressWarnings("unchecked")
 		List<Category> category = getSqlMapClientTemplate().queryForList("getCatListByCatNo", cat_no);
         return category;
 	}

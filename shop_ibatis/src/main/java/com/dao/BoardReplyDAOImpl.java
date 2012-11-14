@@ -21,7 +21,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 @Repository("BoardReplyDAO")
 @Transactional
 public class BoardReplyDAOImpl extends SqlMapClientDaoSupport implements BoardReplyDAO {
-	@SuppressWarnings("restriction")
+
 	@Resource(name = "sqlMapClient")
     public void setSuperSqlMapClient(SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);

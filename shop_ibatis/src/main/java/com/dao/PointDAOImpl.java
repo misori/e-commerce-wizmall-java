@@ -3,7 +3,7 @@ package com.dao;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.persistence.NoResultException;
+//import javax.persistence.NoResultException;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
@@ -22,7 +22,6 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 @Transactional
 public class PointDAOImpl  extends SqlMapClientDaoSupport implements PointDAO {
 
-	@SuppressWarnings("restriction")
 	@Resource(name = "sqlMapClient")
     public void setSuperSqlMapClient(SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);
@@ -33,7 +32,6 @@ public class PointDAOImpl  extends SqlMapClientDaoSupport implements PointDAO {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Point> getPointListByUserId(String userId)
 			throws DataAccessException {
 		// TODO Auto-generated method stub

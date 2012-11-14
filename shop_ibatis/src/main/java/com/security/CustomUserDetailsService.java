@@ -61,7 +61,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 			UserDetails user = new CustomUser(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, members);
 			//User user = new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 
-			if (user == null) throw new UsernameNotFoundException("user not found");
+			//if (user == null) throw new UsernameNotFoundException("user not found");
 
 			//membersService.updateLogin(members);//로그인 카운트, 로그인 데이타, 로그인 IP를 업데이트 한다.
 
