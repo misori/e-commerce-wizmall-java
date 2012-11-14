@@ -13,14 +13,15 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
-import org.springframework.mail.MailException;
+//import org.springframework.mail.MailException;
 
 import com.web.DefaultController;
 
-import antlr.StringUtils;
+//import antlr.StringUtils;
 import flex.messaging.MessageException;
 
 public class SMTPMailSendManager  {//implements MailSendManager
+
 
 	//private Logger logger = LoggerFactory.getLogger(getClass());
 	private Logger logger = Logger.getLogger(DefaultController.class);

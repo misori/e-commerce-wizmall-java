@@ -1,6 +1,6 @@
 package com.dao;
 
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -17,7 +17,6 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 @Transactional
 public class VisitRefererDAOImpl extends SqlMapClientDaoSupport implements VisitRefererDAO {
 
-	@SuppressWarnings("restriction")
 	@Resource(name = "sqlMapClient")
     public void setSuperSqlMapClient(SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);

@@ -23,7 +23,6 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 public class ProductDAOImpl extends SqlMapClientDaoSupport implements ProductDAO {//BoardDAO(interface) 이므로 이 값들을 상속 받아야 한다.
 
 
-	@SuppressWarnings("restriction")
 	@Resource(name = "sqlMapClient")
     public void setSuperSqlMapClient(SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);

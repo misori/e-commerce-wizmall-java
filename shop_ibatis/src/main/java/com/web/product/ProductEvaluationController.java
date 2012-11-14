@@ -45,19 +45,26 @@ public class ProductEvaluationController {
 		String contents		= request.getParameter("contents");
 		int grade			= stringUtil.strToint(request.getParameter("grade"));
 		int pid				= stringUtil.strToint(request.getParameter("pid"));
-		final String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
-		ProductEvaluation productEvaluation	= new ProductEvaluation();
-		productEvaluation.setContents(contents);
-		productEvaluation.setGrade(grade);
-		productEvaluation.setUser_id(user_id);
-		productEvaluation.setPid(pid);
-
-		productEvaluationService.saveProductEvaluation(productEvaluation);
-
 		JSONObject object=new JSONObject();
-		object.put("result","0");
-		response.setContentType("application/x-json; charset=UTF-8");//이부분이 없을경우 일부브라우저에서 에러가 출력된다.
-		response.getWriter().print(object);
+		if(SecurityContextHolder.getContext().getAuthentication() == null){
+			object.put("result","1");//로그인 요청
+			response.setContentType("application/x-json; charset=UTF-8");//이부분이 없을경우 일부브라우저에서 에러가 출력된다.
+			response.getWriter().print(object);
+		}else{
+			final String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+			ProductEvaluation productEvaluation	= new ProductEvaluation();
+			productEvaluation.setContents(contents);
+			productEvaluation.setGrade(grade);
+			productEvaluation.setUser_id(user_id);
+			productEvaluation.setPid(pid);
+	
+			productEvaluationService.saveProductEvaluation(productEvaluation);
+	
+			
+			object.put("result","0");
+			response.setContentType("application/x-json; charset=UTF-8");//이부분이 없을경우 일부브라우저에서 에러가 출력된다.
+			response.getWriter().print(object);
+		}
 	}
 
 	/**

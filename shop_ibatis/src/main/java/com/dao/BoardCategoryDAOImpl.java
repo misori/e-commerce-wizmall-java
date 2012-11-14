@@ -22,7 +22,6 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 @Transactional
 public class BoardCategoryDAOImpl extends SqlMapClientDaoSupport implements BoardCategoryDAO {
 
-	@SuppressWarnings("restriction")
 	@Resource(name = "sqlMapClient")
     public void setSuperSqlMapClient(SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);
