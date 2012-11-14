@@ -61,7 +61,6 @@ public class AdminBoardController {
 		return mav;
 	}
 
-
 	@RequestMapping("/admin/board/boardManageList")
 	public ModelAndView boardManageList(HttpServletRequest request) {
 

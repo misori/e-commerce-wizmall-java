@@ -12,17 +12,18 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.mail.MailException;
+
+import com.web.DefaultController;
 
 import antlr.StringUtils;
 import flex.messaging.MessageException;
 
 public class SMTPMailSendManager  {//implements MailSendManager
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
-
+	//private Logger logger = LoggerFactory.getLogger(getClass());
+	private Logger logger = Logger.getLogger(DefaultController.class);
 	private String protocol = "smtp";
 	private String type = "text/html; charset=KSC5601";
 
@@ -58,7 +59,9 @@ public class SMTPMailSendManager  {//implements MailSendManager
 
 	public void send(String toAddress, String toName, String fromAddress,
 			String fromName, String subject, String content) throws MessageException {
-		logger.debug("[{}] 메일 발송 시작", toAddress);
+		//logger.debug("[{}] 메일 발송 시작", toAddress);
+		logger.debug("[{}] 메일 발송 시작 :"+toAddress);
+
 		try {
 			Properties props = new Properties();
 			props.put("mail.transport.protocol", protocol);
@@ -84,12 +87,15 @@ public class SMTPMailSendManager  {//implements MailSendManager
 			message.setContent(content, type);
 
 			Transport.send(message);
-			logger.debug("[{}] 메일 발송 성공", toAddress);
+			//logger.debug("[{}] 메일 발송 성공", toAddress);
+			logger.debug("[{}] 메일 발송 성공 :"+toAddress);
 		} catch (UnsupportedEncodingException e) {
-			logger.debug("[{}] 메일 발송 실패", toAddress);
+			//logger.debug("[{}] 메일 발송 실패", toAddress);
+			logger.debug("[{}] 메일 발송 실패 :"+toAddress);
 			//throw new MailException(MailStatusCode.SEND_FAIL, "메일을 발송하는 중 에러가 발생했습니다.", e);
 		} catch (MessagingException e) {
-			logger.debug("[{}] 메일 발송 실패", toAddress);
+			//logger.debug("[{}] 메일 발송 실패", toAddress);
+			logger.debug("[{}] 메일 발송 실패 :"+toAddress);
 			//throw new MailException(MailStatusCode.SEND_FAIL, "메일을 발송하는 중 에러가 발생했습니다.", e);
 		}
 	}

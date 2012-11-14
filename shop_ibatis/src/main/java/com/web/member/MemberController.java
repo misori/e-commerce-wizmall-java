@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -27,10 +28,13 @@ import com.service.MembersService;
 import com.util.Constants;
 import com.util.DateTimeUtil;
 import com.util.Serialization;
+import com.web.DefaultController;
+
 
 @Controller
 public class MemberController {
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	//private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static Logger logger = Logger.getLogger(DefaultController.class);
 
 	/*
 	 * 세션 생성용

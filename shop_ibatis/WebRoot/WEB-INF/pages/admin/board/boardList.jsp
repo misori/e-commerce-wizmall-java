@@ -22,7 +22,6 @@ $(function(){
 				}else jAlert(obj.msg);
 			});
 		}
-		
 	});
 	
 	//보드 삭제
